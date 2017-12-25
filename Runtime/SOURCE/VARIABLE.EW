@@ -1,0 +1,200 @@
+include file.e
+include msgbox.e
+include get.e
+
+global integer line_program, run_program,var_change,var_image_single
+global sequence goto_info,code
+goto_info={}
+global sequence file_data
+file_data={}
+global sequence variable_data
+variable_data={}
+var_change=0
+var_image_single=0
+global sequence variable_names
+variable_names={}
+
+global procedure err(sequence string1)
+integer ok
+  game_pause=1
+  run_program=0
+  ok=message_box(string1,"new",MB_ICONINFORMATION+MB_TASKMODAL)
+end procedure
+
+global function variable_exsist(sequence name)
+integer i
+ -- for i=1 to length(variable_data) do
+ --   if equal(variable_data[i][1],name)=1 then
+ --      return {1,i}
+ --    end if
+ --end for
+  i=find(name,variable_names)
+  if i>0 then
+    return {1,i}
+  end if
+  return {0,0}
+end function
+
+global procedure variable_delete(sequence name)
+integer exsist,line
+sequence temp
+temp=variable_exsist(name)
+exsist=temp[1]
+line=temp[2]
+    if exsist=1 then
+        variable_data=remove_line(variable_data,line)
+        variable_names=remove_line(variable_names,line)
+    end if
+end procedure
+
+global procedure variable_set(sequence name, object val, integer mode)
+integer exsist,line
+sequence temp
+temp=variable_exsist(name)
+exsist=temp[1]
+line=temp[2]
+
+if var_change=1 then
+  if compare(name,"image_single")=0 then
+     var_image_single=1
+  end if
+end if
+
+--set
+if mode=1 then
+  if exsist=0 then
+    variable_data=append(variable_data,{name,val})
+    variable_names=append(variable_names,name)
+  elsif exsist=1 then
+    if atom(val)=1 then
+      if atom(variable_data[line][2])=1 then
+        variable_data[line][2]=val
+      else
+        err("trying to set string "&name&" to number "&sprint(val)) 
+      end if
+    else
+      if atom(variable_data[line][2])=0 then
+        variable_data[line][2]=val
+      else
+        err("trying to set number "&name&" to string "&val)
+      end if
+    end if
+  end if
+--plus
+elsif mode=2 then
+  if exsist=0 then
+    err("varb "&name&" dose not exsist")
+  elsif exsist=1 then
+    if atom(val)=1 then
+      if atom(variable_data[line][2])=1 then
+        variable_data[line][2]+=val
+      else
+        err("trying to set string "&name&" to number "&sprint(val))
+      end if
+    else
+      if atom(variable_data[line][2])=0 then
+        variable_data[line][2]&=val
+      else
+        err("trying to set number "&name&" to string "&val)
+      end if
+    end if
+  end if
+--min
+elsif mode=3 then
+  if exsist=0 then
+    err("varb "&name&" dose not exsist")
+  elsif exsist=1 then
+    if atom(val)=1 then
+      if atom(variable_data[line][2])=1 then
+        variable_data[line][2]-=val
+      else
+        err("trying to set string "&name&" to number "&sprint(val))
+      end if
+    else
+      if atom(variable_data[line][2])=0 then
+        err("trying to min equal on a string "&name)
+      else
+        err("trying to set number "&name&" to string "&val)
+      end if
+    end if
+  end if
+--times
+elsif mode=4 then
+  if exsist=0 then
+    err("varb "&name&" dose not exsist")
+  elsif exsist=1 then
+    if atom(val)=1 then
+      if atom(variable_data[line][2])=1 then
+        variable_data[line][2]*=val
+      else
+        err("trying to set string "&name&" to number "&sprint(val))
+      end if
+    else
+      if atom(variable_data[line][2])=0 then
+        err("trying to times equal on a string "&name)
+      else
+        err("trying to set number "&name&" to string "&val)
+      end if
+    end if
+  end if
+--devid
+elsif mode=5 then
+  if exsist=0 then
+    err("varb "&name&" dose not exsist")
+  elsif exsist=1 then
+    if atom(val)=1 then
+      if atom(variable_data[line][2])=1 then
+        variable_data[line][2]/=val
+      else
+        err("trying to set string "&name&" to number "&sprint(val))
+      end if
+    else
+      if atom(variable_data[line][2])=0 then
+        err("trying to divide equal on a string "&name)
+      else
+        err("trying to set number "&name&" to string "&val)
+      end if
+    end if
+  end if
+else
+err("mode not set")
+end if
+end procedure
+
+global function variable_get(sequence name)
+sequence temp
+integer exsist,line,find
+find=0
+exsist=0
+line=0
+
+-- cheks if string
+  for i=1 to length(name) do
+     if name[i]='"' then
+       find=1
+       exit
+     end if
+  end for
+
+temp=variable_exsist(name)
+exsist=temp[1]
+line=temp[2]
+--
+if exsist=1 then
+  return variable_data[line][2]
+else
+  if find=1 then
+    return name[2..length(name)-1]
+  else
+    temp={}
+    temp=value(name)
+    if temp[1]=GET_SUCCESS then
+      return temp[2]
+    else
+      err(name&" dose not exist in get")
+    end if
+  end if
+end if
+  err(name&" dose not exist in get")
+return 0
+end function

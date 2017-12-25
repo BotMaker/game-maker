@@ -1,0 +1,2939 @@
+without warning
+without type_check
+global integer game_r
+include win32lib.ew
+include read_res.ew
+-- bind runtime
+include game.ew
+
+global atom global_1,global_2,global_3,global_4,global_5,global_6
+global_1=0
+global_2=0
+global_3=0
+global_4=0
+global_5=0
+global_6=0
+
+global integer window_width,window_height,view_left,mousex,mousey,mouse_button,
+view_top,view_width,view_height,xoffset,yoffset,ss,fps1,fps2,sprite_num,object_num,instance_num,
+mouse_down,mouse_up,keyboard_up,keyboard_down,room_num,keyboard_last,escape_end,
+show_cursor,temp_cursor,cursor_pointer,startup,sprite_loading_screen,can_pause,auto_bbox,
+brush_style,sound_num,start_event,end_event,current_room,last_room,draw_full_screen,draw_number,
+debug_caption,keyboard_key
+atom timer,brush_color,font_color,pen_color
+atom background_image
+global integer room_width,room_height
+global integer background_colored,background_draw_mode
+global integer game_loop_exit
+draw_number=0
+brush_color=White
+background_draw_mode=0
+pen_color=Black
+font_color=Black
+brush_style=1
+game_loop_exit=0
+start_event=0
+end_event=0
+integer game_event_loop
+game_event_loop=0
+current_room=0
+last_room=0
+global integer game_pause 
+global sequence key_buffer,sprite_info,object_info,room_info,instance_info,room_caption,window_text,sound_info
+global integer lives, score, health,draw_score,draw_lives,draw_health
+lives=0
+score=0
+health=0
+room_caption=""
+window_text="Game Library Made By Gareth Mc Daid"
+keyboard_last=0
+keyboard_key=0
+temp_cursor=-1
+cursor_pointer=ArrowPointer
+background_colored=1
+background_image=0
+startup=1  -- all ways equals 1 at start
+-- swith variables 
+integer can_swith_screen,can_save_screen,can_debug_window,can_game_help
+integer debug_collisions,compile_mode,start_in_full
+debug_collisions=0 -- for delveloper
+escape_end=1  -- lets the escape key end the game
+show_cursor=1  -- show the cursor yes or no
+sprite_loading_screen=1 -- show loading window for automatic bbox
+game_pause=0 -- all ways equals 0 at start if game paused
+can_pause=1 -- if game can be pause
+auto_bbox=1 -- enable automatic bounding box settings
+ss=30  -- the speed of the game in steps
+draw_full_screen=1 -- if to draw the room_caption in full screen mode 
+draw_lives=1 -- to draw the lives
+draw_score=1 
+draw_health=1
+debug_caption=0  -- draw room caption all debug info
+compile_mode=1
+can_swith_screen=1
+can_save_screen=1
+can_debug_window=1
+can_game_help=1
+start_in_full=0
+-----------------
+integer window_mode
+window_mode=1  -- ok this is not as simple has it looks
+-----------------
+sequence collision_list,game_help_text
+atom game_help_color
+game_help_text={}
+game_help_color=16777215
+collision_list={}
+window_width=640
+window_height=480
+room_width=window_width
+room_height=window_height
+view_left=0
+view_top=0
+view_width=window_width
+view_height=window_height
+xoffset=0
+yoffset=0
+key_buffer={}
+constant pointer_null = createMousePointer( 8, 8, { 
+          "                 ", 
+          "                 ", 
+          "                 ", 
+          "                 ", 
+          "                 ", 
+          "                 ", 
+          "                 ", 
+          "                 ", 
+          "                 ", 
+          "                 ", 
+          "                 ", 
+          "                 ", 
+          "                 ", 
+          "                 ", 
+          "                 ", 
+          "                 ", 
+          "                 "} )
+sound_info={}
+sprite_info={}
+object_info={}
+room_info={}
+instance_info={}
+sound_num=0
+sprite_num=0
+object_num=0
+room_num=0
+instance_num=0
+mousex=0
+mousey=0
+mouse_button=0
+mouse_down=0
+mouse_up=0
+keyboard_up=0
+keyboard_down=0
+fps1=0
+fps2=0
+timer=0
+global integer self,other
+self=0
+other=0
+global sequence new_instance
+new_instance={}
+global constant Window1 = createEx( Window, "", 0, 1, 1, window_width, window_height+ 19, {WS_DLGFRAME,WS_CAPTION,WS_SYSMENU,WS_MINIMIZEBOX},0 )
+global constant Buffer  = create( Pixmap, "", 0, 0, 0, room_width, room_height, 0 )
+global constant tempbuffer  = create( Pixmap, "", 0, 0, 0, 0, 0, 0 )
+global constant Window2 = createEx( Window, "",Window1 , 1, 1, 300, 60+19,  w32or_all({WS_DLGFRAME,WS_CAPTION,WS_SYSMENU,WS_MINIMIZEBOX}),0)
+global constant label1 = create( LText, "", Window2, 1, 40,120 ,20 ,0)
+global constant Window_help = createEx( Window, "Game Information", Window1, 1, 1, 480, 340, {WS_THICKFRAME,WS_CAPTION,WS_SYSMENU,WS_MINIMIZEBOX,WS_MAXIMIZEBOX},0 )
+global constant richedit_help = createEx( RichEdit, "", Window_help, 10, 6, 440, 220, w32or_all({ES_READONLY}), 0 )
+constant Window_input = createEx( Window, "", Window1, Default, Default, 300, 135, {WS_POPUP, WS_DLGFRAME}, 0 )
+setWindowBackColor( Window_input,8421504 )
+constant lable_input = createEx( LText, "", Window_input, 20, 10, 250, 40, 0, 0 )
+constant textbox_input = createEx( EditText, "", Window_input, 20, 60, 250, 20, 0, 0 )
+constant button_input = createEx( PushButton, "OK", Window_input, 100, 90, 70, 30, 0, 0 )
+sequence OldFlds
+OldFlds = setTabStops(Window_input, {})
+
+--==============================
+object junk
+junk = {{},{}}
+for j = 1 to 360 do
+    junk[1] = append(junk[1], sin(j*PI/180))
+    junk[2] = append(junk[2], cos(j*PI/180))
+end for
+constant sin_loTRUE2up = junk[1], cos_loTRUE2up = junk[2]
+junk=0
+--=============================
+
+global function remove_line(sequence string, integer line)
+sequence temp
+integer len
+len=length(string)
+if line=1 then
+  return string[2..len]
+elsif line=len then
+  return string[1..len-1]
+else
+  temp=string[1..line-1]
+  return temp&string[line+1..len]
+end if
+end function
+
+global function real(sequence string)
+sequence temp
+temp=value(string)
+return temp[2]
+end function
+
+include debug.ew
+
+--============================================================--
+-- sound system only surpport for wav files and only one sound 
+-- can be playing at onecs sound are index by there names
+-- sound are load into memory onec for speed 
+constant SND_ID=1
+constant SND_NAME=2
+constant SND_SOUND=3
+
+function getsize(sequence fname)
+integer pos,temp,fn
+pos=0
+fn=open( fname, "rb" )
+temp=seek(fn, pos)
+while 1 do
+  if getc(fn)>-1 then
+    pos+=1
+    if seek(fn, pos)>-1 then
+    else
+      -- error seek failed
+    end if
+  else
+    -- end of file
+    return pos
+  end if
+end while
+close(fn)
+end function
+
+function loadWavResource( sequence fileName, atom fSize)
+  atom        image
+  integer     hFile, byte
+
+  hFile = open( fileName, "rb" )
+  image = allocate( fSize )
+  for i = 0 to fSize-1 do
+    byte = getc (hFile)
+    poke( image+i, byte )
+  end for
+  close(hFile)
+  return image
+end function
+
+function sound_exsist(sequence name)
+  for i=1 to length(sound_info) do
+     if compare(sound_info[i][SND_NAME],name)=0 then
+       return i
+     end if
+  end for
+  return -1
+end function
+
+global procedure play_sound(sequence name)
+integer result
+atom temp
+  result=sound_exsist(name)
+  if result !=-1 then
+    temp = w32Func( xPlaySound, {sound_info[result][SND_SOUND],0, or_all({SND_MEMORY,SND_ASYNC})})
+  end if
+end procedure
+
+procedure add_sound(sequence name, sequence fname)
+atom mem
+  mem=loadWavResource(fname,getsize(fname))
+  sound_info=append(sound_info,{sound_num,name,mem})
+  sound_num+=1
+end procedure
+--============================================================--
+-- sprite system all the sprites are index by there names 
+-- sprite can have more than one image use for anamtion
+-- sprite can be transprant user define color
+-- sprites can have offset values
+
+constant SPR_ID=1
+constant SPR_NAME=2
+constant SPR_IMAGES=3
+constant SPR_IMAGE_NUM=4
+constant SPR_WIDTH=5
+constant SPR_HEIGHT=6
+constant SPR_TRANSPRANT=7
+constant SPR_TRANSPRANT_COLOR=8
+constant SPR_BBOX_LEFT=9
+constant SPR_BBOX_TOP=10
+constant SPR_BBOX_RIGHT=11
+constant SPR_BBOX_BOTTOM=12
+constant SPR_OFFSETX=13
+constant SPR_OFFSETY=14
+constant SPR_BBOX_MODE=15
+constant SPR_BBOX_MANUAL=16
+
+-- return the line number if sprite exsist or -1
+function sprite_exsist(sequence name)
+  for i=1 to length(sprite_info) do
+     if compare(sprite_info[i][SPR_NAME],name)=0 then
+       return i
+     end if
+  end for
+  return -1
+end function
+
+-- info[1] -- file name
+-- info[2] -- transprant
+-- info[3] -- transprant color
+-- info[4] -- offsetx
+-- info[5] -- offsety
+-- info[6] -- bbox mode 0=automatic 1=fullimage 2=manual
+-- info[7] is a sequence of the manual bbox settings
+procedure add_sprite(sequence name,sequence info)
+atom temp_image
+integer left,right,top,bottom
+sequence size
+  temp_image=loadBitmapFromFile( info[1] ) 
+  size=getExtent( temp_image ) 
+  left=0
+  right=size[1]
+  top=0
+  bottom=size[2]
+  sprite_info=append(sprite_info,{sprite_num,name,{temp_image},0,size[1],size[2],info[2],info[3],left,top,right,bottom,info[4],info[5],info[6],info[7]})
+  sprite_num+=1
+end procedure
+
+-- info[1] -- file name
+procedure add_image_to_sprite(sequence name, sequence info)
+integer result
+atom temp_image
+  result=sprite_exsist(name)
+  if result !=-1 then
+    temp_image=loadBitmapFromFile( info[1] ) 
+    sprite_info[result][SPR_IMAGES]=append(sprite_info[result][SPR_IMAGES],temp_image)
+    sprite_info[result][SPR_IMAGE_NUM]+=1
+  end if
+end procedure
+
+procedure set_sprite_bb_left(sequence name, integer v)
+integer result
+  result=sprite_exsist(name)
+  sprite_info[result][SPR_BBOX_LEFT]=v
+end procedure
+
+procedure set_sprite_bb_right(sequence name, integer v)
+integer result
+  result=sprite_exsist(name)
+  sprite_info[result][SPR_BBOX_RIGHT]=v
+end procedure
+
+procedure set_sprite_bb_top(sequence name, integer v)
+integer result
+  result=sprite_exsist(name)
+  sprite_info[result][SPR_BBOX_TOP]=v
+end procedure
+
+procedure set_sprite_bb_bottom(sequence name, integer v)
+integer result
+  result=sprite_exsist(name)
+  sprite_info[result][SPR_BBOX_BOTTOM]=v
+end procedure
+--============================================================--
+-- object system all object are index by there name
+constant OBJ_ID=1
+constant OBJ_NAME=2
+constant OBJ_SPRITE=3
+constant OBJ_VISABLE=4
+constant OBJ_SOLID=5
+constant OBJ_EVENT=6
+
+constant EVENT_CREATE=1
+constant EVENT_DESTORY=2
+constant EVENT_STEP=3
+constant EVENT_MOUSE_DOWN=4
+constant EVENT_MOUSE_UP=5
+constant EVENT_KEYBOARD=6
+constant EVENT_KEYBOARD_DOWN=7
+constant EVENT_KEYBOARD_UP=8
+constant EVENT_DRAW=9
+constant EVENT_COLLISION=10
+constant EVENT_OUTSIDE=11
+constant EVENT_BOUNDARY=12
+constant EVENT_MOUSE_ENTER=13
+constant EVENT_MOUSE_LEAVE=14
+
+
+constant EVENT_EMPTY={ {0,0,{}}, {0,0,{}}, {0,0,{}}, {0,0,{}}, {0,0,{}}, {0,0,{}}, {0,0,{}}, {0,0,{}}, {0,0,{}},
+{0,0,{},{}},-- collision event
+{0,0,{}},
+{0,0,{}},
+{0,0,{}},
+{0,0,{}}
+}
+
+constant EVENT_ON=1
+constant EVENT_ID=2
+constant EVENT_CODE=3
+constant EVENT_COLLISION_DATA=4
+
+-- return the line number if object exsist or -1
+function object_exsist(sequence name)
+  for i=1 to length(object_info) do
+     if compare(object_info[i][OBJ_NAME],name)=0 then
+       return i
+     end if
+  end for
+  return -1
+end function
+
+-- info[1] sprite name
+-- info[2] visable
+-- info[3] solid
+procedure add_object(sequence name,sequence info)
+integer result
+  result=sprite_exsist(info[1])
+  object_info=append(object_info,{object_num,name,result,info[2],info[3],EVENT_EMPTY})
+  object_num+=1
+end procedure
+
+procedure add_object_event(sequence name, integer event, sequence code)
+integer result
+  result=object_exsist(name)
+  if result !=-1 then
+    object_info[result][OBJ_EVENT][event][EVENT_ON]=1
+    object_info[result][OBJ_EVENT][event][EVENT_CODE]=code
+  end if
+end procedure
+
+procedure add_object_event_collision(sequence name,sequence object_n,sequence code)
+integer result
+  result=object_exsist(name)
+  if result !=-1 then
+    object_info[result][OBJ_EVENT][EVENT_COLLISION][EVENT_COLLISION_DATA] =append( object_info[result][OBJ_EVENT][EVENT_COLLISION][EVENT_COLLISION_DATA],{ object_n , code} )
+  end if
+end procedure
+
+procedure set_start_event(integer oop)
+  start_event=oop
+end procedure
+
+procedure set_end_event(integer oop)
+  end_event=oop
+end procedure
+--===========================================================--
+-- room
+constant ROOM_ID=1
+constant ROOM_NAME=2
+constant ROOM_WIDTH=3
+constant ROOM_HEIGHT=4
+constant ROOM_VIEW_WIDTH=5
+constant ROOM_VIEW_HEIGHT=6
+constant ROOM_SPEED=7
+constant ROOM_OBJECTS=8
+constant ROOM_BACKGROUND_IMAGE=9
+constant ROOM_BACKGROUND_COLOR=10
+constant ROOM_CAPTION=11
+constant ROOM_BACKGROUND_MODE=12
+
+-- return the line number if room exsist or -1
+function room_exsist(sequence name)
+  for i=1 to length(room_info) do
+     if compare(room_info[i][ROOM_NAME],name)=0 then
+       return i
+     end if
+  end for
+  return -1
+end function
+
+-- info[1] room width
+-- info[2] room height
+-- info[3] room view_width
+-- info[4] room view_height
+-- info[5] room speed
+-- info[6] background image fname
+-- info[7] background color
+-- info[8] room caption
+-- info[8] room background mode 0 or 1
+procedure add_room(sequence name,sequence info)
+atom temp_image
+temp_image=-1
+  if length(info[6])>0 then
+    temp_image=loadBitmapFromFile( info[6] ) 
+  end if
+  room_info=append(room_info,{room_num,name,info[1],info[2],info[3],info[4],info[5],{},temp_image,info[7],info[8],info[9]})
+  last_room=length(room_info)
+  room_num+=1
+end procedure
+
+-- info[1] objects name
+-- info[2] x
+-- info[3] y
+procedure add_object_to_room(sequence name,sequence info)
+  integer result
+  result=room_exsist(name)
+  if result!=-1 then
+    room_info[result][ROOM_OBJECTS]=append(room_info[result][ROOM_OBJECTS],{info[1],info[2],info[3]})
+  end if
+end procedure
+--===========================================================--
+-- instance system this is the key part two the game engine
+-- load sprits
+-- load events
+-- setup variable list
+global constant INS_ID=1
+global constant INS_EVENTS=2
+global constant INS_CREATE=3
+global constant INS_X=4
+global constant INS_Y=5
+global constant INS_IMAGES=6
+global constant INS_IMAGE_SINGLE=7
+global constant INS_IMAGE_SPEED=8
+global constant INS_IMAGE_NUMBER=9
+global constant INS_ALIVE=10
+global constant INS_VISABLE=11
+global constant INS_IMAGE_AUTO=12
+global constant INS_IMAGE_TIMER=13
+global constant INS_IMAGE_TRANSPRANT=14
+global constant INS_IMAGE_TRANSPRANT_COLOR=15
+global constant INS_DIR=16
+global constant INS_SPEED=17
+global constant INS_VSPEED=18
+global constant INS_HSPEED=19
+global constant INS_VECTOR1=20
+global constant INS_VECTOR2=21
+global constant INS_DEPTH=22
+global constant INS_WIDTH=23
+global constant INS_HEIGHT=24
+global constant INS_NAME=25
+global constant INS_SOLID=26
+global constant INS_PX=27
+global constant INS_PY=28
+global constant INS_BBOX_LEFT=29
+global constant INS_BBOX_TOP=30
+global constant INS_BBOX_RIGHT=31
+global constant INS_BBOX_BOTTOM=32
+global constant INS_SX=33
+global constant INS_SY=34
+global constant INS_VARIABLES=35
+global constant INS_IMAGE_OFFSETX=36
+global constant INS_IMAGE_OFFSETY=37
+global constant INS_MOUSE_ENTER=38
+
+function instance_line_number(sequence name)
+  for i=1 to length(instance_info) do
+     if compare(instance_info[i][INS_NAME],name)=0 then
+        return i
+     end if
+  end for
+  return 0
+end function
+
+global procedure instance_create(sequence name,integer x,integer y)
+integer result,sprite_index,transprant_color,image_width,image_height
+atom image_speed
+integer image_single,image_number,create,transprant,bb_left,bb_right,bb_top,bb_bottom,offsetx,
+offsety
+sequence images
+  result=object_exsist(name)
+  sprite_index=object_info[result][OBJ_SPRITE]
+  if sprite_index>0 then
+  image_number=sprite_info[sprite_index][SPR_IMAGE_NUM]
+  images=sprite_info[sprite_index][SPR_IMAGES]
+  transprant=sprite_info[sprite_index][SPR_TRANSPRANT]
+  transprant_color=sprite_info[sprite_index][SPR_TRANSPRANT_COLOR]
+  image_width=sprite_info[sprite_index][SPR_WIDTH]
+  image_height=sprite_info[sprite_index][SPR_HEIGHT]
+  bb_left=sprite_info[sprite_index][SPR_BBOX_LEFT]
+  bb_right=sprite_info[sprite_index][SPR_BBOX_RIGHT]
+  bb_top=sprite_info[sprite_index][SPR_BBOX_TOP]
+  bb_bottom=sprite_info[sprite_index][SPR_BBOX_BOTTOM]
+  offsetx=sprite_info[sprite_index][SPR_OFFSETY]
+  offsety=sprite_info[sprite_index][SPR_OFFSETX]
+  else
+  image_number=-1
+  images={}
+  transprant=0
+  transprant_color=0
+  image_width=0
+  image_height=0
+  bb_left=0
+  bb_right=0
+  bb_top=0
+  bb_bottom=0
+  offsetx=0
+  offsety=0
+  end if
+  image_speed=0.1
+  image_single=0
+  create=1
+  if result !=-1 then
+
+    instance_info=append(instance_info,{instance_num,object_info[result][OBJ_EVENT],create,x,y,
+images,image_single,image_speed,image_number,1,object_info[result][OBJ_VISABLE],1,0,transprant,transprant_color,
+1,0,0,0,0,0,0,image_width,image_height,name,object_info[result][OBJ_SOLID],x,y,bb_left,bb_top,bb_right,bb_bottom,x,y,{},offsetx,
+offsety,0})
+    instance_num+=1
+  end if
+end procedure
+
+global procedure instance_create_move(sequence name,integer x,integer y,integer dir,integer speed)
+   instance_create(name, x, y)
+   instance_info[length(instance_info)][INS_DIR]=dir
+   instance_info[length(instance_info)][INS_HSPEED]=speed
+   instance_info[length(instance_info)][INS_VSPEED]=speed
+   instance_info[length(instance_info)][INS_SPEED]=speed
+end procedure
+
+procedure draw_background()
+integer width,height
+sequence size
+ if background_draw_mode=0 then
+   drawBitmap( Buffer,background_image,0,0)
+ elsif background_draw_mode=1 then
+    size=getExtent( background_image ) 
+    width=size[1]
+    height=size[2]
+    for i=0 to room_height by height do
+     for j=0 to room_width by width do
+        -- check to make sure background is inside view
+        if j>(view_left-width) and j<view_left+view_width and i>(view_top-height) and i<view_top+view_height then
+          drawBitmap( Buffer,background_image,j,i)
+          draw_number+=1
+        end if
+     end for
+    end for
+ end if
+end procedure
+
+procedure set_speed(integer line_number, atom speed)
+  instance_info[line_number][INS_HSPEED]=speed
+  instance_info[line_number][INS_VSPEED]=speed
+  instance_info[line_number][INS_SPEED]=speed
+end procedure
+
+procedure set_dir(integer line_number, integer dir)
+  instance_info[line_number][INS_DIR]=dir
+end procedure
+
+function get_dir(integer line_number)
+  return instance_info[line_number][INS_DIR]
+end function
+
+procedure set_x(integer line_number, atom x)
+  instance_info[line_number][INS_PX]=instance_info[line_number][INS_X] 
+  instance_info[line_number][INS_X]=x
+end procedure
+
+procedure set_health(integer v)
+  health=v
+end procedure
+
+procedure set_score(integer v)
+  score=v
+end procedure
+
+procedure set_lives(integer v)
+  lives=v
+end procedure
+
+function get_score()
+  return score
+end function
+
+function get_lives()
+  return lives
+end function
+
+function get_health()
+  return health
+end function
+
+function get_x(integer line_number)
+  return instance_info[line_number][INS_X]
+end function
+
+procedure set_y(integer line_number, atom y)
+  instance_info[line_number][INS_PY]=instance_info[line_number][INS_Y] 
+  instance_info[line_number][INS_Y]=y
+end procedure
+
+procedure set_solid(integer line_number, integer solid)
+  instance_info[line_number][INS_SOLID]=solid
+end procedure
+
+function get_y(integer line_number)
+  return instance_info[line_number][INS_Y]
+end function
+
+function get_width(integer line_number)
+  return instance_info[line_number][INS_WIDTH]
+end function
+
+function get_height(integer line_number)
+  return instance_info[line_number][INS_HEIGHT]
+end function
+
+global procedure instance_destory(integer line_number)
+  instance_info[line_number][INS_ALIVE]=0
+end procedure
+
+global function place_empty(integer line_number,atom x,atom y,integer check)
+-- check must be 0 or 1 all object solid
+integer x1,y1,width1,height1,width2,height2,offsetx1,offsetx2,offsety1,offsety2
+offsetx2=instance_info[line_number][INS_IMAGE_OFFSETX]
+offsety2=instance_info[line_number][INS_IMAGE_OFFSETY]
+x=(floor(x)+instance_info[line_number][INS_BBOX_LEFT])-offsetx2
+y=(floor(y)+instance_info[line_number][INS_BBOX_TOP])-offsety2
+width2=(instance_info[line_number][INS_BBOX_RIGHT]-instance_info[line_number][INS_BBOX_LEFT])
+height2=(instance_info[line_number][INS_BBOX_BOTTOM]-instance_info[line_number][INS_BBOX_TOP])
+if check=1 then
+  for i=1 to length(instance_info) do
+     if i != line_number and instance_info[i][INS_SOLID]=1 and instance_info[i][INS_ALIVE]=1 then
+       offsetx1=instance_info[i][INS_IMAGE_OFFSETX]
+       offsety1=instance_info[i][INS_IMAGE_OFFSETY]
+       x1=(floor(instance_info[i][INS_X])+instance_info[i][INS_BBOX_LEFT])-offsetx1
+       y1=(floor(instance_info[i][INS_Y])+instance_info[i][INS_BBOX_TOP])-offsety1
+       width1=(instance_info[i][INS_BBOX_RIGHT]-instance_info[i][INS_BBOX_LEFT])
+       height1=(instance_info[i][INS_BBOX_BOTTOM]-instance_info[i][INS_BBOX_TOP] )
+       -- check to see if x or y is inside a object
+       if x>x1 and x<x1+width1 and y>y1 and y<y1+height1 then
+         return i
+       elsif x>x1 and x<x1+width1 and y+height2>y1 and y<y1+height1 then
+         return i
+       elsif x+width2>x1 and x<x1+width1 and y+height2>y1 and y<y1+height1 then
+         return i
+       end if
+     end if
+  end for
+elsif check=0 then
+  for i=1 to length(instance_info) do
+     if i != line_number and instance_info[i][INS_ALIVE]=1 then
+       offsetx1=instance_info[i][INS_IMAGE_OFFSETX]
+       offsety1=instance_info[i][INS_IMAGE_OFFSETY]
+       x1=(floor(instance_info[i][INS_X])+instance_info[i][INS_BBOX_LEFT])-offsetx1
+       y1=(floor(instance_info[i][INS_Y])+instance_info[i][INS_BBOX_TOP])-offsety1
+       -- check to see if x or y is inside a object
+       if x>x1 and x<x1+width1 and y>y1 and y<y1+height1 then
+         return i
+       elsif x>x1 and x<x1+width1 and y+height2>y1 and y<y1+height1 then
+         return i
+       elsif x+width2>x1 and x<x1+width1 and y+height2>y1 and y<y1+height1 then
+         return i
+       end if
+     end if
+  end for
+end if
+return -1
+end function
+
+global function instance_number(sequence name)
+integer num
+num=0
+  for i=1 to length(instance_info) do
+     if compare(instance_info[i][INS_NAME],name)=0 and instance_info[i][INS_ALIVE]=1 then
+       num+=1
+     end if
+  end for
+return num
+end function
+
+procedure set_hspeed(integer line_number,integer v)
+  instance_info[line_number][INS_HSPEED]=v
+end procedure
+
+procedure set_vspeed(integer line_number,integer v)
+  instance_info[line_number][INS_VSPEED]=v
+end procedure
+
+function get_hspeed(integer line_number)
+  return instance_info[line_number][INS_HSPEED]
+end function
+
+function get_vspeed(integer line_number)
+  return instance_info[line_number][INS_VSPEED]
+end function
+
+procedure set_vector1(integer line_number,integer v)
+  instance_info[line_number][INS_VECTOR1]=v
+end procedure
+
+function get_vector1(integer line_number)
+  return instance_info[line_number][INS_VECTOR1]
+end function
+
+function get_vector2(integer line_number)
+  return instance_info[line_number][INS_VECTOR2]
+end function
+
+function chose_random(sequence info)
+  integer num
+  num=rand(length(info))
+  return info[num]
+end function
+
+-- draw sprite working auto anamtion and transprant 
+procedure draw_sprite(integer line_number)
+atom temp_image,image_timer,image_speed,x,y,image_transprant_color
+integer image_number,image_single,image_auto,image_transprant,width,height,offsetx,offsety
+  x=floor(instance_info[line_number][INS_X])
+  y=floor(instance_info[line_number][INS_Y])
+  width=floor(instance_info[line_number][INS_WIDTH])
+  height=floor(instance_info[line_number][INS_HEIGHT])
+  image_number=instance_info[line_number][INS_IMAGE_NUMBER]
+if image_number>-1 then
+  image_auto=instance_info[line_number][INS_IMAGE_AUTO]
+  image_single=instance_info[line_number][INS_IMAGE_SINGLE]
+  image_speed=instance_info[line_number][INS_IMAGE_SPEED]
+  image_timer=instance_info[line_number][INS_IMAGE_TIMER]
+  image_transprant=instance_info[line_number][INS_IMAGE_TRANSPRANT]
+  image_transprant_color=instance_info[line_number][INS_IMAGE_TRANSPRANT_COLOR]
+  offsetx=instance_info[line_number][INS_IMAGE_OFFSETX]
+  offsety=instance_info[line_number][INS_IMAGE_OFFSETY]
+  if image_auto=1 then
+    image_timer+=0.1
+    if image_timer>image_speed then
+      image_timer=0
+      image_single+=1
+      if image_single>image_number then
+        image_single=0
+      end if
+    end if
+    instance_info[line_number][INS_IMAGE_SINGLE]=image_single
+    instance_info[line_number][INS_IMAGE_SPEED]=image_speed
+    instance_info[line_number][INS_IMAGE_TIMER]=image_timer
+  end if
+  temp_image=instance_info[line_number][INS_IMAGES][image_single+1]
+  if image_transprant=1 then
+    setTransparentColor( image_transprant_color ) 
+    if ((x-offsetx)+width)>view_left and (x-offsetx)<(view_left+view_width) and ((y-offsety)+height)>view_top and (y-offsety)<(view_top+view_height) then
+      transBlt( Buffer,x-offsetx,y-offsety,temp_image)
+      draw_number+=1
+    end if
+  else
+    if ((x-offsetx)+width)>view_left and (x-offsetx)<(view_left+view_width) and ((y-offsety)+height)>view_top and (y-offsety)<(view_top+view_height) then
+      drawBitmap( Buffer, temp_image ,x-offsetx, y-offsety ) 
+      draw_number+=1
+    end if
+  end if
+  if debug_collisions=1 then
+    if ((x-offsetx)+width)>view_left and (x-offsetx)<(view_left+view_width) and ((y-offsety)+height)>view_top and (y-offsety)<(view_top+view_height) then
+      setPenColor( Buffer, Red )
+      drawRectangle(Buffer,0,x-offsetx, y-offsety,(x-offsetx)+instance_info[line_number][INS_WIDTH],(y-offsety)+instance_info[line_number][INS_HEIGHT] )
+      setPenColor( Buffer, rgb(255,255,255) )
+      drawRectangle( Buffer, 0, (x-offsetx)+instance_info[line_number][INS_BBOX_LEFT],(y-offsety)+instance_info[line_number][INS_BBOX_TOP], (x-offsetx)+instance_info[line_number][INS_BBOX_RIGHT],(y-offsety)+instance_info[line_number][INS_BBOX_BOTTOM] )
+    end if
+  end if
+end if
+end procedure
+
+procedure set_xy_to_pxy(integer line_number)
+instance_info[line_number][INS_X] =instance_info[line_number][INS_PX]
+instance_info[line_number][INS_Y] =instance_info[line_number][INS_PY]
+--instance_info[line_number][INS_HSPEED]=0
+--instance_info[line_number][INS_VSPEED]=0
+--set_speed(line_number,0) -- iam not sure want this will do on driffent types of games
+end procedure
+
+function check_collision(integer line_number,sequence name)
+  integer x1,y1,width1,height1,x2,y2,width2,height2,offsetx1,offsetx2,offsety1,offsety2
+  offsetx2=instance_info[line_number][INS_IMAGE_OFFSETX]
+  offsety2=instance_info[line_number][INS_IMAGE_OFFSETY]
+  x2=floor(instance_info[line_number][INS_X]+instance_info[line_number][INS_BBOX_LEFT]-offsetx2)
+  y2=floor(instance_info[line_number][INS_Y]+instance_info[line_number][INS_BBOX_TOP]-offsety2)
+  width2=(instance_info[line_number][INS_BBOX_RIGHT]-instance_info[line_number][INS_BBOX_LEFT])
+  height2=(instance_info[line_number][INS_BBOX_BOTTOM]-instance_info[line_number][INS_BBOX_TOP])
+  for i=1 to length(instance_info) do
+     if i != line_number and compare(instance_info[i][INS_NAME],name)=0 and instance_info[i][INS_ALIVE]=1 then
+       offsetx1=instance_info[i][INS_IMAGE_OFFSETX]
+       offsety1=instance_info[i][INS_IMAGE_OFFSETY]
+       x1=floor(instance_info[i][INS_X]+instance_info[i][INS_BBOX_LEFT]-offsetx1)
+       y1=floor(instance_info[i][INS_Y]+instance_info[i][INS_BBOX_TOP]-offsety1)
+       width1=(instance_info[i][INS_BBOX_RIGHT]-instance_info[i][INS_BBOX_LEFT])
+       height1=(instance_info[i][INS_BBOX_BOTTOM]-instance_info[i][INS_BBOX_TOP] )
+       -- check to see if x or y is inside a object
+       if x2>x1 and x2<x1+width1 and y2>y1 and y2<y1+height1 then
+         if instance_info[i][INS_SOLID]=1 then 
+            collision_list=append(collision_list,line_number)
+            --collision_list=append(collision_list,i)
+            --?2
+         end if 
+         --puts(1,instance_info[i][INS_NAME])
+         return i
+       elsif x2>x1 and x2<x1+width1 and y2+height2>y1 and y2<y1+height1 then
+         if instance_info[i][INS_SOLID]=1 then 
+           collision_list=append(collision_list,line_number)
+           --collision_list=append(collision_list,i) 
+           --?2
+          end if
+         --puts(1,instance_info[i][INS_NAME])
+         return i
+       elsif x2+width2>x1 and x2<x1+width1 and y2+height2>y1 and y2<y1+height1 then
+         if instance_info[i][INS_SOLID]=1 then 
+            collision_list=append(collision_list,line_number) 
+            --collision_list=append(collision_list,i)
+            --?2
+         end if
+         --puts(1,instance_info[i][INS_NAME])
+         return i
+       end if
+     end if
+  end for
+  return -1
+end function
+
+procedure set_xy_to_pxy_for_all()
+  for i=1 to length(collision_list) do
+    instance_info[collision_list[i]][INS_X] =instance_info[collision_list[i]][INS_PX]
+    instance_info[collision_list[i]][INS_Y] =instance_info[collision_list[i]][INS_PY]
+  end for
+  collision_list={}
+end procedure
+
+procedure move(integer line_number)
+  instance_info[line_number][INS_VECTOR1] = instance_info[line_number][INS_HSPEED]*
+cos_loTRUE2up[instance_info[line_number][INS_DIR]]
+  instance_info[line_number][INS_VECTOR2] = instance_info[line_number][INS_VSPEED]*
+sin_loTRUE2up[instance_info[line_number][INS_DIR]]
+  instance_info[line_number][INS_X] += instance_info[line_number][INS_VECTOR1]
+  instance_info[line_number][INS_Y] += instance_info[line_number][INS_VECTOR2]
+
+end procedure
+
+global function outside_room(integer line_number)
+atom x,y,width,height,offsetx,offsety
+  offsetx=instance_info[line_number][INS_IMAGE_OFFSETX]
+  offsety=instance_info[line_number][INS_IMAGE_OFFSETY]
+  x=instance_info[line_number][INS_X]-offsetx
+  y=instance_info[line_number][INS_Y]-offsety
+  if x+get_width(line_number)<0 then
+    return 1
+  end if
+  if x>room_width then
+    return 1
+  end if
+  if y+get_height(line_number)<0 then
+    return 1
+  end if
+  if y>room_height then
+    return 1
+  end if
+return 0
+end function
+
+global function boundary(integer line_number)
+atom x,y,width,height,offsetx,offsety
+  offsetx=instance_info[line_number][INS_IMAGE_OFFSETX]
+  offsety=instance_info[line_number][INS_IMAGE_OFFSETY]
+  x=instance_info[line_number][INS_X]-offsetx
+  y=instance_info[line_number][INS_Y]-offsety
+  if x<0 then
+    return 1
+  end if
+  if x+get_width(line_number)>room_width then
+    return 1
+  end if
+  if y<0 then
+    return 1
+  end if
+  if y+get_height(line_number)>room_height then
+    return 1
+  end if
+return 0
+end function
+
+function mouse_enter(integer line_number)
+atom x,y,width,height,offsetx,offsety
+  offsetx=instance_info[line_number][INS_IMAGE_OFFSETX]
+  offsety=instance_info[line_number][INS_IMAGE_OFFSETY]
+  x=instance_info[line_number][INS_X]-offsetx
+  y=instance_info[line_number][INS_Y]-offsety
+  if mousex>x and mousex<x+get_width(line_number) and mousey>y and mousey<y+get_height(line_number) and instance_info[line_number][INS_MOUSE_ENTER]=0 then
+     instance_info[line_number][INS_MOUSE_ENTER]=1
+     return 1
+  end if
+return 0
+end function
+
+function mouse_leave(integer line_number)
+atom x,y,width,height,offsetx,offsety
+  offsetx=instance_info[line_number][INS_IMAGE_OFFSETX]
+  offsety=instance_info[line_number][INS_IMAGE_OFFSETY]
+  x=instance_info[line_number][INS_X]-offsetx
+  y=instance_info[line_number][INS_Y]-offsety
+  if mousex>x and mousex<x+get_width(line_number) and mousey>y and mousey<y+get_height(line_number) then
+  else
+    if instance_info[line_number][INS_MOUSE_ENTER]=1 then
+      instance_info[line_number][INS_MOUSE_ENTER]=0
+      return 1
+    end if
+  end if
+return 0
+end function
+
+integer collision_index
+
+procedure run_game()
+integer find1
+sequence depth_id
+depth_id={}
+find1=0
+  -- create event
+  for i=1 to length(instance_info) do
+     if instance_info[i][INS_CREATE]=1 then
+       if instance_info[i][INS_ALIVE]=1 then
+         instance_info[i][INS_CREATE]=0
+         if instance_info[i][INS_EVENTS][EVENT_CREATE][EVENT_ON]=1 then
+           -- call procedure
+           self=i
+           call_proc(game_event_loop, {EVENT_CREATE})
+         if game_loop_exit=1 then
+           game_loop_exit=0
+           return
+         end if
+         end if
+       end if
+     end if
+  end for
+
+  -- destory event
+  for i=1 to length(instance_info) do
+     if instance_info[i][INS_ALIVE]=0 then
+         instance_info[i][INS_ALIVE]=-1
+         if instance_info[i][INS_EVENTS][EVENT_DESTORY][EVENT_ON]=1 then
+         -- call procedure
+         self=i
+         call_proc(game_event_loop, {EVENT_DESTORY})
+         if game_loop_exit=1 then
+           game_loop_exit=0
+           return
+         end if
+         end if
+       end if
+  end for
+
+  -- mouse_down
+--if mouse_down=1 then
+--  for i=1 to length(instance_info) do 
+--    if instance_info[i][INS_ALIVE]=1 then
+--       if instance_info[i][INS_EVENTS][EVENT_MOUSE_DOWN][EVENT_ON]=1 then
+--         -- call procedure
+--         self=i
+--         call_proc(game_event_loop, {EVENT_MOUSE_DOWN})
+--       if game_loop_exit=1 then
+--           game_loop_exit=0
+--           return
+--         end if
+--       end if
+--     end if
+--  end for
+--end if
+
+-- mouse_up
+--if mouse_up=1 then
+--  for i=1 to length(instance_info) do
+--    if instance_info[i][INS_ALIVE]=1 then
+--       if instance_info[i][INS_EVENTS][EVENT_MOUSE_UP][EVENT_ON]=1 then
+--         -- call procedure
+--         self=i
+--         call_proc(game_event_loop, {EVENT_MOUSE_UP})
+--         if game_loop_exit=1 then
+--           game_loop_exit=0
+--           return
+--         end if
+--       end if
+--     end if
+--  end for
+--end if
+
+-- keyboard
+if length(key_buffer)>0 then
+  for i=1 to length(instance_info) do
+    if instance_info[i][INS_ALIVE]=1 then
+       if instance_info[i][INS_EVENTS][EVENT_KEYBOARD][EVENT_ON]=1 then
+         -- call procedure
+         self=i
+         call_proc(game_event_loop, {EVENT_KEYBOARD})
+         if game_loop_exit=1 then
+           game_loop_exit=0
+           return
+         end if
+       end if
+      end if
+  end for
+end if
+
+-- keyboard_down
+if keyboard_down=1 then
+  for i=1 to length(instance_info) do
+    if instance_info[i][INS_ALIVE]=1 then
+       if instance_info[i][INS_EVENTS][EVENT_KEYBOARD_DOWN][EVENT_ON]=1 then
+         -- call procedure
+         self=i
+         call_proc(game_event_loop, {EVENT_KEYBOARD_DOWN})
+         if game_loop_exit=1 then
+           game_loop_exit=0
+           return
+         end if
+       end if
+    end if
+  end for
+end if
+
+-- keyboard_up
+if keyboard_up=1 then
+  for i=1 to length(instance_info) do
+    if instance_info[i][INS_ALIVE]=1 then
+       if instance_info[i][INS_EVENTS][EVENT_KEYBOARD_UP][EVENT_ON]=1 then
+         -- call procedure
+         self=i
+         call_proc(game_event_loop, {EVENT_KEYBOARD_UP})
+         if game_loop_exit=1 then
+           game_loop_exit=0
+           return
+         end if
+       end if
+    end if
+  end for
+end if
+
+  -- event outside room
+--  for i=1 to length(instance_info) do
+--    if instance_info[i][INS_ALIVE]=1 then
+--       if instance_info[i][INS_EVENTS][EVENT_OUTSIDE][EVENT_ON]=1 then
+--         if outside_room(i)=1 then
+--           -- call procedure
+--           self=i
+--           call_proc(game_event_loop, {EVENT_OUTSIDE})
+--           if game_loop_exit=1 then
+--             game_loop_exit=0
+--             return
+--           end if
+--         end if
+--       end if
+--    end if
+--  end for
+
+  -- event boundary room
+--  for i=1 to length(instance_info) do
+--    if instance_info[i][INS_ALIVE]=1 then
+--       if instance_info[i][INS_EVENTS][EVENT_BOUNDARY][EVENT_ON]=1 then
+--         if boundary(i)=1 then
+--           -- call procedure
+--           self=i
+--           call_proc(game_event_loop, {EVENT_BOUNDARY})
+--           if game_loop_exit=1 then
+--             game_loop_exit=0
+--             return
+--           end if
+--         end if
+--       end if
+--    end if
+--  end for
+
+  -- event mouse enter
+--  for i=1 to length(instance_info) do
+--    if instance_info[i][INS_ALIVE]=1 then
+--       if instance_info[i][INS_EVENTS][EVENT_MOUSE_ENTER][EVENT_ON]=1 then
+--         if mouse_enter(i)=1 then
+--           -- call procedure
+--           self=i
+--           call_proc(game_event_loop, {EVENT_MOUSE_ENTER})
+--           if game_loop_exit=1 then
+--             game_loop_exit=0
+--             return
+--           end if
+--         end if
+--       end if
+--    end if
+--  end for
+
+  -- event mouse leave
+--  for i=1 to length(instance_info) do
+--    if instance_info[i][INS_ALIVE]=1 then
+--       if instance_info[i][INS_EVENTS][EVENT_MOUSE_LEAVE][EVENT_ON]=1 then
+--         if mouse_leave(i)=1 then
+--           -- call procedure
+--           self=i
+--           call_proc(game_event_loop, {EVENT_MOUSE_LEAVE})
+--           if game_loop_exit=1 then
+--             game_loop_exit=0
+--             return
+--           end if
+--         end if
+--       end if
+--    end if
+--  end for
+
+
+  -- step event
+  for i=1 to length(instance_info) do
+     move(i)
+     if instance_info[i][INS_ALIVE]=1 then
+         if instance_info[i][INS_EVENTS][EVENT_STEP][EVENT_ON]=1 then
+         -- call procedure
+         self=i
+         call_proc(game_event_loop, {EVENT_STEP})
+         if game_loop_exit=1 then
+           game_loop_exit=0
+           return
+         end if
+         end if
+       end if
+  end for
+
+  -- collision event
+  for i=1 to length(instance_info) do
+     find1=0
+     if instance_info[i][INS_ALIVE]=1 then
+        for j=1 to length(instance_info[i][INS_EVENTS][EVENT_COLLISION][EVENT_COLLISION_DATA]) do
+         find1=check_collision(i,instance_info[i][INS_EVENTS][EVENT_COLLISION][EVENT_COLLISION_DATA][j][1])
+         if find1!=-1 and length(instance_info[i][INS_EVENTS][EVENT_COLLISION][EVENT_COLLISION_DATA][j][2])>0 then
+           self=i
+           other=find1
+           collision_index=j
+           call_proc(game_event_loop, {EVENT_COLLISION})
+           if game_loop_exit=1 then
+             game_loop_exit=0
+             return
+           end if
+         end if
+       end for
+     end if
+  end for
+find1=0
+
+-- ok this set all soild objects that back to there py px postions
+-- might be a bug because only one is add two the list but both are soild
+set_xy_to_pxy_for_all()
+
+-- draw
+  draw_number=0
+  if background_colored!=-1 then
+    setPenColor( Buffer, background_colored )
+    drawRectangle( Buffer, 1, view_left, view_top, view_left+view_width, view_top+view_height )
+  else
+    draw_background()
+  end if
+
+  for i=1 to length(instance_info) do
+    if instance_info[i][INS_ALIVE]=1 and instance_info[i][INS_VISABLE]=1 then
+      if instance_info[i][INS_EVENTS][EVENT_DRAW][EVENT_ON]=0 then
+        draw_sprite(i)
+      else
+         -- call procedure
+         self=i
+         call_proc(game_event_loop, {EVENT_DRAW})
+         if game_loop_exit=1 then
+           game_loop_exit=0
+           return
+         end if
+      end if
+    end if
+  end for
+
+-- destory instances
+for j=1 to length(instance_info) do
+  find1=0
+  for i=1 to length(instance_info) do
+
+     instance_info[i][INS_PX]=instance_info[i][INS_X]
+     instance_info[i][INS_PY]=instance_info[i][INS_Y]
+
+     if instance_info[i][INS_ALIVE]=-1 then
+       instance_info=remove_line(instance_info,i)
+       find1=1
+       exit
+     end if
+  end for
+  if find1=0 then
+    exit
+  end if
+end for
+
+-- create new instance
+for i=1 to length(new_instance) do
+  instance_create(new_instance[i][1],new_instance[i][2],new_instance[i][3])
+end for
+new_instance={}
+
+end procedure
+--============================================================--
+
+global function key_check(integer scancode)
+  for i=1 to length(key_buffer) do
+    if key_buffer[i]=scancode then
+      return 1
+    end if
+  end for
+  if keyboard_last=scancode and keyboard_up=1 then
+    --keyboard_last=0
+    return 1
+  end if
+return 0
+end function
+
+global procedure set_image_single(integer line_number,integer v)
+    instance_info[line_number][INS_IMAGE_AUTO]=0
+    instance_info[line_number][INS_IMAGE_SINGLE]=v
+end procedure
+
+procedure set_image_speed(integer line_number,integer v)
+  instance_info[line_number][INS_IMAGE_SPEED]=v
+end procedure
+
+global procedure sprite_change(integer line_number, sequence name)
+integer result
+  result=sprite_exsist(name)
+  if result!=-1 then
+    instance_info[line_number][INS_IMAGES]=sprite_info[result][SPR_IMAGES]
+  end if
+end procedure
+
+procedure centerwindow2()
+integer width,height
+    width=w32Func(xGetSystemMetrics,{SM_CXSCREEN})
+    height=w32Func(xGetSystemMetrics,{SM_CYSCREEN})
+    moveWindow( Window1,floor((width/2))-floor((window_width/2)) ,floor((height/2))-floor((window_height/2)), window_width+6, window_height+32, True )
+end procedure
+
+procedure centerwindow(integer win)
+integer width,height,window_width,window_height
+sequence size
+    size=getCtlSize(win)
+    window_width=size[1]
+    window_height=size[2]
+    width=w32Func(xGetSystemMetrics,{SM_CXSCREEN})
+    height=w32Func(xGetSystemMetrics,{SM_CYSCREEN})
+    setRect( win,floor((width/2))-floor((window_width/2)) ,floor((height/2))-floor((window_height/2))-32, window_width, window_height, 0 )
+end procedure
+
+procedure showwindow(integer id, integer style)
+atom result
+integer width,height
+  if style=0 then
+    centerwindow2()
+    result = w32Func( xSetWindowLong,{ getHandle( id ), GWL_STYLE, or_all({WS_OVERLAPPED,WS_CAPTION,WS_SYSMENU,WS_MINIMIZEBOX}) })
+    result = w32Func( xShowWindow, { getHandle( id ), SW_NORMAL } )
+    setSize(Window1,window_width+6,window_height+32)
+    xoffset=0
+    yoffset=0
+  elsif style=1 then
+    moveWindow( Window1,0 ,0, window_width+6, window_height+32, True )
+    result = w32Func( xSetWindowLong,{ getHandle( id ), GWL_STYLE, WS_POPUP })
+    result = w32Func( xShowWindow, { getHandle( id ), SW_MAXIMIZE } )
+    width=w32Func(xGetSystemMetrics,{SM_CXSCREEN})
+    height=w32Func(xGetSystemMetrics,{SM_CYSCREEN})
+    xoffset=floor((width/2))-floor((window_width/2))
+    yoffset=floor((height/2))-floor((window_height/2))
+    setWindowBackColor( Window1, Black )
+  end if
+end procedure
+
+ 
+procedure set_game_speed(integer t)
+  if t=0 then
+    setTimer( Window1, onTimer[Window1], 0)
+  else
+    setTimer( Window1, onTimer[Window1], floor(1000/t))
+  end if
+end procedure
+
+procedure room_start()
+atom temp_image
+integer width,height
+   if length(room_info)>0 then
+     current_room=1
+     instance_info={}
+     collision_list={}
+     new_instance={}
+     window_width=room_info[current_room][ROOM_VIEW_WIDTH]
+     window_height=room_info[current_room][ROOM_VIEW_HEIGHT]
+     view_width=room_info[current_room][ROOM_VIEW_WIDTH]
+     view_height=room_info[current_room][ROOM_VIEW_HEIGHT]
+     room_width=room_info[current_room][ROOM_WIDTH]
+     room_height=room_info[current_room][ROOM_HEIGHT]
+     set_game_speed(room_info[current_room][ROOM_SPEED])
+     if window_mode=0 then--full screen
+       width=w32Func(xGetSystemMetrics,{SM_CXSCREEN})
+       height=w32Func(xGetSystemMetrics,{SM_CYSCREEN})
+       xoffset=floor((width/2))-floor((window_width/2))
+       yoffset=floor((height/2))-floor((window_height/2))
+       setSize(Buffer,room_width,room_height)
+     elsif window_mode=1 then--window
+       setSize(Window1,window_width+6,window_height+32)
+       setSize(Buffer,room_width,room_height)
+     end if
+     temp_image=room_info[current_room][ROOM_BACKGROUND_IMAGE]
+     window_text=room_info[current_room][ROOM_CAPTION]
+     background_draw_mode=room_info[current_room][ROOM_BACKGROUND_MODE]
+     if temp_image!=-1 then
+       background_colored=-1
+       background_image=temp_image
+     else
+       background_colored=room_info[current_room][ROOM_BACKGROUND_COLOR]
+     end if
+     view_top=0
+     view_left=0
+     game_loop_exit=1
+     for i=1 to length(room_info[current_room][ROOM_OBJECTS]) do
+        instance_create(room_info[current_room][ROOM_OBJECTS][i][1],room_info[current_room][ROOM_OBJECTS][i][2],room_info[current_room][ROOM_OBJECTS][i][3])
+     end for
+   end if
+end procedure
+
+global procedure room_goto(sequence name)
+integer result
+atom temp_image
+integer width,height
+  result=room_exsist(name)
+  if result !=-1 then
+     current_room=result
+     instance_info={}
+     collision_list={}
+     new_instance={}
+     window_width=room_info[result][ROOM_VIEW_WIDTH]
+     window_height=room_info[result][ROOM_VIEW_HEIGHT]
+     view_width=room_info[result][ROOM_VIEW_WIDTH]
+     view_height=room_info[result][ROOM_VIEW_HEIGHT]
+     room_width=room_info[result][ROOM_WIDTH]
+     room_height=room_info[result][ROOM_HEIGHT]
+     set_game_speed(room_info[result][ROOM_SPEED])
+     if window_mode=0 then--full screen
+       width=w32Func(xGetSystemMetrics,{SM_CXSCREEN})
+       height=w32Func(xGetSystemMetrics,{SM_CYSCREEN})
+       xoffset=floor((width/2))-floor((window_width/2))
+       yoffset=floor((height/2))-floor((window_height/2))
+       setSize(Buffer,room_width,room_height)
+     elsif window_mode=1 then--window
+       setSize(Window1,window_width+6,window_height+32)
+       setSize(Buffer,room_width,room_height)
+     end if
+     temp_image=room_info[result][ROOM_BACKGROUND_IMAGE]
+     window_text=room_info[result][ROOM_CAPTION]
+     background_draw_mode=room_info[result][ROOM_BACKGROUND_MODE]
+     if temp_image!=-1 then
+       background_colored=-1
+       background_image=temp_image
+     else
+       background_colored=room_info[result][ROOM_BACKGROUND_COLOR]
+     end if
+     view_top=0
+     view_left=0
+     game_loop_exit=1
+     for i=1 to length(room_info[result][ROOM_OBJECTS]) do
+        instance_create(room_info[result][ROOM_OBJECTS][i][1],room_info[result][ROOM_OBJECTS][i][2],room_info[result][ROOM_OBJECTS][i][3])
+     end for
+  end if  
+end procedure
+
+global procedure room_next()
+atom temp_image
+integer width,height
+   if current_room<length(room_info) then
+     current_room+=1
+     instance_info={}
+     collision_list={}
+     new_instance={}
+     window_width=room_info[current_room][ROOM_VIEW_WIDTH]
+     window_height=room_info[current_room][ROOM_VIEW_HEIGHT]
+     view_width=room_info[current_room][ROOM_VIEW_WIDTH]
+     view_height=room_info[current_room][ROOM_VIEW_HEIGHT]
+     room_width=room_info[current_room][ROOM_WIDTH]
+     room_height=room_info[current_room][ROOM_HEIGHT]
+     set_game_speed(room_info[current_room][ROOM_SPEED])
+     if window_mode=0 then--full screen
+       width=w32Func(xGetSystemMetrics,{SM_CXSCREEN})
+       height=w32Func(xGetSystemMetrics,{SM_CYSCREEN})
+       xoffset=floor((width/2))-floor((window_width/2))
+       yoffset=floor((height/2))-floor((window_height/2))
+       setSize(Buffer,room_width,room_height)
+     elsif window_mode=1 then--window
+       setSize(Window1,window_width+6,window_height+32)
+       setSize(Buffer,room_width,room_height)
+     end if
+     temp_image=room_info[current_room][ROOM_BACKGROUND_IMAGE]
+     window_text=room_info[current_room][ROOM_CAPTION]
+     background_draw_mode=room_info[current_room][ROOM_BACKGROUND_MODE]
+     if temp_image!=-1 then
+       background_colored=-1
+       background_image=temp_image
+     else
+       background_colored=room_info[current_room][ROOM_BACKGROUND_COLOR]
+     end if
+     view_top=0
+     view_left=0
+     game_loop_exit=1
+     for i=1 to length(room_info[current_room][ROOM_OBJECTS]) do
+        instance_create(room_info[current_room][ROOM_OBJECTS][i][1],room_info[current_room][ROOM_OBJECTS][i][2],room_info[current_room][ROOM_OBJECTS][i][3])
+     end for   
+   end if
+end procedure
+
+global procedure room_back()
+atom temp_image
+integer width,height
+   if current_room>1 then
+     current_room-=1
+     instance_info={}
+     collision_list={}
+     new_instance={}
+     window_width=room_info[current_room][ROOM_VIEW_WIDTH]
+     window_height=room_info[current_room][ROOM_VIEW_HEIGHT]
+     view_width=room_info[current_room][ROOM_VIEW_WIDTH]
+     view_height=room_info[current_room][ROOM_VIEW_HEIGHT]
+     room_width=room_info[current_room][ROOM_WIDTH]
+     room_height=room_info[current_room][ROOM_HEIGHT]
+     set_game_speed(room_info[current_room][ROOM_SPEED])
+     if window_mode=0 then--full screen
+       width=w32Func(xGetSystemMetrics,{SM_CXSCREEN})
+       height=w32Func(xGetSystemMetrics,{SM_CYSCREEN})
+       xoffset=floor((width/2))-floor((window_width/2))
+       yoffset=floor((height/2))-floor((window_height/2))
+       setSize(Buffer,room_width,room_height)
+     elsif window_mode=1 then--window
+       setSize(Window1,window_width+6,window_height+32)
+       setSize(Buffer,room_width,room_height)
+     end if
+     temp_image=room_info[current_room][ROOM_BACKGROUND_IMAGE]
+     window_text=room_info[current_room][ROOM_CAPTION]
+     background_draw_mode=room_info[current_room][ROOM_BACKGROUND_MODE]
+     if temp_image!=-1 then
+       background_colored=-1
+       background_image=temp_image
+     else
+       background_colored=room_info[current_room][ROOM_BACKGROUND_COLOR]
+     end if
+     view_top=0
+     view_left=0
+     game_loop_exit=1
+     for i=1 to length(room_info[current_room][ROOM_OBJECTS]) do
+        instance_create(room_info[current_room][ROOM_OBJECTS][i][1],room_info[current_room][ROOM_OBJECTS][i][2],room_info[current_room][ROOM_OBJECTS][i][3])
+     end for 
+   end if
+end procedure
+
+procedure jump_to_start_for_object(sequence name)
+     for i=1 to length(instance_info) do
+        if compare(instance_info[i][INS_NAME],name)=0 and instance_info[i][INS_ALIVE]=1 then
+          set_x(i,instance_info[i][INS_SX])
+          set_y(i,instance_info[i][INS_SY])
+        end if
+     end for
+end procedure
+
+function variable_exsist(integer line_number, sequence name)
+  for i=1 to length(instance_info[line_number][INS_VARIABLES]) do
+     if compare(instance_info[line_number][INS_VARIABLES][i][1],name)=0 then
+        return i
+     end if
+  end for
+  return 0
+end function
+
+procedure add_variable_to_object(sequence name,sequence data) -- add a variable for all object of name
+-- data[1] name
+-- data[2] value
+   for i=1 to length(instance_info) do
+     if  compare(instance_info[i][INS_NAME],name)=0 and instance_info[i][INS_ALIVE]=1 then
+       if variable_exsist(i,data[1])=0 then
+         instance_info[i][INS_VARIABLES]=append(instance_info[i][INS_VARIABLES],data)
+       end if  
+     end if
+   end for
+end procedure
+
+procedure add_variable(integer line_number,sequence data) 
+  if variable_exsist(line_number,data[1])=0 then
+    instance_info[line_number][INS_VARIABLES]=append(instance_info[line_number][INS_VARIABLES],data)
+  end if  
+end procedure
+
+procedure set_variable_for_object(sequence name,sequence data) 
+integer temp
+  for i=1 to length(instance_info) do
+     if  compare(instance_info[i][INS_NAME],name)=0 and instance_info[i][INS_ALIVE]=1 then
+       temp=variable_exsist(i,data[1])
+       if temp>0 then
+         instance_info[i][INS_VARIABLES][temp]=data
+       end if  
+     end if
+   end for
+end procedure
+
+global procedure set_variable(integer line_number,sequence data) -- set a variable for instance of object with id/ line_number
+integer temp
+temp=variable_exsist(line_number,data[1])
+if temp=0 then
+  add_variable(line_number,data)
+else
+  instance_info[line_number][INS_VARIABLES][temp]=data
+end if
+end procedure
+
+function get_variable(integer line_number,sequence name) -- set a variable for instance of object with id/ line_number
+integer temp
+temp=variable_exsist(line_number,name)
+if temp=0 then
+
+else
+  return instance_info[line_number][INS_VARIABLES][temp][2]
+end if
+end function
+
+procedure switch_screen()
+  if window_mode=1 then
+    window_mode=0
+    showwindow(Window1, 1)
+  elsif window_mode=0 then
+    window_mode=1
+    showwindow(Window1, 0)
+  end if  
+end procedure
+
+function get_image_single(integer line_number)
+    return instance_info[line_number][INS_IMAGE_SINGLE]
+end function
+
+global procedure brush_color2(atom color)
+  brush_color=color
+end procedure
+
+global procedure pen_color2(atom color)
+  pen_color=color
+end procedure
+
+global procedure font_color2(atom color)
+  font_color=color
+end procedure
+
+global procedure brush_style2(integer style)
+  brush_style=style
+end procedure
+
+global procedure draw_line2(integer x1,integer y1,integer x2,integer y2)
+  setPenColor( Buffer, pen_color ) 
+  drawLine( Buffer, x1, y1, x2, y2 )
+end procedure
+
+global procedure draw_roundrect(integer x1,integer y1,integer x2,integer y2)
+  setPenColor( Buffer, brush_color ) 
+  drawRoundRect( Buffer, brush_style, x1, y1, x2, y2, 5, 5 )
+  setPenColor( Buffer, pen_color ) 
+  drawRoundRect( Buffer, 0, x1, y1, x2, y2, 5, 5 )
+end procedure  
+
+global procedure draw_ellipse(integer x1,integer y1,integer x2,integer y2)
+  setPenColor( Buffer, brush_color ) 
+  drawEllipse( Buffer, brush_style, x1, y1, x2, y2)
+  setPenColor( Buffer, pen_color ) 
+  drawEllipse( Buffer, 0, x1, y1, x2, y2)
+end procedure 
+
+global procedure draw_rectangle(integer x1,integer y1,integer x2,integer y2)
+  setPenColor( Buffer, brush_color ) 
+  drawRectangle( Buffer, brush_style, x1, y1, x2, y2 )
+  setPenColor( Buffer, pen_color ) 
+  drawRectangle( Buffer, 0, x1, y1, x2, y2 )
+end procedure
+
+global procedure draw_text(integer x,integer y,object string)
+ 
+ setPosition( Buffer, x, y ) 
+ setTextColor( Buffer, font_color ) 
+ if sequence(string)=1 then
+   wPuts( Buffer, string )
+ else
+   wPrint( Buffer, string )
+ end if
+end procedure
+
+procedure draw_rectangle_lib(atom color1,atom color2, integer style,integer x1,integer y1,integer x2,integer y2)
+  setPenColor( Buffer, color1 ) 
+  drawRectangle( Buffer, style, x1, y1, x2, y2 )
+  setPenColor( Buffer, color2 ) 
+  drawRectangle( Buffer, 0, x1, y1, x2, y2 )
+end procedure
+
+procedure draw_text_lib(atom color, integer x,integer y, sequence string)
+ setPosition( Buffer, x, y ) 
+ setTextColor( Buffer,  color) 
+ wPuts( Buffer, string )
+end procedure
+
+function left_bbox(atom image, atom color)
+sequence temp,size
+integer small
+temp={}
+size=getExtent( image )
+small=size[1]
+  for i=0 to size[2]-1 do
+     for j=0 to size[1]-1 do
+     if getPixel(tempbuffer,j,i)!=color then
+       temp=append(temp,j)
+       exit
+     end if 
+     end for
+  end for
+  if length(temp)>0 then
+   for i=1 to length(temp) do
+     if temp[i]<small then
+       small=temp[i]
+     end if
+   end for
+   return small
+  else
+   return 0
+  end if
+end function
+
+function right_bbox(atom image, atom color)
+sequence temp,size
+integer small
+temp={}
+size=getExtent( image )
+small=0
+  for i=0 to size[2]-1 do
+     for j=size[1]-1 to 0 by -1 do
+     if getPixel(tempbuffer,j,i)!=color then
+       temp=append(temp,j)
+       exit
+     end if 
+     end for
+  end for
+  if length(temp)>0 then
+   for i=1 to length(temp) do
+     if temp[i]>small then
+       small=temp[i]
+     end if
+   end for
+   return small
+  else
+   return 0
+  end if
+end function
+
+function top_bbox(atom image, atom color)
+sequence size
+size=getExtent( image )
+  for i=0 to size[2]-1 do
+     for j=0 to size[1]-1 do
+     if getPixel(tempbuffer,j,i)!=color then
+       return i
+       exit
+     end if 
+     end for
+  end for
+  return 0
+end function
+
+function bottom_bbox(atom image, atom color)
+sequence size
+size=getExtent( image )
+  for i=size[2]-1 to 0 by -1 do
+     for j=0 to size[1]-1 do
+     if getPixel(tempbuffer,j,i)!=color then
+       return i
+       exit
+     end if 
+     end for
+  end for
+  return 0
+end function
+
+procedure set_bbox_for_all_images()
+  atom color
+  integer temp,width,height,left,top,right,bottom,mode
+  sequence images
+junk=0
+if sprite_loading_screen=1 then
+  --setText(label1,"Loading "&sprint(junk)&"  "&sprint(length(sprite_info)))
+end if
+for i=1 to length(sprite_info) do
+  width=sprite_info[i][SPR_WIDTH]
+  height=sprite_info[i][SPR_HEIGHT]
+  images=sprite_info[i][SPR_IMAGES]
+  mode=sprite_info[i][SPR_BBOX_MODE]
+  if mode=0 then  -- automatic bbox dection
+    --if sprite_info[i][SPR_TRANSPRANT]=1 then
+    junk+=1
+    setSize(tempbuffer,width,height)
+    drawBitmap( tempbuffer, images[1] , 0, 0 )
+    color=getPixel(tempbuffer,0,0)
+    --color=sprite_info[i][SPR_TRANSPRANT_COLOR]
+    setPenColor( tempbuffer, Black )
+    drawRectangle( tempbuffer, 1, 0, 0, width, height )
+    drawBitmap( tempbuffer, images[1] , 0, 0 )
+    setTransparentColor( color )
+    for j=2 to length(images) do
+      transBlt( tempbuffer,0,0,images[j])
+    end for
+    if sprite_loading_screen=1 then
+      --setText(label1,"Loading "&sprint(junk)&"  "&sprint(length(sprite_info)))
+    end if
+    left=left_bbox(images[1],color)
+    right=right_bbox(images[1],color)
+    top=top_bbox(images[1],color)
+    bottom=bottom_bbox(images[1],color)
+    sprite_info[i][SPR_BBOX_LEFT]=left
+    sprite_info[i][SPR_BBOX_RIGHT]=right
+    sprite_info[i][SPR_BBOX_TOP]=top
+    sprite_info[i][SPR_BBOX_BOTTOM]=bottom
+    --else
+     -- fullimage dont need to do anything or ready set when sprite was created 
+    --end if
+  elsif mode=1 then
+    -- fullimage dont need to do anything or ready set when sprite was created 
+  elsif mode=2 then
+    sprite_info[i][SPR_BBOX_LEFT]=sprite_info[i][SPR_BBOX_MANUAL][1]
+    sprite_info[i][SPR_BBOX_RIGHT]=sprite_info[i][SPR_BBOX_MANUAL][2]
+    sprite_info[i][SPR_BBOX_TOP]=sprite_info[i][SPR_BBOX_MANUAL][3]
+    sprite_info[i][SPR_BBOX_BOTTOM]=sprite_info[i][SPR_BBOX_MANUAL][4]
+  end if
+end for
+end procedure
+
+procedure screen_save_part(integer id, sequence fileName, integer x1, integer y1, integer x2, integer y2)
+-------------------------------
+    integer fn, width, height, index, r, g, b
+    atom hdc, rgb
+    sequence line
+
+    width = x2 - x1 + 1 -- calculate the width of the bitmap
+    height = y2 - y1 + 1 -- calculate the height of the bitmap
+    fn = open(fileName, "wb") -- open the file for writing
+    if fn = -1 then return  end if
+
+    line = repeat(0, floor(((24 * width) + 31)/32) * 4) -- create an empty line
+
+    -- write the bitmap-header
+    puts(fn, "BM")
+    puts(fn, int_to_bytes(54 + height * length(line)))
+    puts(fn, {0, 0, 0, 0, 54, 0, 0, 0, 40, 0, 0, 0})
+    puts(fn, int_to_bytes(width))
+    puts(fn, int_to_bytes(height))
+    puts(fn, {1, 0, 24, 0, 0, 0, 0, 0, 0, 0, 0, 0, 64, 11, 0, 0, 64, 11, 0, 0, 0,
+              0, 0, 0, 0, 0, 0, 0})
+
+    hdc = getDC(id) -- get the device context
+    for y = y2 to y1 by -1 do -- the bitmap has to be saved bottom to top
+        index = 1
+        for x = x1 to x2 do
+            rgb = w32Func(xGetPixel,{hdc, x, y}) -- get the pixel
+            r = and_bits( rgb, #FF ) -- calculate r (red)
+            rgb = floor( rgb / #100 )
+            g = and_bits( rgb, #FF ) -- calculate g (green)
+            b = floor( rgb / #100 ) -- calculate b (blue)
+            line[index] = b -- each pixel is 3 bytes, each element in line is 1 byte
+            index += 1 -- the color of a pixel has to be saved as #BBGGRR instead of #RRGGBB
+            line[index] = g
+            index += 1
+            line[index] = r
+            index += 1
+        end for
+        puts(fn, line) -- write the current line to the file
+    end for
+    releaseDC(id) -- release the device context
+    close(fn) -- close the file
+end procedure
+--=============================================================--
+-- start of your game all the code for your game will go here
+
+procedure button_input_click()
+  junk=1
+  closeWindow(Window_input)
+end procedure
+
+procedure window_input_key(integer scancode,integer aa )
+  if scancode=VK_ESCAPE then
+    junk=2
+    closeWindow(Window_input)
+  end if
+end procedure
+
+procedure window_input_open()
+  centerwindow(Window_input)
+end procedure
+
+global procedure show_message(sequence msg)
+integer ok
+ok=message_box(msg,  "info",MB_ICONINFORMATION)
+end procedure
+
+function get_input(integer mode, sequence string,object def)
+-- mode 0 or 1  0= get_integer   1= get_string
+  game_pause=1
+  junk=0
+  setText(textbox_input,def)
+  setText(lable_input,string)
+  openWindow(Window_input,Modal)
+  setFocus(textbox_input)
+  while junk=0 do
+    doEvents (0)
+  end while
+  game_pause=0
+keyboard_last=0
+if junk=1 then
+  if mode=0 then
+    return real(getText(textbox_input))
+  elsif mode=1 then
+    return getText(textbox_input)
+  end if
+else
+  if mode=0 then
+    return def
+  elsif mode=1 then
+    return def
+  end if
+end if
+end function
+
+global function get_string(sequence string, sequence def)
+  return get_input(1,string,def)
+end function
+
+global function get_integer(sequence string, integer def)
+  return get_input(0,string,def)
+end function
+
+
+sequence pixel_info
+pixel_info={}
+constant p_x=1
+constant p_y=2
+constant p_dir=3
+constant p_speed=4
+constant p_life=5
+constant p_timer=6
+constant p_color=7
+constant p_vector1=8
+constant p_vector2=9
+
+
+global procedure create_pixel(integer x,integer y,integer dir,integer speed,integer life,atom color)
+  pixel_info=append(pixel_info,{x,y,dir,speed,life,0,color,0,0})
+end procedure
+
+procedure draw_pixel()
+sequence delete_list
+delete_list={}
+  for i=1 to length(pixel_info) do
+    --move pixel
+    pixel_info[i][p_vector1] =  pixel_info[i][p_speed] * cos_loTRUE2up[ pixel_info[i][p_dir]]
+    pixel_info[i][p_vector2] = pixel_info[i][p_speed]* sin_loTRUE2up[pixel_info[i][p_dir]]
+    pixel_info[i][p_x] += pixel_info[i][p_vector1]
+    pixel_info[i][p_y] += pixel_info[i][p_vector2]
+    -- incress timer and see if its life is over
+    pixel_info[i][p_timer]+=1
+    if pixel_info[i][p_timer]>=pixel_info[i][p_life] then
+      delete_list=append(delete_list,i)
+    end if
+    -- draw pixel
+    setPixel(Buffer,floor(pixel_info[i][p_x]),floor(pixel_info[i][p_y]),pixel_info[i][p_color])
+  end for
+  for i=1 to length(delete_list) do
+     pixel_info=remove_line(pixel_info,delete_list[i])
+  end for
+end procedure
+
+include variable.ew
+
+global function grid(integer line_number, integer snapx,integer snapy)
+integer x,y,find1,find2,offsetx,offsety
+  offsetx=instance_info[line_number][INS_IMAGE_OFFSETX]
+  offsety=instance_info[line_number][INS_IMAGE_OFFSETY]
+  if line_number=self then
+    x=floor(variable_get("x")-offsetx)
+    y=floor(variable_get("y")-offsety)
+  else
+    x=floor(get_x(line_number)-offsetx)
+    y=floor(get_y(line_number)-offsety)
+  end if
+ find1=0
+ find2=0
+
+ for i=0 to room_width by snapx do
+    if x=i then
+      find1=1
+      exit
+    end if
+ end for
+
+ for i=0 to room_height by snapy do
+    if y=i then
+      find2=1
+      exit
+    end if
+ end for
+
+ if find1=1 and find2=1 then
+   return 1
+ else 
+   return 0
+ end if
+end function
+
+global procedure view_center(integer line_number)
+  integer x,y,width,height
+  if line_number=self then
+    x=floor(variable_get("x"))
+    y=floor(variable_get("y"))
+  else
+    x=floor(instance_info[line_number][INS_X])
+    y=floor(instance_info[line_number][INS_Y])
+  end if
+
+  width=instance_info[line_number][INS_WIDTH]
+  height=instance_info[line_number][INS_HEIGHT]
+  view_left=floor((x-(view_width/2))+(width/2))
+  view_top=floor((y-(view_height/2))+(height/2))
+  if view_left<0 then
+    view_left=0
+  end if
+  if view_top<0 then
+     view_top=0
+  end if
+  if view_left+view_width>room_width then
+    view_left=room_width-view_width
+  end if
+  if view_top+view_height>room_height then
+     view_top=room_height-view_height
+  end if
+end procedure
+
+global procedure jump_to_start(integer line_number)
+  if line_number=self then
+    variable_set("x",instance_info[line_number][INS_SX],1)
+    variable_set("y",instance_info[line_number][INS_SY],1)
+  else
+    set_x(line_number,instance_info[line_number][INS_SX])
+    set_y(line_number,instance_info[line_number][INS_SY])
+  end if
+end procedure
+
+global procedure warp_object(integer line_number)
+  atom x,y,width,height,offsetx,offsety
+  offsetx=instance_info[line_number][INS_IMAGE_OFFSETX]
+  offsety=instance_info[line_number][INS_IMAGE_OFFSETY]
+  if line_number=self then
+    x=variable_get("x")-offsetx
+    y=variable_get("y")-offsety
+  else
+    x=get_x(line_number)-offsetx
+    y=get_y(line_number)-offsety
+  end if
+  if x+get_width(line_number)<0 then
+    if line_number=self then
+      variable_set("x",(room_width+offsetx)-4,1)
+    else
+      set_x(line_number,(room_width+offsetx)-4)
+    end if
+  end if
+  if x>room_width then
+    if line_number=self then
+      variable_set("x",(0+offsetx+4)-get_width(line_number),1)
+    else
+      set_x(line_number,(0+offsetx+4)-get_width(line_number))
+    end if
+  end if
+  if y+get_height(line_number)<0 then
+    if line_number=self then
+       variable_set("y",room_height,1)
+    else
+       set_y(line_number,room_height)
+    end if
+  end if
+  if y>room_height then
+    if line_number=self then
+      variable_set("y",(0+offsety+4)-get_height(line_number),1)
+    else
+      set_y(line_number,(0+offsety+4)-get_height(line_number))
+    end if
+  end if
+end procedure
+
+global procedure reverse_dir(integer line_number)
+  integer dir,count
+  count=0
+  if line_number=self then
+    dir=variable_get("dir")
+  else
+    dir=instance_info[line_number][INS_DIR]
+  end if
+  dir-=180
+  if dir<1 then
+    for i=dir to 0  do
+       count+=1
+    end for
+    dir=(360-count)
+  end if
+  if line_number=self then
+    variable_set("dir",dir,1)
+  else
+    instance_info[line_number][INS_DIR]=dir
+  end if
+end procedure
+
+procedure room_load()
+atom temp_image
+integer width,height
+     window_width=room_info[current_room][ROOM_VIEW_WIDTH]
+     window_height=room_info[current_room][ROOM_VIEW_HEIGHT]
+     view_width=room_info[current_room][ROOM_VIEW_WIDTH]
+     view_height=room_info[current_room][ROOM_VIEW_HEIGHT]
+     room_width=room_info[current_room][ROOM_WIDTH]
+     room_height=room_info[current_room][ROOM_HEIGHT]
+     set_game_speed(room_info[current_room][ROOM_SPEED])
+     if window_mode=0 then--full screen
+       width=w32Func(xGetSystemMetrics,{SM_CXSCREEN})
+       height=w32Func(xGetSystemMetrics,{SM_CYSCREEN})
+       xoffset=floor((width/2))-floor((window_width/2))
+       yoffset=floor((height/2))-floor((window_height/2))
+       setSize(Buffer,room_width,room_height)
+     elsif window_mode=1 then--window
+       setSize(Window1,window_width+6,window_height+32)
+       setSize(Buffer,room_width,room_height)
+     end if
+     temp_image=room_info[current_room][ROOM_BACKGROUND_IMAGE]
+     window_text=room_info[current_room][ROOM_CAPTION]
+     background_draw_mode=room_info[current_room][ROOM_BACKGROUND_MODE]
+     if temp_image!=-1 then
+       background_colored=-1
+       background_image=temp_image
+     else
+       --background_colored=room_info[current_room][ROOM_BACKGROUND_COLOR]
+     end if
+     view_top=0
+     view_left=0
+     game_loop_exit=1
+    --setPenColor( Buffer, 0 )
+    --drawRectangle( Buffer, 1, view_left, view_top, view_left+view_width, view_top+view_height )
+end procedure
+
+function getd(integer fn)
+object data
+ data=gets(fn)
+ if sequence(data) then
+   return data[1..length(data)-1]
+ else
+    return 0
+ end if
+end function
+
+global procedure game_load(sequence fname)
+integer fn,length_instance,length_variable
+atom id,x,y,create,image_single,image_number,alive,visible,image_auto,
+image_transprant,image_transprant_color,dir,speed,vspeed,hspeed,depth,width,height,solid,px,py,
+bbox_left,bbox_top,bbox_bottom,bbox_right,sx,sy,image_offsetx,image_offsety,mouse_enter,result
+atom vector1,vector2,image_speed,image_timer
+sequence event,name,variable,vname,vvalue,temp,images
+variable={}
+event={}
+  instance_info={}
+  collision_list={}
+  new_instance={}
+  if length(fname)=0 then
+    fn=open("game.dat","r")
+  else
+    fn=open(fname,"r")
+  end if
+  current_room=real(gets(fn))
+  score=real(gets(fn))
+  health=real(gets(fn))
+  lives=real(gets(fn))
+  global_1=real(gets(fn))
+  global_2=real(gets(fn))
+  global_3=real(gets(fn))
+  global_4=real(gets(fn))
+  global_5=real(gets(fn))
+  global_6=real(gets(fn))
+  background_colored=real(gets(fn))
+  window_mode= not real(gets(fn))
+  switch_screen()
+  length_instance=real(gets(fn))
+for i=1 to length_instance do
+variable={}
+    id=real(gets(fn))--id
+    --events
+    create=real(gets(fn))--create
+    x=real(gets(fn))--x
+    y=real(gets(fn))--y
+    --images
+    image_single=real(gets(fn))--image single
+    image_speed=real(gets(fn))--image speed
+    image_number=real(gets(fn))--image_number
+    alive=real(gets(fn))--alive
+    visible=real(gets(fn))--visible
+    image_auto=real(gets(fn))--image_auto
+    image_timer=real(gets(fn))--image_timer
+    image_transprant=real(gets(fn))--image_trasparnt
+    image_transprant_color=real(gets(fn))--image_transprant_color
+    dir=real(gets(fn))--dir
+    speed=real(gets(fn))--speed
+    vspeed=real(gets(fn))--vspeed
+    hspeed=real(gets(fn))--hspeed
+    vector1=real(gets(fn))--vector1
+    vector2=real(gets(fn))--vector2
+    depth=real(gets(fn))--depth
+    width=real(gets(fn))--width
+    height=real(gets(fn))--height
+    name=getd(fn)--name
+    solid=real(gets(fn))--solid
+    px=real(gets(fn))--px
+    py=real(gets(fn))--py
+    bbox_left=real(gets(fn))--bbox left
+    bbox_top=real(gets(fn))--bbox top
+    bbox_right=real(gets(fn))--bbox right
+    bbox_bottom=real(gets(fn))--bbox bottom
+    sx=real(gets(fn))--start x
+    sy=real(gets(fn))--start y
+    --variables
+    length_variable=real(gets(fn))
+    for j=1 to length_variable do
+      vname=getd(fn)
+      vvalue=getd(fn)
+      temp=value(vvalue)
+      if temp[1]=GET_SUCCESS then
+        variable=append(variable,{vname,temp[2]})
+      else
+        variable=append(variable,{vname,vvalue})
+      end if
+    end for    
+    image_offsetx=real(gets(fn))--image offsetx
+    image_offsety=real(gets(fn))--image offset y
+    mouse_enter=real(gets(fn))-- mouse enter
+    result=object_exsist(name)
+    event=object_info[result][OBJ_EVENT]
+    images=sprite_info[object_info[result][OBJ_SPRITE]][SPR_IMAGES]
+    instance_info=append(instance_info,{
+    id,event,create,x,y,images,image_single,image_speed,image_number,alive,visible,image_auto,
+    image_timer,image_transprant,image_transprant_color,dir,speed,vspeed,hspeed,vector1,vector2,
+    depth,width,height,name,solid,px,py,bbox_left,bbox_top,bbox_right,bbox_bottom,sx,sy,variable,
+    image_offsetx,image_offsety,mouse_enter})
+end for
+  room_load()
+  close(fn)
+end procedure
+
+global procedure game_save(sequence fname)
+-- save the current room need to make a new lood room procedure
+-- collision_list={}
+-- new_instance={}
+integer fn
+  if length(fname)=0 then
+    fn=open("game.dat","w")
+  else
+    fn=open(fname,"w")
+  end if
+  puts(fn,sprint(current_room)&" the current room\n")
+  puts(fn,sprint(score)&" score\n")
+  puts(fn,sprint(health)&" health\n")
+  puts(fn,sprint(lives)&" lives\n")
+  puts(fn,sprint(global_1)&" global1\n")
+  puts(fn,sprint(global_2)&" global2\n")
+  puts(fn,sprint(global_3)&" global3\n")
+  puts(fn,sprint(global_4)&" global4\n")
+  puts(fn,sprint(global_5)&" global5\n")
+  puts(fn,sprint(global_6)&" global6\n")
+  puts(fn,sprint(background_colored)&" background color\n")
+  puts(fn,sprint(window_mode)&" window mode\n")
+  puts(fn,sprint(length(instance_info))&" the number of instance\n")
+  for i=1 to length(instance_info) do
+    puts(fn,sprint(instance_info[i][INS_ID])&" id\n")
+    --puts(fn,sprint(instance_info[i][INS_EVENT]))--sequence
+    puts(fn,sprint(instance_info[i][INS_CREATE])&" create\n")
+    puts(fn,sprint(instance_info[i][INS_X])&" x\n")
+    puts(fn,sprint(instance_info[i][INS_Y])&" y\n")
+    --puts(fn,sprint(instance_info[i][INS_IMAGES])&"\n")--sequence
+    puts(fn,sprint(instance_info[i][INS_IMAGE_SINGLE])&" image single\n")
+    puts(fn,sprint(instance_info[i][INS_IMAGE_SPEED])&" image speed\n")
+    puts(fn,sprint(instance_info[i][INS_IMAGE_NUMBER])&" image number\n")
+    puts(fn,sprint(instance_info[i][INS_ALIVE])&" alive\n")
+    puts(fn,sprint(instance_info[i][INS_VISABLE])&" visible\n")
+    puts(fn,sprint(instance_info[i][INS_IMAGE_AUTO])&" image auto\n")
+    puts(fn,sprint(instance_info[i][INS_IMAGE_TIMER])&" image timer\n")
+    puts(fn,sprint(instance_info[i][INS_IMAGE_TRANSPRANT])&" image transprant\n")
+    puts(fn,sprint(instance_info[i][INS_IMAGE_TRANSPRANT_COLOR])&" transprat color\n")
+    puts(fn,sprint(instance_info[i][INS_DIR])&" direction \n")
+    puts(fn,sprint(instance_info[i][INS_SPEED])&" speed\n")
+    puts(fn,sprint(instance_info[i][INS_VSPEED])&" vspeed\n")
+    puts(fn,sprint(instance_info[i][INS_HSPEED])&" hspeed\n")
+    puts(fn,sprint(instance_info[i][INS_VECTOR1])&" vector1\n")
+    puts(fn,sprint(instance_info[i][INS_VECTOR2])&" vector2\n")
+    puts(fn,sprint(instance_info[i][INS_DEPTH])&" depth\n")
+    puts(fn,sprint(instance_info[i][INS_WIDTH])&" width\n")
+    puts(fn,sprint(instance_info[i][INS_HEIGHT])&" height\n")
+    puts(fn,instance_info[i][INS_NAME]&"\n")--string
+    puts(fn,sprint(instance_info[i][INS_SOLID])&" solid\n")
+    puts(fn,sprint(instance_info[i][INS_PX])&" px\n")
+    puts(fn,sprint(instance_info[i][INS_PY])&" py\n")
+    puts(fn,sprint(instance_info[i][INS_BBOX_LEFT])&" b left\n")
+    puts(fn,sprint(instance_info[i][INS_BBOX_TOP])&" b top\n")
+    puts(fn,sprint(instance_info[i][INS_BBOX_RIGHT])&" b right\n")
+    puts(fn,sprint(instance_info[i][INS_BBOX_BOTTOM])&" b bottom\n")
+    puts(fn,sprint(instance_info[i][INS_SX])&" sx\n")
+    puts(fn,sprint(instance_info[i][INS_SY])&" sy\n")
+    --puts(fn,sprint(instance_info[i][INS_VARIABLES]))--sequence
+    puts(fn,sprint(length(instance_info[i][INS_VARIABLES]))&" the length of variables\n")
+    for j=1 to length(instance_info[i][INS_VARIABLES]) do
+      puts(fn,instance_info[i][INS_VARIABLES][j][1]&"\n")
+      if atom(instance_info[i][INS_VARIABLES][j][2])=1 then
+        puts(fn,sprint(instance_info[i][INS_VARIABLES][j][2])&"\n")
+      else
+        puts(fn,instance_info[i][INS_VARIABLES][j][2]&"\n")
+      end if
+    end for
+    puts(fn,sprint(instance_info[i][INS_IMAGE_OFFSETX])&" offsetx\n")
+    puts(fn,sprint(instance_info[i][INS_IMAGE_OFFSETY])&" offsety\n")
+    puts(fn,sprint(instance_info[i][INS_MOUSE_ENTER])&" mouse enter\n")
+  end for
+  close(fn)
+end procedure
+
+global procedure game_end()
+    closeWindow(Window1)
+end procedure
+
+include language_control.ew
+include systax.ew
+
+procedure game_events(integer event)
+  if event=EVENT_COLLISION then
+      execute_code(instance_info[self][INS_EVENTS][EVENT_COLLISION][EVENT_COLLISION_DATA][collision_index][2],self)
+  else
+      execute_code(instance_info[self][INS_EVENTS][event][EVENT_CODE],self)
+  end if
+end procedure
+
+--==============================================================--
+
+sequence room_datafile_info,object_datafile_info,sprite_datafile_info,sound_datafile_info
+integer room_datafile_number,object_datafile_number,sprite_datafile_number,sound_datafile_number
+
+room_datafile_info={}
+room_datafile_number=0
+object_datafile_info={}
+object_datafile_number=0
+sprite_datafile_info={}
+sprite_datafile_number=0
+sound_datafile_info={}
+sound_datafile_number=0
+
+function get_file_path_part(sequence fname)
+    for i=length(fname) to 1 by -1 do
+    	if fname[i]='\\' then
+    		return fname[1..i]
+    	end if
+    end for
+	--return ""
+end function
+
+function get_file_name_part(sequence fname)
+    for i=length(fname) to 1 by -1 do
+    	if fname[i]='\\' then
+    	   for j=length(fname) to i by -1 do
+    	   	  if fname[j]='.' then
+    	   	  	return fname[i+1..j-1]
+    	   	  end if
+    	   end for
+    	   return fname[i+1..length(fname)]
+    	end if
+    end for
+	--return ""
+end function
+
+function get_file_fullname_part(sequence fname)
+    for i=length(fname) to 1 by -1 do
+    	if fname[i]='\\' then
+    	   return fname[i+1..length(fname)]
+    	end if
+    end for
+	--return ""
+end function
+
+procedure load_datafile_room(sequence fname)
+integer fn,room_length,data_length,room_pack_length
+sequence rooms
+rooms={}
+room_length=0
+data_length=0
+room_pack_length=0
+  fn=open(fname,"r")
+  room_length=real(gets(fn))
+  room_datafile_number=real(gets(fn))
+  data_length=real(gets(fn))
+  for i=1 to room_length do
+    for j=1 to data_length do
+       if j=16 then
+         room_pack_length=real(gets(fn))
+         rooms=append( rooms, repeat( {"","",0,0,0,0,0,0,0}, room_pack_length ) )
+         for k=1 to room_pack_length do
+            for l=1 to 10 do
+               if l=9 then
+                  --rooms[j][k][l] = gets(fn)
+               elsif l=10 then
+                 junk=real(gets(fn))
+               elsif l=2 then
+                 rooms[j][k][l]=getd(fn)
+               elsif l=1 then
+                 rooms[j][k][l]=getd(fn)
+               else
+                 rooms[j][k][l]=real(gets(fn))
+               end if
+            end for
+         end for
+       elsif j=7 then
+          rooms=append(rooms,0)
+       elsif j=8 then
+          rooms=append ( rooms, getd(fn) )
+          if length(rooms[8])>0 then
+             rooms[8]="c:\\windows\\temp\\"&get_file_fullname_part(rooms[8])
+          end if
+       elsif j=1 then
+          rooms=append ( rooms, getd(fn) )
+       elsif j=2 then
+          rooms=append ( rooms, getd(fn) )
+       else
+          rooms=append ( rooms, real(gets(fn)) )
+       end if
+    end for
+    room_datafile_info=append(room_datafile_info,rooms)
+    rooms={}
+  end for
+  close(fn)
+end procedure
+
+
+function change_text_back(sequence text)
+sequence temp
+temp={}
+if length(text)>0 then
+  for i=1 to length(text) do
+    if text[i]='#' then
+      text[i]='\n'
+    end if
+  end for
+  --if length(text)=1 then
+   -- text=""
+  --end if
+end if
+  return text
+end function
+
+procedure load_datafile_object(sequence fname)
+integer fn,object_length,data_length,collision_length
+sequence temp,temp_object
+temp_object={}
+temp={}
+  fn=open(fname,"r")
+  object_length=real(gets(fn))
+  object_datafile_number=real(gets(fn))
+  data_length=real(gets(fn))
+  for i=1 to object_length do
+    for j=1 to data_length do
+       if j=5 then
+        temp_object=append(temp_object,{ {},{},{},{},{},{},{},{} })
+         for k=1 to 8 do
+            if k=7 then
+              collision_length=real(getd(fn))
+               temp_object[j][k]=repeat({"",""},collision_length)
+              for l=1 to collision_length do
+                temp_object[j][k][l][1]=getd(fn)
+                temp_object[j][k][l][2]=change_text_back(getd(fn))
+              end for
+            else
+              temp_object[j][k]=change_text_back(getd(fn))
+            end if
+         end for
+       elsif j=1 then
+         temp_object=append(temp_object,getd(fn))
+       elsif j=4 then
+         temp_object=append(temp_object,getd(fn))
+       else
+         temp_object=append(temp_object,real(gets(fn)))
+       end if
+    end for
+    object_datafile_info=append(object_datafile_info,temp_object)
+    temp_object={}
+  end for
+  close(fn)
+end procedure
+
+function get_datafile_filenames(sequence filenames)
+integer pos
+sequence fpaths,file_name
+fpaths={}
+pos=1
+    for i=1 to length(filenames) do
+        if filenames[i]='#' then
+           file_name="c:\\windows\\temp\\"&get_file_fullname_part(filenames[pos..i-1])
+           fpaths=append(fpaths,file_name)
+           pos=i+1          
+        end if
+    end for
+
+    return fpaths
+end function
+
+procedure load_datafile_sprite(sequence fname)
+integer fn,sprite_length,data_length
+sequence temp,sprite
+sprite={}
+temp={}
+  fn=open(fname,"r")
+  sprite_length=real(gets(fn))
+  sprite_datafile_number=real(gets(fn))
+  data_length=real(gets(fn))
+  for i=1 to sprite_length do
+    for j=1 to data_length do
+       if j=1 then
+         sprite=append(sprite,getd(fn))
+       elsif j=3 then
+       elsif j=2 then
+         temp=get_datafile_filenames(getd(fn))
+         sprite=append(sprite,temp)
+         sprite=append(sprite,0)
+       else
+           sprite=append(sprite,real(gets(fn)))
+       end if
+    end for
+    sprite_datafile_info=append(sprite_datafile_info,sprite)
+    sprite={}
+  end for
+  close(fn)
+end procedure
+
+procedure load_datafile_sound(sequence fname)
+integer fn,sound_length,data_length
+sequence temp,sounds
+sounds={}
+  fn=open(fname,"r")
+  sound_length=real(gets(fn))
+  sound_datafile_number=real(gets(fn))
+  data_length=real(gets(fn))
+  for i=1 to sound_length do
+  	for j=1 to data_length do
+  	   if j=2 then
+  	     sounds=append(sounds, "c:\\windows\\temp\\"&get_file_fullname_part( getd(fn) ) )
+  	     --delete_list=append(delete_list, get_file_fullname_part(sounds[SND_FILENAME]) )
+  	   elsif j=1 then
+  	     sounds=append(sounds,getd(fn))
+  	   end if
+  	end for
+  	sound_datafile_info=append(sound_datafile_info,sounds)
+  	sounds={}
+  end for
+  close(fn)
+end procedure
+
+procedure make_sound_list()
+  for i=1 to length(sound_datafile_info) do
+    if length(sound_datafile_info[i][1])>0 then
+       add_sound(sound_datafile_info[i][1],sound_datafile_info[i][2])
+    end if
+  end for
+end procedure
+
+procedure make_sprite_list()
+sequence bbox_settings
+  for i=1 to length(sprite_datafile_info) do
+    if length(sprite_datafile_info[i][2])>0 then
+      for j=1 to length(sprite_datafile_info[i][2]) do
+        if j=1 then
+           bbox_settings={sprite_datafile_info[i][4],sprite_datafile_info[i][5],sprite_datafile_info[i][6],sprite_datafile_info[i][7]}
+           add_sprite(sprite_datafile_info[i][1],{sprite_datafile_info[i][2][j],sprite_datafile_info[i][11],sprite_datafile_info[i][12],sprite_datafile_info[i][13],sprite_datafile_info[i][14],sprite_datafile_info[i][8],bbox_settings })
+           --puts(1,sprite_datafile_info[i][1]&" bbox mode ")
+           --if sprite_datafile_info[i][8]=0 then
+           --  puts(1,"automatic \n")
+           --elsif sprite_datafile_info[i][8]=1 then
+           --  puts(1,"full image \n")
+           --elsif sprite_datafile_info[i][8]=2 then
+           --  puts(1,"manual \n")
+           --end if
+        else
+           add_image_to_sprite(sprite_datafile_info[i][1],{sprite_datafile_info[i][2][j]})
+        end if
+      end for
+    end if
+  end for
+end procedure
+
+procedure make_object_list()
+  for i=1 to length(object_datafile_info) do
+     add_object(object_datafile_info[i][1],{object_datafile_info[i][4],object_datafile_info[i][2],object_datafile_info[i][3]})
+     for j=1 to length(object_datafile_info[i]) do
+        if j=5 then
+          for k=1 to 8 do
+            if k=7 then
+              for l=1 to length(object_datafile_info[i][j][k]) do
+                    add_object_event_collision(object_datafile_info[i][1],object_datafile_info[i][j][k][l][1],compiler(object_datafile_info[i][j][k][l][2]) )
+              end for
+            else
+              if length(object_datafile_info[i][j][k])>0 then
+                if k=4 then
+                    add_object_event(object_datafile_info[i][1], 6 ,compiler(object_datafile_info[i][j][k]) )
+                elsif k=5 then
+                    add_object_event(object_datafile_info[i][1], 8 ,compiler(object_datafile_info[i][j][k]) )
+                elsif k=6 then
+                    add_object_event(object_datafile_info[i][1], 7 ,compiler(object_datafile_info[i][j][k]) )
+                elsif k=8 then
+                    add_object_event(object_datafile_info[i][1], 9 ,compiler(object_datafile_info[i][j][k]) )
+                else
+                    add_object_event(object_datafile_info[i][1], k ,compiler(object_datafile_info[i][j][k]) )
+                end if
+              end if
+            end if
+          end for
+        end if      
+     end for
+  end for
+--sleep(10)
+end procedure
+
+procedure make_room_list()
+  for i=1 to length(room_datafile_info) do
+     if room_datafile_info[i][10]=1 then
+       add_room(room_datafile_info[i][1],{room_datafile_info[i][3],room_datafile_info[i][4],room_datafile_info[i][11],room_datafile_info[i][12],room_datafile_info[i][5],room_datafile_info[i][8],room_datafile_info[i][6],room_datafile_info[i][2],room_datafile_info[i][15]})
+     else
+       add_room(room_datafile_info[i][1],{room_datafile_info[i][3],room_datafile_info[i][4],room_datafile_info[i][3],room_datafile_info[i][4],room_datafile_info[i][5],room_datafile_info[i][8],room_datafile_info[i][6],room_datafile_info[i][2],room_datafile_info[i][15]})
+     end if
+     for j=1 to length(room_datafile_info[i]) do
+        if j=16 then
+          for k=1 to length(room_datafile_info[i][j]) do
+            add_object_to_room(room_datafile_info[i][1],{room_datafile_info[i][j][k][1],room_datafile_info[i][j][k][3],room_datafile_info[i][j][k][4]})
+          end for  
+        end if
+     end for
+  end for
+end procedure
+
+--=============================================================--
+integer started
+started=0
+procedure Window1_onTimer (integer timerId )
+fps1+=1
+if timer<time() then
+  timer=time()+1
+  fps2=fps1
+  fps1=0
+end if
+if started=0 then
+  if start_in_full=1 then
+    room_start()
+    switch_screen()
+    game_loop_exit=0
+  else
+
+  end if
+started=1
+end if
+  room_caption=window_text
+  if draw_score=1 then
+    room_caption&=" Score: "&sprint(score)
+  end if
+  if draw_lives=1 then
+    room_caption&=" Lives: "&sprint(lives)
+  end if
+  if draw_health=1 then
+    room_caption&=" Health: "&sprint(health)
+  end if
+if debug_running=1 then
+  updata_debug()
+end if
+if game_pause=0 then
+  run_game()
+end if
+if window_mode=1 then
+ if debug_caption=0 then
+  setText( Window1, room_caption)   
+ else 
+  setText( Window1, "fps( "&sprint(fps2)&") drawings "&sprint(draw_number)&" instance number "&sprint(length(instance_info)) ) 
+ end if
+else
+ if game_pause=0 then
+  if draw_full_screen=1 then
+   if debug_caption=0 then
+    draw_text_lib(rgb(255,255,255),view_left,view_top, room_caption)
+   else
+    draw_text_lib(rgb(255,255,255),view_left,view_top,"fps( "&sprint(fps2)&") drawings "&sprint(draw_number)&" instance number "&sprint(length(instance_info)) )
+   end if
+  end if
+ end if
+end if
+draw_pixel()
+bitBlt( Window1,xoffset, yoffset,Buffer,view_left,view_top,view_width,view_height,SRCCOPY )
+if escape_end=1 then -- escape key can end the game
+  if keyboard_last=VK_ESCAPE then
+    closeWindow(Window1)
+  end if
+end if
+if temp_cursor!=show_cursor then
+  -- variable show_cursor has been change 0 or 1
+  temp_cursor=show_cursor
+  if show_cursor=1 then
+    setMousePointer( Window1, cursor_pointer )
+  else
+    setMousePointer( Window1, pointer_null )
+  end if
+end if
+--mouse_button=0
+mouse_down=0
+mouse_up=0
+keyboard_down=0
+keyboard_up=0
+end procedure
+
+procedure key_add(integer scancode)
+integer find1
+find1=0
+  for i=1 to length(key_buffer) do
+    if key_buffer[i]=scancode then
+      find1=1
+      exit
+    end if
+  end for
+if find1=0 then
+  key_buffer=append(key_buffer,scancode)
+end if
+end procedure
+
+procedure key_remove(integer scancode)
+  for i=1 to length(key_buffer) do
+     if key_buffer[i]=scancode then
+       key_buffer=remove_line(key_buffer,i)
+       exit
+     end if
+  end for
+end procedure
+
+procedure key_down(integer scancode,integer aa )
+integer tm
+  keyboard_key=scancode
+  key_add(scancode)
+  if scancode=117 then--f6
+    game_save("")
+  end if
+  if scancode=118 then--f7
+    game_load("")
+  end if
+  if scancode=116 and can_pause=1 then -- f5 key pause the game
+    if game_pause=1 then
+      game_pause=0    
+    else 
+      game_pause=1
+    end if
+  end if
+  if scancode=115 and can_swith_screen=1 then
+    switch_screen()
+  end if
+  if scancode=114 and can_save_screen=1 then
+    screen_save_part( Buffer, "sreenshot.bmp", view_left, view_top, view_left+view_width-1, view_top+view_height-1 )
+  end if
+  if scancode=113 and can_debug_window=1 then
+    open_debug_window()
+  end if
+  if scancode=112 and can_game_help=1 then
+    game_pause=1
+    openWindow(Window_help,Modal)
+  end if
+  keyboard_last=scancode
+  keyboard_down=1
+end procedure
+
+procedure key_up(integer scancode,integer aa )
+  if keyboard_key=scancode then
+    keyboard_key=0
+  end if
+  key_remove(scancode)
+  keyboard_last=scancode
+  keyboard_up=1
+end procedure
+
+procedure window1_mouse(integer event, integer x,integer  y, integer shift )
+mousex=x+view_left
+mousey=y+view_top
+if event=MouseMove then
+else
+  if event=LeftDown then
+     mouse_button=1
+     mouse_down=1
+  elsif event=LeftDown+MouseMove then
+     mouse_button=1
+     mouse_down=1
+  elsif event=LeftUp then
+     mouse_button=0
+     mouse_up=1
+  elsif event=LeftUp+MouseMove then
+     mouse_button=0
+     mouse_up=1
+  elsif event=RightDown then
+     mouse_button=2
+     mouse_down=1
+  elsif event=RightDown+MouseMove then
+     mouse_button=2
+     mouse_down=1
+  elsif event=RightUp then
+     mouse_button=0
+     mouse_up=1
+  elsif event=RightUp+MouseMove then
+     mouse_button=0
+     mouse_up=1
+  else
+    mouse_button=0
+  end if
+end if
+end procedure
+
+procedure info_m(sequence msg)
+integer ok
+ok=message_box(msg,  "info",MB_ICONINFORMATION)
+end procedure
+
+procedure load_datafile_settings(sequence fname)
+integer fn,c,temp
+sequence rich
+  fn=open(fname,"r")
+  debug_collisions=real(gets(fn))
+  escape_end=real(gets(fn))
+  debug_caption=real(gets(fn))
+  temp=real(gets(fn)) -- this is no loger need was autobox setting
+  show_cursor=real(gets(fn))
+  draw_score=real(gets(fn))
+  draw_health=real(gets(fn))
+  draw_lives=real(gets(fn))
+  temp=real(gets(fn)) -- this is no loger need was sprite_loading_screen setting
+  can_pause=real(gets(fn))
+  temp=real(gets(fn))  -- this is no loger need was compile_mode setting
+  draw_full_screen=real(gets(fn))
+  can_debug_window=real(gets(fn))
+  can_save_screen=real(gets(fn))
+  can_swith_screen=real(gets(fn))
+  can_game_help=real(gets(fn))
+  start_in_full=real(gets(fn))
+  rich = {}
+  c = 0
+  while c != -1 do
+    c = getc( fn )
+    rich &= c
+  end while
+close(fn)
+  rich = rich[1..length(rich)-1]
+  game_help_text=rich
+  for i=length(rich) to 1 by -1 do
+     if rich[i]=0 then
+       if length(rich[i+1..length( rich)])>0 then
+         rich= value ( rich[i+1..length( rich)]  )
+         game_help_color=rich[2]
+       end if
+       exit
+     end if
+   end for
+   putStream( richedit_help, StreamRTF , rich )
+   fn=sendMessage( richedit_help,1091,0,game_help_color )
+end procedure
+
+procedure library_startup()
+integer temp
+-- bind runtime
+integer fn
+fn=open("c:\\windows\\temp\\temp.ggm","wb")
+  for i=1 to length(filedata) do
+    puts(fn,filedata[i])
+  end for
+close(fn)
+temp=open("c:\\windows\\temp\\temp.ggm","r")
+if temp!=-1 then
+unzip_file("c:\\windows\\temp\\temp.ggm","")
+load_datafile_settings("c:\\windows\\temp\\SET.dat")
+load_datafile_sprite("c:\\windows\\temp\\SPR.dat")
+load_datafile_sound("c:\\windows\\temp\\SND.dat")
+load_datafile_object("c:\\windows\\temp\\OBJ.dat")
+load_datafile_room("c:\\windows\\temp\\ROOM.dat")
+make_sprite_list()
+make_sound_list()
+make_object_list()
+make_room_list()
+-- bind runtime
+for i=1 to length(resName) do
+  temp=deleteFile(resName[i])
+end for
+temp=deleteFile("c:\\windows\\temp\\temp.ggm")
+else
+  resName={}
+end if
+  if startup=1 then
+    if sprite_loading_screen=1 then
+      --openWindow( Window2, Modal )
+    end if
+    startup=0
+  end if
+end procedure
+library_startup()
+
+procedure window1_open()
+  game_event_loop=routine_id("game_events")
+  if sprite_loading_screen=1 then
+    --closeWindow( Window2 )
+  end if
+  if start_event!=0 then
+    call_proc(start_event, {})
+  end if
+  --if auto_bbox=1 then
+    set_bbox_for_all_images() --all ways call now
+  --end if
+  if start_in_full=1 then
+
+  else
+    room_start()
+    game_loop_exit=0
+    centerwindow(Window1)
+  end if
+end procedure
+
+procedure window1_destroy()
+  if end_event!=0 then
+    call_proc(end_event, {})
+  end if   
+end procedure
+
+procedure window1_paint(integer x1,integer y1, integer x2, integer y2)
+  bitBlt( Window1,xoffset, yoffset,Buffer,view_left,view_top,view_width,view_height,SRCCOPY )
+end procedure
+
+procedure window_help_close()
+  setFocus(Window1)
+  game_pause=0
+end procedure
+
+procedure window_help_open()
+    centerwindow(Window_help)
+       putStream( richedit_help, StreamRTF , game_help_text )
+end procedure
+
+procedure window_help_resize(integer a,integer b,integer c)
+sequence rect
+    rect = getClientRect( Window_help )
+    moveWindow( richedit_help, rect[1], 0,
+                    rect[3]-rect[1], rect[4]-rect[2], True )
+end procedure
+
+onPaint[Window1]=routine_id("window1_paint")
+onOpen[Window1]=routine_id("window1_open")
+onDestroy[Window1]=routine_id("window1_destroy")
+onClose[Window_help]=routine_id("window_help_close")
+onKeyUp[Window_input]=routine_id("window_input_key")
+onKeyUp[textbox_input]=routine_id("window_input_key")
+onKeyUp[button_input]=routine_id("window_input_key")
+onClick[button_input]=routine_id("button_input_click")
+onOpen[Window_input]=routine_id("window_input_open")
+onOpen[Window_help]=routine_id("window_help_open")
+onResize[Window_help]=routine_id("window_help_resize")
+onMouse[Window1]=routine_id("window1_mouse")
+onKeyDown[Window1]= routine_id("key_down")
+onKeyUp[Window1]= routine_id("key_up")
+onTimer[Window1] = routine_id("Window1_onTimer")
+setTimer( Window1, onTimer[Window1], ss)
+game_r= routine_id("Window1_onTimer")
+WinMain( Window1, Normal )

@@ -1,0 +1,1358 @@
+function in_string(sequence string)
+atom pos1,pos2,find,find2,number
+number=0
+pos1=0
+pos2=0
+find=0
+find2=0
+--
+  for i=1 to length(string) do
+     if string[i]='"' then
+       find=1
+       pos1=i+1
+       exit
+     end if
+  end for
+--
+if pos1>0 then
+--
+  for i=pos1 to length(string) do
+     if string[i]='"' then
+       find2=1
+       pos2=i-1
+       exit
+     end if
+  end for
+--
+end if
+--
+for i=1 to length(string) do
+   if string[i]='(' or string[i]=')' or string[i]='+' or string[i]='-' or string[i]='=' then
+     number+=1
+   end if
+end for
+if find=1 and find2=1 then
+  for i=pos1 to pos2 do
+   if string[i]='(' or string[i]=')' or string[i]='+' or string[i]='-' or string[i]='=' then
+       number-=1
+     end if
+  end for
+elsif find=1 and find2=0 then
+ err("need 2 in_string")
+end if
+if number=0 then
+  return 1
+end if
+return 0
+end function
+
+function check(sequence string)
+integer pos1,pos2,find0,find1
+sequence temp
+temp={}
+pos1=0
+pos2=0
+find0=0
+find1=0
+-- the speed of this is not importent
+-- check if comment
+for i=1 to length(string) do
+   if string[i]!=32 then
+     pos1=i
+     exit
+   end if
+end for
+for i=pos1+1 to length(string) do
+   if string[i]='-' then
+     pos2=i
+     exit
+   end if
+end for
+if pos2=0 then
+  if compare(string[pos1..length(string)],"--")=0 then
+    find0=1
+  end if
+else
+  if compare(string[pos1..pos2],"--")=0 then
+    find0=1
+  end if
+end if
+if find0=1 then
+  return 1
+end if
+-- end check
+pos1=0
+pos2=0
+find0=0
+find1=0
+-- check if function
+for i=1 to length(string) do
+   if string[i]='=' then
+      find0=1
+      exit
+   end if
+end for
+for i=1 to length(string) do
+   if string[i]='(' then
+      find1=1
+      exit
+   end if
+end for
+for i=1 to length(string) do
+   if string[i]=')' then
+      pos1=1
+      exit
+   end if
+end for
+if find0=1 and find1=1 and pos1=1 then
+  return 9
+end if
+pos1=0
+pos2=0
+find0=0
+find1=0
+-- check if procedure
+for i=1 to length(string) do
+   if string[i]='=' then
+      find0=1
+      exit
+   end if
+end for
+for i=1 to length(string) do
+   if string[i]='(' then
+      find1=1
+      exit
+   end if
+end for
+for i=1 to length(string) do
+   if string[i]=')' then
+      pos1=1
+      exit
+   end if
+end for
+if find0=0 and find1=1 and pos1=1 then
+  return 10
+end if
+-- end check
+pos1=0
+pos2=0
+find0=0
+find1=0
+-- check if for loop
+  for i=1 to length(string) do
+     if string[i]!=32 then
+       pos1=i
+       exit
+     end if
+  end for
+if length(string)>pos1+3 then
+if equal(string[pos1..pos1+3],"for ")=1 then
+  for i=pos1 to length(string)-2 do
+     if string[i]='t' and string[i+1]='o'and string[i-1]=32 and string[i+2]=32 then
+       find0=1
+     end if
+     if string[i]='d' and string[i+1]='o'and string[i-1]=32 and string[i+2]=32 then
+       find1=1
+       exit
+     end if
+  end for
+  if find1=1 and find0=1 then
+    return 7
+  elsif find1=0 and find0=1 then
+    err("err for loop with out closeing do satement "&string)
+  elsif find1=1 and find0=0 then
+    err("err for loop with out to satement "&string)
+  end if
+end if
+end if
+--end check if for loop
+pos1=0
+pos2=0
+find0=0
+find1=0
+
+-- check if for loop end
+  for i=1 to length(string) do
+     if string[i]!=32 then
+       pos1=i
+       exit
+     end if
+  end for
+if length(string)>1 then
+if equal(string[pos1..pos1+2],"end")=1 then
+  for i=pos1 to length(string)-3 do
+     if string[i]='f' and string[i+1]='o' and string[i+2]='r' and string[i+3]=32 then
+       find1=1
+       exit
+     end if
+  end for
+  if find1=1 then
+    return 8
+  end if
+end if
+end if
+--end check if for loop end
+
+
+-- check if if satement
+  for i=1 to length(string) do
+     if string[i]!=32 then
+       pos1=i
+       exit
+     end if
+  end for
+if length(string)>3 then
+  if equal(string[pos1..pos1+2],"if ")=1 then
+    for i=pos1 to length(string)-4 do
+       if string[i]='t' and string[i+1]='h' and string[i+2]='e' and string[i+3]='n' and string[i-1]=32 and string[i+4]=32 then
+         find1=1
+         exit
+       end if
+    end for
+    if find1=1 then
+      return 5
+    elsif find1=0 then
+      err("a if satement with out the then staement "&string)
+    end if
+  end if
+end if
+--end check
+pos1=0
+pos2=0
+find0=0
+find1=0
+-- check if end if 
+  for i=1 to length(string) do
+     if string[i]!=32 then
+       pos1=i
+       exit
+     end if
+  end for
+if length(string)>1 then
+if equal(string[pos1..pos1+2],"end")=1 then
+  for i=pos1 to length(string)-2 do
+     if string[i]='i' and string[i+1]='f' and string[i+2]=32 and string[i-1]=32 then
+       find1=1
+       exit
+     end if
+  end for
+  if find1=1 then
+    return 6
+  end if
+end if
+end if
+--end check
+pos1=0
+pos2=0
+find0=0
+find1=0
+
+
+-- check if while satement
+  for i=1 to length(string) do
+     if string[i]!=32 then
+       pos1=i
+       exit
+     end if
+  end for
+if length(string)>pos1+5 then
+  if equal(string[pos1..pos1+5],"while ")=1 then
+    for i=pos1 to length(string)-1 do
+       if string[i]='d' and string[i+1]='o' and string[i-1]=32 and string[i+2]=32 then
+         find1=1
+         exit
+       end if
+    end for
+    if find1=1 then
+      return 3
+    elsif find1=0 then
+      err("a while satement with out the do staement "&string)
+    end if
+  end if
+end if
+-- end check while
+pos1=0
+pos2=0
+find0=0
+find1=0
+-- check if end while 
+  for i=1 to length(string) do
+     if string[i]!=32 then
+       pos1=i
+       exit
+     end if
+  end for
+if length(string)>2 then
+if equal(string[pos1..pos1+2],"end")=1 then
+  for i=pos1 to length(string)-5 do
+     if string[i]='w' and string[i+1]='h' and string[i+2]='i'and string[i+3]='l'and string[i+4]='e' and string[i+5]=32 and string[i-1]=32 then
+       find1=1
+       exit
+     end if
+  end for
+  if find1=1 then
+    return 4
+  end if
+end if
+end if
+--end check end while
+pos1=0
+pos2=0
+find0=0
+find1=0
+-- check if varb
+  for i=1 to length(string) do
+     if string[i]='=' then
+       find0=1
+       temp=string[i+1..length(string)]
+       exit
+     end if
+  end for
+  if in_string(temp)=0 then
+    find1=1
+  end if
+if find0=1 and find1=0 then
+  return 2
+end if
+-- end check varb
+return 0
+end function
+
+procedure add_function_code(sequence string)
+sequence name, arguments,temp
+atom pos1,pos2
+pos1=0
+temp=""
+arguments={}
+name=""
+pos2=0
+     for j=1 to length(string) do
+        if string[j]!=32 then
+          name&=string[j]
+        end if
+     end for
+string=name
+name=""
+for i=1 to length(string) do
+   if string[i]='=' then
+     pos1=i+1
+     exit
+   end if
+end for
+for i=pos1 to length(string) do
+   if string[i]='(' then
+     pos2=i-1
+     exit
+   end if
+end for
+name=string[pos1..pos2]
+arguments=append(arguments,7)
+arguments=append(arguments,name)
+name=""
+pos1=0
+pos2=0
+for i=1 to length(string) do
+   if string[i]!=32 then
+     pos1=i
+     exit
+   end if
+end for
+for i=pos1 to length(string) do
+   if string[i]='=' then
+     pos2=i-1
+     exit
+   end if
+end for
+name=string[pos1..pos2]
+arguments=append(arguments,name)
+name=""
+for i=pos1 to length(string) do
+   if string[i]='(' then
+     pos2=i
+     exit
+   end if
+end for
+for i=pos2+1 to length(string) do
+   if string[i]=',' or string[i]=')' then
+     name=""
+     name=string[pos2+1..i-1]
+     arguments=append(arguments,name)
+     pos2=i
+   end if
+end for
+code=append(code,arguments)
+end procedure
+
+
+procedure add_varb_code(sequence string)
+integer pos1,pos2,find1,find2
+sequence val,name
+val=""
+name=""
+pos1=0
+pos2=0
+find1=0
+find2=0
+--
+  for i=1 to length(string) do
+     if string[i]!=32 then
+       pos1=i
+       exit
+     end if
+  end for
+--
+  for i=pos1 to length(string) do
+     if string[i]=32 or string[i]='=' or string[i]='+' or string[i]='-' or string[i]='*' or string[i]='/' then
+       pos2=i-1
+       exit
+     end if
+  end for
+--
+name=string[pos1..pos2]
+pos1=0
+pos2=0
+
+--
+for i=1 to length(string) do
+   if string[i]='"' then
+     pos1=i+1
+     exit
+   end if
+end for
+--
+if pos1>0 then
+for i=pos1 to length(string) do
+   if string[i]='"' then
+     pos2=i-1
+     exit
+   end if
+end for
+end if
+--
+if pos1>0 and pos2>0 then
+  find2=1
+elsif pos1>0 and pos2=0 then
+  err("err need 2 "&string)
+end if
+--
+if find2=0 then
+--
+  for i=1 to length(string) do
+     if string[i]='=' then
+       pos1=i+1
+       exit
+     end if
+  end for
+--
+--
+  for i=pos1 to length(string) do
+     if string[i]!=32 then
+       pos1=i
+       exit
+     end if
+  end for
+--
+  for i=pos1+1 to length(string) do
+     if string[i]=32 then
+       pos2=i-1
+       exit
+     end if
+  end for
+
+--
+if pos2=0 then
+  val=string[pos1..length(string)]
+else
+  val=string[pos1..pos2]
+end if
+--
+elsif find2=1 then
+  val=string[pos1-1..pos2+1]
+end if
+--
+  for i=1 to length(string) do
+     if string[i]='=' then
+       find1=1
+       exit
+     elsif string[i]='+' then
+       find1=2
+       exit
+     elsif string[i]='-' then
+       find1=3
+       exit
+     elsif string[i]='*' then
+       find1=4
+       exit
+     elsif string[i]='/' then
+       find1=5
+       exit
+     end if
+  end for
+--
+code=append(code,{1,name,val,find1})
+end procedure
+
+-- this function need updateing short
+procedure add_while_code(sequence string)
+sequence name,val
+integer find1,com
+integer pos1,pos2
+com=0
+find1=0
+name=""
+val=""
+pos1=0
+pos2=0
+--
+for i=1 to length(string) do
+  if string[i]='=' and string[i-1]!='!' and string[i-1]!='<' and string[i-1]!='>' then
+    com=1
+    exit
+  end if
+  if string[i]='=' and string[i-1]='!' then
+    com=2
+    exit
+  end if
+  if string[i]='<' and string[i+1]!='=' then
+    com=3
+    exit
+  end if
+  if string[i]='>' and string[i+1]!='=' then
+    com=4
+    exit
+  end if
+  if string[i]='<' and string[i+1]='=' then
+    com=5
+    exit
+  end if
+  if string[i]='>' and string[i+1]='=' then
+    com=6
+    exit
+  end if
+end for
+
+--
+  for i=1 to length(string) do
+   if string[i]!=32 then
+     pos1=i
+     exit
+     end if
+  end for
+  for i=pos1+5 to length(string) do
+     if string[i]!=32 then
+       pos1=i
+       exit
+     end if
+  end for
+if com=1 then
+  for i=pos1 to length(string) do
+     if string[i]=32 or string[i]='=' then
+       pos2=i-1
+       exit
+     end if
+  end for
+else
+  for i=pos1 to length(string) do
+     if string[i]=32 or string[i]='!' or string[i]='<' or string[i]='>' then
+       pos2=i-1
+       exit
+     end if
+  end for
+end if
+   if find1=1 then
+      for i=pos1+1 to length(string) do
+         if string[i]='"' then
+           pos2=i
+           exit
+        end if
+      end for
+      name=string[pos1..pos2]
+    else
+    name=string[pos1..pos2]
+    end if
+  --
+if com=1 then
+  for i=pos1 to length(string) do
+     if string[i]='=' then
+       pos1=i+1
+       exit
+     end if
+   end for
+else
+  for i=pos1 to length(string) do
+     if string[i]='!' or string[i]='<' or string[i]='>' then
+       if com=2 or com=5 or com=6 then
+       pos1=i+2
+       else
+       pos1=i+1
+       end if
+       exit
+     end if
+  end for
+end if
+  for i=pos1 to length(string) do
+     if string[i]!=32 then
+       pos1=i
+       exit
+     end if
+  end for
+  for i=pos1 to length(string) do
+     if string[i]=32 then
+       pos2=i-1
+       exit
+     end if
+  end for
+  for i=pos1 to pos2 do
+     if string[i]='"' then
+       find1=1
+       exit
+     end if
+  end for
+  --
+    if find1=1 then
+      for i=pos1+1 to length(string) do
+         if string[i]='"' then
+           pos2=i
+           exit
+        end if
+      end for
+  val=string[pos1..pos2]
+    else
+  val=string[pos1..pos2]
+    end if
+  find1=0
+  pos1=0
+  pos2=0
+  --
+  code=append(code,{2,name,val,com})
+end procedure
+
+procedure add_for_code(sequence string)
+sequence temp,name,val,too
+integer find1,find2,pos1,pos2
+too=""
+find1=0
+name=""
+val=""
+temp=""
+find2=0
+pos1=0
+pos2=0
+--
+  for i=1 to length(string) do
+   if string[i]!=32 then
+     pos1=i
+     exit
+     end if
+  end for
+  for i=pos1+3 to length(string) do
+     if string[i]!=32 then
+       pos1=i
+       exit
+     end if
+  end for
+  for i=pos1 to length(string) do
+     if string[i]=32 or string[i]='=' then
+       pos2=i-1
+       exit
+     end if
+  end for
+  --
+  name=string[pos1..pos2]
+  --
+  for i=pos1 to length(string) do
+     if string[i]='=' then
+       pos1=i+1
+       exit
+     end if
+  end for
+
+  for i=pos1 to length(string) do
+     if string[i]!=32 then
+       pos1=i
+       exit
+     end if
+  end for
+
+    for i=pos1 to length(string) do
+       if string[i]=32 then
+         pos2=i-1
+        exit
+       end if
+     end for
+  
+  --
+  val=string[pos1..pos2]
+  --
+  for i=1 to length(string)-1 do
+     if string[i]='t' and string[i+1]='o' and string[i-1]=32 then
+       pos1=i+2
+       exit
+     end if
+  end for
+  for i=pos1 to length(string) do
+     if string[i]!=32 then
+       pos1=i
+       exit
+     end if
+  end for
+
+    for i=pos1 to length(string) do
+       if string[i]=32 then
+         pos2=i-1
+         exit
+       end if
+    end for
+   --
+  too=string[pos1..pos2]
+  --
+  code=append(code,{6,name,val,too})
+end procedure
+
+procedure add_procedure_code(sequence string)
+sequence name, arguments,temp
+atom pos1,pos2
+pos1=0
+temp=""
+arguments={}
+name=""
+pos2=0
+for i=1 to length(string) do
+   if string[i]!=32 then
+     pos1=i
+     exit
+   end if
+end for
+for i=pos1+1 to length(string) do
+   if string[i]='(' then
+     pos2=i
+     exit
+   end if
+end for
+name=string[pos1..pos2-1]
+arguments=append(arguments,7)
+arguments=append(arguments,name)
+for i=pos2+1 to length(string) do
+   if string[i]=',' or string[i]=')' then
+     name=""
+     temp=""
+     name=string[pos2+1..i-1]
+     for j=1 to length(name) do
+        if name[j]!=32 then
+          temp&=name[j]
+        end if
+     end for
+     arguments=append(arguments,temp)
+     pos2=i
+   end if
+end for
+code=append(code,arguments)
+end procedure
+
+procedure add_if_code(sequence string)
+sequence temp,name,val,too
+atom find1,find2,array,com
+atom pos1,pos2
+com=0
+too=""
+array=0
+find1=0
+name=""
+val=""
+temp=""
+find2=0
+pos1=0
+pos2=0
+--
+for i=1 to length(string) do
+  if string[i]='=' and string[i-1]!='!' and string[i-1]!='<' and string[i-1]!='>' then
+    com=1
+    exit
+  end if
+  if string[i]='=' and string[i-1]='!' then
+    com=2
+    exit
+  end if
+  if string[i]='<' and string[i+1]!='=' then
+    com=3
+    exit
+  end if
+  if string[i]='>' and string[i+1]!='=' then
+    com=4
+    exit
+  end if
+  if string[i]='<' and string[i+1]='=' then
+    com=5
+    exit
+  end if
+  if string[i]='>' and string[i+1]='=' then
+    com=6
+    exit
+  end if
+end for
+--
+  for i=1 to length(string) do
+   if string[i]!=32 then
+     pos1=i
+     exit
+     end if
+  end for
+  for i=pos1+2 to length(string) do
+     if string[i]!=32 then
+       pos1=i
+       exit
+     end if
+  end for
+if com=1 then
+  for i=pos1 to length(string) do
+     if string[i]=32 or string[i]='=' then
+       pos2=i-1
+       exit
+     end if
+  end for
+else
+  for i=pos1 to length(string) do
+     if string[i]=32 or string[i]='!' or string[i]='<' or string[i]='>' then
+       pos2=i-1
+       exit
+     end if
+  end for
+end if
+  for i=pos1 to pos2 do
+     if string[i]='[' then
+       array=1
+       exit
+     end if
+  end for
+  for i=pos1 to pos2 do
+     if string[i]='"' then
+       find1=1
+       exit
+     end if
+  end for
+  --
+  if array=1 then
+  for i=pos1 to length(string) do
+     if string[i]=']' then
+       pos2=i
+       exit
+     end if
+  end for
+  name=string[pos1..pos2]
+  else
+    if find1=1 then
+      for i=pos1+1 to length(string) do
+         if string[i]='"' then
+           pos2=i
+           exit
+        end if
+      end for
+      name=string[pos1..pos2]
+    else
+    name=string[pos1..pos2]
+    end if
+  end if
+  array=0
+  find1=0
+  --
+if com=1 then
+  for i=pos1 to length(string) do
+     if string[i]='=' then
+       pos1=i+1
+       exit
+     end if
+   end for
+else
+  for i=pos1 to length(string) do
+     if string[i]='!' or string[i]='<' or string[i]='>' then
+       if com=2 or com=5 or com=6 then
+       pos1=i+2
+       else
+       pos1=i+1
+       end if
+       exit
+     end if
+  end for
+end if
+
+  for i=pos1 to length(string) do
+     if string[i]!=32 then
+       pos1=i
+       exit
+     end if
+  end for
+  for i=pos1 to length(string) do
+     if string[i]=32 then
+       pos2=i-1
+       exit
+     end if
+  end for
+  for i=pos1 to pos2 do
+     if string[i]='[' then
+       array=1
+       exit
+     end if
+  end for
+  for i=pos1 to pos2 do
+     if string[i]='"' then
+       find1=1
+       exit
+     end if
+  end for
+  --
+  if array=1 then
+  for i=pos1 to length(string) do
+     if string[i]=']' then
+       pos2=i
+       exit
+     end if
+  end for
+  val=string[pos1..pos2]
+  else
+    if find1=1 then
+      for i=pos1+1 to length(string) do
+         if string[i]='"' then
+           pos2=i
+           exit
+        end if
+      end for
+  val=string[pos1..pos2]
+    else
+  val=string[pos1..pos2]
+    end if
+  end if
+  find1=0
+  pos1=0
+  pos2=0
+  --
+  code=append(code,{5,name,val,com})
+end procedure
+
+procedure make_code()
+integer temp
+  for i=1 to length(file_data) do
+     temp=check(file_data[i])
+     if temp=1 then
+       
+     elsif temp=2 then
+       add_varb_code(file_data[i])
+     elsif temp=3 then
+       add_while_code(file_data[i])
+     elsif temp=4 then
+       code=append(code,"end_while")
+     elsif temp=5 then
+        add_if_code(file_data[i])
+     elsif temp=6 then
+        code=append(code,"end_if")
+     elsif temp=7 then
+        add_for_code(file_data[i])
+     elsif temp=8 then
+        code=append(code,"end_for")
+     elsif temp=9 then
+        add_function_code(file_data[i])
+     elsif temp=10 then
+        add_procedure_code(file_data[i])
+     end if
+  end for
+end procedure
+
+function add_line(sequence string, atom line)
+sequence temp
+temp={}
+  for i=1 to length(string) do
+     if i=line then
+     temp=append(temp,string[i])
+     temp=append(temp,"")
+     else
+     temp=append(temp,string[i])
+     end if
+  end for
+return temp
+end function
+
+procedure make_if_code()
+--sequence list1, list2
+integer number, line, list1,list2
+line=1
+list1=2000--"if1"
+list2=3000--"if2"
+number=0
+for k=1 to length(code) do
+  for i=line to length(code) do
+     if code[i][1]=5 then
+        number=1
+        for j=i+1 to length(code) do
+           if code[j][1]=5 then
+             number+=1
+           end if
+           if compare(code[j],"end_if")=0 then
+             number-=1
+           end if
+           if number=0 then
+             line=i+1
+             code[i]=append(code[i],list1)
+             code[i]=append(code[i],list2)
+             code=add_line(code,i)
+             code[i+1]=append(code[i+1],4)
+             code[i+1]=append(code[i+1],list1)
+             code[j+1]={4,list2}
+             list1+=1--&="1"
+             list2+=1--&="2"
+             exit
+           end if
+         end for
+     end if
+  end for
+end for
+end procedure
+
+procedure make_for_code()
+integer list1, list2
+integer number,line
+line=1
+list1=4000
+list2=5000
+number=0
+for k=1 to length(code) do
+  for i=line to length(code) do
+     if code[i][1]=6 then
+        number=1
+        for j=i+1 to length(code) do
+           if code[j][1]=6 then
+             number+=1
+           end if
+           if compare(code[j],"end_for")=0 then
+             number-=1
+           end if
+           if number=0 then
+             line=i+1
+             code[i]=append(code[i],list2)
+             code=add_line(code,i-1)
+             code[i]=append(code[i],4)
+             code[i]=append(code[i],list1)
+             code=add_line(code,j+1)
+             code[j+1]={3,list1}
+             code[j+2]={4,list2}
+             list1+=1
+             list2+=1
+             exit
+           end if
+         end for
+     end if
+  end for
+end for
+end procedure
+
+
+procedure make_while_code()
+integer number,line , list1,list2
+line=1
+list1=1--"while1"
+list2=1000--"while2"
+number=0
+for k=1 to length(code) do
+  for i=line to length(code) do
+     if code[i][1]=2 then
+        number=1
+        for j=i+1 to length(code) do
+          if code[j][1]=2 then
+             number+=1
+           end if
+           if compare(code[j],"end_while")=0 then
+             number-=1
+           end if
+           if number=0 then
+             line=i+1
+             code[i]=append(code[i],list2)
+             code=add_line(code,i-1)
+             code[i]=append(code[i],4)
+             code[i]=append(code[i],list1)
+             code=add_line(code,j+1)
+             code[j+1]={3,list1}
+             code[j+2]={4,list2}
+             list1+=1
+             list2+=1
+             exit
+           end if
+         end for
+     end if
+  end for
+end for
+end procedure
+
+procedure file_code()
+integer fn
+fn = open("com0.txt", "w")
+if fn = -1 then
+end if
+for i=1 to length(code) do
+   for j=1 to length(code[i]) do
+      if sequence(code[i][j]) then
+      puts(fn,code[i][j]&" ")
+      else
+      print(fn,code[i][j])
+      puts(fn," ")
+      end if
+   end for
+   puts(fn,"\n")
+end for
+close(fn)
+end procedure
+
+procedure file_variable()
+integer fn
+fn = open("var.txt", "w")
+if fn = -1 then
+  err("variable file")
+end if
+for i=1 to length(variable_data) do
+   print(fn,i)
+   for j=1 to length(variable_data[i]) do
+     if sequence(variable_data[i][j]) then
+     puts(fn," "&variable_data[i][j]&" ")
+     else
+       puts(fn," ")
+       print(fn,variable_data[i][j])
+       puts(fn," ")
+     end if
+   end for
+puts(fn,"\n")
+end for
+close(fn)
+end procedure
+
+global function compiler(sequence string)
+integer pos
+pos=1
+file_data=string
+goto_info={}
+code={}
+variable_data={}
+variable_names={}
+
+string={}
+for i=1 to length(file_data) do
+   if file_data[i]='\n' then
+     file_data[i]=32
+      if length(file_data[pos..i])>1 then
+        string=append(string,file_data[pos..i])
+      end if
+      pos=i+1
+     end if
+end for
+if length(string)>1 then
+  file_data=string
+else
+  file_data={file_data}
+end if
+
+make_code()
+make_while_code()
+make_if_code()
+make_for_code()
+for i=1 to length(code) do
+ if code[i][1]=4 then
+ goto_info=append(goto_info,{code[i][2],i})
+ end if
+end for
+
+return {code,goto_info}
+end function
+
+procedure delay(atom t)
+ atom tt
+ tt=t+time()
+ while 1 do
+ if tt<=time() then
+   exit
+ end if
+ end while
+end procedure
+
+global procedure execute_code(sequence string, integer line_number)
+goto_info=string[2]
+code=string[1]
+variable_data={}
+run_program=1
+line_program=1
+var_change=0
+var_image_single=0
+variable_names={}
+
+variable_set("background_color",background_colored,1)
+variable_set("current_room",current_room,1)
+variable_set("last_room",last_room,1)
+variable_set("keyboard_last",keyboard_last,1)
+variable_set("keyboard_key",keyboard_key,1)
+variable_set("x",floor(instance_info[line_number][INS_X]),1)
+variable_set("y",floor(instance_info[line_number][INS_Y]),1)
+variable_set("speed",instance_info[line_number][INS_SPEED],1)
+variable_set("vspeed",instance_info[line_number][INS_VSPEED],1)
+variable_set("hspeed",instance_info[line_number][INS_HSPEED],1)
+variable_set("dir",instance_info[line_number][INS_DIR],1)
+variable_set("image_single",instance_info[line_number][INS_IMAGE_SINGLE],1)
+variable_set("image_speed",instance_info[line_number][INS_IMAGE_SPEED],1)
+variable_set("visible",instance_info[line_number][INS_VISABLE],1)
+variable_set("solid",instance_info[line_number][INS_SOLID],1)
+variable_set("other",other,1)
+variable_set("self",self,1)
+variable_set("bbox_left", instance_info[line_number][INS_BBOX_LEFT] ,1)
+variable_set("bbox_right",instance_info[line_number][INS_BBOX_RIGHT] ,1)
+variable_set("bbox_top", instance_info[line_number][INS_BBOX_TOP] ,1)
+variable_set("bbox_bottom", instance_info[line_number][INS_BBOX_BOTTOM] ,1)
+variable_set("vk_left", 37 ,1)
+variable_set("vk_right", 39 ,1)
+variable_set("vk_down", 40 ,1)
+variable_set("vk_up", 38 ,1)
+variable_set("vk_space", 32 ,1)
+variable_set("room_width", room_width ,1)
+variable_set("room_height", room_height ,1)
+
+variable_set("view_left", view_left ,1)
+variable_set("view_top", view_top ,1)
+variable_set("view_width", view_width ,1)
+variable_set("view_height", view_height ,1)
+variable_set("mouse_button", mouse_button ,1)
+variable_set("mousex", mousex ,1)
+variable_set("mousey", mousey ,1)
+
+variable_set("room_height", room_height ,1)
+variable_set("hdir", floor(instance_info[line_number][INS_VECTOR1]) ,1)
+variable_set("vdir", floor(instance_info[line_number][INS_VECTOR2]) ,1)
+variable_set("score", score ,1)
+variable_set("lives", lives ,1)
+variable_set("health", health ,1)
+variable_set("global1", global_1 ,1)
+variable_set("global2", global_2 ,1)
+variable_set("global3", global_3 ,1)
+variable_set("global4", global_4 ,1)
+variable_set("global5", global_5 ,1)
+variable_set("global6", global_6 ,1)
+variable_set("c_black", Black ,1)
+variable_set("c_red", Red ,1)
+variable_set("c_blue", Blue ,1)
+variable_set("c_white", BrightWhite ,1)
+variable_set("c_green", Green ,1)
+variable_set("c_gray", Gray ,1)
+variable_set("c_brown", Brown ,1)
+
+for i=1 to length(instance_info[line_number][INS_VARIABLES]) do
+  variable_set(instance_info[line_number][INS_VARIABLES][i][1], instance_info[line_number][INS_VARIABLES][i][2] ,1)
+end for
+
+var_change=1
+
+while 1 do
+ if run_program=0 then
+   exit
+ end if
+ run_commands()
+end while
+
+if game_loop_exit=0 then
+
+instance_info[line_number][INS_X]=variable_get("x")
+instance_info[line_number][INS_Y]=variable_get("y")
+mouse_button=variable_get("mouse_button")
+--view_left=variable_get("view_left")
+--view_top=variable_get("view_top")
+keyboard_last=variable_get("keyboard_last")
+keyboard_key=variable_get("keyboard_key")
+if background_colored!=-1 then
+  background_colored=variable_get("background_color")
+end if
+instance_info[line_number][INS_SPEED]=variable_get("speed")
+instance_info[line_number][INS_HSPEED]=variable_get("speed")
+instance_info[line_number][INS_VSPEED]=variable_get("speed")
+instance_info[line_number][INS_DIR]=variable_get("dir")
+instance_info[line_number][INS_BBOX_LEFT]=variable_get("bbox_left")
+instance_info[line_number][INS_BBOX_TOP]=variable_get("bbox_top")
+instance_info[line_number][INS_BBOX_RIGHT]=variable_get("bbox_right")
+instance_info[line_number][INS_BBOX_BOTTOM]=variable_get("bbox_bottom")
+--instance_info[line_number][INS_VECTOR1]=variable_get("hdir")
+--instance_info[line_number][INS_VECTOR2]=variable_get("vdir")
+score=variable_get("score")
+lives=variable_get("lives")
+health=variable_get("health")
+global_1=variable_get("global1")
+global_2=variable_get("global2")
+global_3=variable_get("global3")
+global_4=variable_get("global4")
+global_5=variable_get("global5")
+global_6=variable_get("global6")
+
+
+if var_image_single=1 then
+  instance_info[line_number][INS_IMAGE_SINGLE]=variable_get("image_single")
+  set_image_single(line_number,variable_get("image_single"))
+end if
+instance_info[line_number][INS_IMAGE_SPEED]=variable_get("image_speed")
+instance_info[line_number][INS_VISABLE]=variable_get("visible")
+instance_info[line_number][INS_SOLID]=variable_get("solid")
+
+-- need to delete all the know variables and then save all the overs for uses later on
+variable_delete("keyboard_last")
+variable_delete("keyboard_key")
+variable_delete("current_room")
+variable_delete("last_room")
+variable_delete("background_color")
+variable_delete("view_left")
+variable_delete("view_top")
+variable_delete("view_width")
+variable_delete("view_height")
+variable_delete("mouse_button")
+variable_delete("mousex")
+variable_delete("mousey")
+variable_delete("x")
+variable_delete("y")
+variable_delete("speed")
+variable_delete("vspeed")
+variable_delete("hspeed")
+variable_delete("dir")
+variable_delete("image_single")
+variable_delete("image_speed")
+variable_delete("visible")
+variable_delete("solid")
+variable_delete("other")
+variable_delete("self")
+variable_delete("bbox_left")
+variable_delete("bbox_right")
+variable_delete("bbox_top")
+variable_delete("bbox_bottom")
+variable_delete("vk_left")
+variable_delete("vk_right")
+variable_delete("vk_down")
+variable_delete("vk_up")
+variable_delete("vk_space")
+variable_delete("room_width")
+variable_delete("room_height")
+variable_delete("hdir")
+variable_delete("vdir")
+variable_delete("score")
+variable_delete("lives")
+variable_delete("health")
+variable_delete("global1")
+variable_delete("global2")
+variable_delete("global3")
+variable_delete("global4")
+variable_delete("global5")
+variable_delete("global6")
+variable_delete("c_black")
+variable_delete("c_red")
+variable_delete("c_blue")
+variable_delete("c_white")
+variable_delete("c_green")
+variable_delete("c_gray")
+variable_delete("c_brown")
+
+for i=1 to length(variable_data) do
+  set_variable(line_number,variable_data[i])
+end for
+
+end if
+
+run_program=1
+line_program=1
+--file_code()
+--file_variable()
+end procedure

@@ -1,0 +1,52 @@
+GAZ GAME MAKER
+
+* start on the help files
+* fixed a bug with the sound editor
+* made some change to the game pacman add sound
+* made some chages to the object editor  better sprite select
+* made some changes to the room editor  better object select
+* add the move up and down and copy function to the treeview room popup menu
+* add the save image button to sprite editor
+* add the save sound button to the sound editor
+* add new game "drawing system" to show how the drawing system works
+* fix the build exe now working
+* add the game information window
+* add the sprite editor to gaz game maker
+* updata the code editor add some new things
+* updata the about window add web site address
+* made some changes to the room editor add some usefull buttons
+* add two moor rooms to the pacman game
+* add new game "fighter space" shoot em up
+* add new game "get_input" showing new functions
+* add new setting startup in fullscreen
+* fixed some bugs with the sprite editor
+* add two new items to the treeview
+* fixed a bug with the object editor collision combox
+* add new game "mouse" to show how to use the mouse
+* add new game "ghost maze"
+* change the object editor code buttons they show if they have code in them
+* remove the setting other from the settings window
+* add new game "dog" to show how to use the mouse
+* add new game "star create" to show how to create object in the game
+* add new game "maze" to show how to use the rooms view
+* add new game pixel creator showing the new function create pixel
+* add the edit menu to the main window
+* remove the move up and down and copy function from the treeview room popup menu (many bugs)
+* add new game asteroids cool space shoot em-up
+
+RUNTIME
+
+* sound system now works
+* add some new functions  warp_object, outside_room, boundary
+* draw system now works
+* fix the keyboard up event now works
+* add some new settings
+* the runtime now uses the Win32lib v0.60.6 uses to be v0.45.r
+* variables you declare now stay into the instance is destroy
+* games can start in fullscreen mode
+* now when x and y variables are set the instance jumps to that position
+* add the mouse_button variable and positions variables giveing mouse surport
+* sprites bbox settings now work automatic fullimage manual
+* add the game save and load functions
+* add new function create pixel
+* speed up the remove line function and the varibale exsist function runtime now runs faster by about 2%

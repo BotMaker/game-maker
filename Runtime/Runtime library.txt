@@ -1,0 +1,529 @@
+                          Runtime Library 
+                            Version 1.0
+                        Writen In Euphoria By
+                           Gareth Mc Daid
+                     start data 4/10/06 time 18:34
+                     last data 8/02/07 time 20:50
+
+
+The runtime library is a good game library it could do with some work
+on the movement system has it still need to have gravity and friction
+add to it. 
+
+Programming language:
+  The inbuit programming langauge is very slow and has got
+  many problems it cause games to crash all the time but its all i have . 
+
+Graphics:
+  The graphics system is very slow when it comes to drawing
+  transparnt images and lacks pixel prefect collision  plus lacks functionlty.
+
+Sound:
+  The sound system is so bad you can only play one sound at a time and only
+  wav files can be played.
+
+Information:
+
+The game Library for euphoria programmers this library was ment to be a 
+full program that would of been a game makeing tool for all but has i have
+worked on this i came to see that i did not have the skill to make a program 
+like this so i now have a game library but no graphic user interface and no 
+plans to write one or means so i have decided to released it to all the euphoria
+programmers in the hope that some one will find it use full and i have all so
+include some example games. this library has taken a lot of idears from the 
+game maker tool made by mark overmeans. the game library has sprites objects rooms
+instances of objects and many of the functions in the library are just like the ones 
+in game maker. the speed of the library is not has fast as it could be because it 
+uses the windows g d i graphics and not the directX graphics this is why the 
+game library is slow but not that slow has i have made a pacman clone in it and 
+this work fine on my old 555 mhz cpu and 128mb memory and 64mb graphics card and 
+windows xp this game is include has one of the examples.
+
+the game library is easy to use all you have to do is use the inbuilt functions
+to make your game the hard parts like movement of objects and drawing of animated 
+images are taken care of for you. all objects have events these events are used to call your 
+user define procedure so when a object is frist create its create event will be trigger
+and the step event will be trigger every step of the game and the keyboard event will 
+be trigger when a key is pressed on the keyboard. there is no collision event but 
+collisions are still easy to work with all you would have to do is use the 
+check meeting function in the step a event to see if there has been a collision with
+a object. (the collision event could be add to the game library). 
+
+There is still a lot that could be done to improve the game library
+
+The rooms need backgrounds working on 
+  Tile background horizontally and/or vertically
+  Stretch background fills the entire room
+  The position of the background in the room
+  Background scrolling by giving it a horizontal or vertical speed.
+ 
+The view for a room seems to work ok and all the object outside a view are not draw 
+and never change the view position in the draw event because it makes the screen 
+fliker.
+
+There is a graphics user interface room editor program included with this library 
+to help you make the rooms for your games. there are some bugs. (source code included)
+
+This library would be a good starting point for a game maker tool but it would 
+need to have a directX library made for it with surpport for directX sound and
+directX graphics. then all that needs to be done is to make the grapghic user 
+interface and the 
+inbuilt programming
+language to run all the user defind actions scripts and code ;)
+
+There are still some bugs in the library but these are not a problem all 
+it needs is a bit of work on the collision checking procedures. The movement system
+need a bit moor done to it to fix the bugs.
+                       
+I have add the automatic bounding box dection of sprites it use the top left of 
+the frist image in a sprite has the key color. this is used for collsion detaction.
+
+I have a new idear for the game library it is a new file system for puting all
+the games images and sounds and anything else into a single file. this would be
+of use because all the files inside the zip file could be unzipped to the temp 
+directory. this would stop people from getting your images and sounds. the zip 
+file has no comprsion and no encryptions.
+
+The game library need to be able to draw 300 image at 30 fps
+game library can draw 300 image at 30 fps these where not transprant images
+
+i have tryed to run both game librarys on windows 98 and both of them would
+not work i think it might be something to do with the limit on how many files
+can be open at any one time under windows 98.
+
+The list below is not up to data and some functions may of been renamed or removed.
+
+Global Variables List:
+mouse:
+  mousex x-coordinate of the mouse
+  mousey y-coordinate of the mouse
+  mouse_button currently mouse button (0=none, 1=left_down, 2=left_up, 3=right_down, 4=right_up)
+  keyboard_last the last key pressed on the keyboard
+  brush_color the fill color used for drawing
+  pen_color the outline color used for drawing
+  font_color the text color used for drawing text
+  brush_style drawing is fill solid or hollow
+  room_caption the text display on the window title bar
+  score the score
+  lives the lives
+  health the health
+  fps2 the number of frams pre second
+
+screen:
+  view_left
+  view_top
+  view_width
+  view_height
+  window_width
+  window_height
+  room_width
+  room_height
+  xoffset
+  yoffset  
+
+
+instance variables list: 35 variables
+ID=1
+EVENTS=2
+CREATE=3
+X=4
+Y=5
+IMAGES=6
+IMAGE_SINGLE=7
+IMAGE_SPEED=8
+IMAGE_NUMBER=9
+ALIVE=10
+VISABLE=11
+IMAGE_AUTO=12
+IMAGE_TIMER=13
+IMAGE_TRANSPRANT=14
+IMAGE_TRANSPRANT_COLOR=15
+DIR=16
+SPEED=17
+VSPEED=18
+HSPEED=19
+VECTOR1=20
+VECTOR2=21
+DEPTH=22
+WIDTH=23
+HEIGHT=24
+NAME=25
+SOLID=26
+PX=27
+PY=28
+BBOX_LEFT=29
+BBOX_TOP=30
+BBOX_RIGHT=31
+BBOX_BOTTOM=32
+SX=33
+SY=34
+VARIABLES=35 
+
+Event List:
+  Create
+  Destroy
+  Step
+  Keyboard
+  Keyboard_up
+  Keyboard_down
+  mouse_up
+  mouse_down
+==meeting event==(not ready)
+  draw
+
+Function List:
+
+sprite:
+  add_sprite
+  add_image_to_sprite
+  draw_sprite
+  change_sprite
+  set_sprite_bb_left
+  set_sprite_bb_top
+  set_sprite_bb_right
+  set_sprite_bb_bottom
+  set_image_single
+  get_image_single
+
+object:
+  add_object
+  add_object_event
+
+room: 
+  add_room
+  add_object_to_room
+  room_goto
+  view_center
+
+keyboard:
+  key_check
+
+movement:
+  move
+  set_x
+  set_y
+  set_speed
+  set_dir
+  get_x
+  get_y
+
+colsion:
+  place_empty
+  check_meeting
+  check_all_meeting 
+
+instance:
+  instance_destroy
+  instance_create
+
+mise:
+  set_score
+  set_lives
+  set_health
+  get_health
+  get_score
+  get_lives
+
+Drawing:
+  draw_rectangle
+  draw_roundrect
+  draw_line
+  draw_text 
+  draw_ellipse
+
+library:
+=====================================================
+  add_sprite (name , { fname , transparent , color ,offsetx,offsety})
+  add_image_to_sprite ( sprite_name , { fname } )
+  
+  add_object (name , { sprite_name , visable})
+  add_object_event (object_name , event , routine_id)
+                  room width,
+                      room height, 
+                          view width, 
+                              view height,
+                                  room speed,
+                                     backgound image,
+                                           background color,
+                                                 room caption
+                                                         how the image draw
+  add_room(name ,{400,400,400,400,30,fname,color,caption,mode}) 
+  add_object_to_room(room_name ,{object_name, x, y})
+====================================================
+
+Bugs List:
+  all the Collision checking only seem to work right for left side and top side 
+  of the rectangle(bug) (done)
+
+Comments List:
+  transparant image is possiable but very slow on my old computer (533mhz,196mb,xp)
+  on my old computer (533mhz,196mb,xp) 140 images can be draw at 30 fps with no transprant images
+
+Need To Do List:
+  depth for objects need to be work on not started
+
+  need to build a room_editor to make the code for my rooms (done)
+
+  need to add friction and gravity to movement system not started found in game maker 1.0
+
+  need to add these functions to the collsion system collision_point collision_rectangle 
+  collision_circle collision_ellipse collision_line found in game make 5.3a
+
+  need to add the Surfaces drawing functions found in game maker 6
+
+  need to make the highscore table found in game maker 3
+
+  need to add caption to rooms (done)
+ 
+  need to add the functions (game end) (game restart)  (game save) (game load)
+  (swith to full screen)
+
+  need to add the game help system 
+
+  need to make changes to the sprite and room system sprite need offset variables
+  and the rooms need the background tile stretch and the hor and vert speed. (*done some)
+
+
+
+
+
+Changes:--============================================================--
+
+hotkeys 
+f4  switch between full screen and window mode
+f6  pause the game or unpause the game
+
+i have thout of a hundred thing to do to library to day.
+
+=============================================================================
+14/10/06
+add full screen mode new function (switch_screen) automatic switch between the two
+
+add sound system new function (add_sound) (play_sound) sound are keep in memory
+
+add new function (reverse_dir) it will reverse direction for instance
+
+fix bug in view center function
+
+change the automatic bounding box now very fast was very slow
+
+add new game (tank)  made some change to this game for tile backgounds
+
+made change to the doc
+
+add new file (function code) has some function that i have not add to the library
+
+add new file (changes) has a list of changes made to the game library
+
+add new function (centerwindow) used when the game startup and when switching 
+between full screen and window mode
+==============================================================================
+15/10/06
+change the windows api library to a new version from 0.45 to 0.6.6 this has
+slow down the game library speed with the old win api i could draw 90 images 
+at a speed of 55 and with the new win api and drawing 90 images its speed was 27 
+with the old win api i had to draw  270 image to get the speed to 27 so i need 
+to decide if haveing the new library is better or the old one the old one is
+two times faster and the new one has many new function and lots moor. i staying 
+with the old one.
+
+with the new library i have add a graphics library the win32dib library is addon
+to the win32 api library it will be used to take screen shoots of the screen 
+that all i have setup up for
+
+change the way automatic bounding box works there is now a progrbar for the new 
+win32 library and the and code has been reduced need to make the function be 
+automatic call when need be this can be turn off by setting the auto_bbox to 0
+
+add the start event and end event to library these are not for objects
+use the set event procedures the start event will be call befor any object
+are created
+
+add the graphics draw system for the library draw_text_lib color x y string
+for devloping inbuilt drawing functions
+
+change the way rooms work add the variable current_room and new functions
+room next and room back when the game library startup it will automaticly
+load the frist room in room list if one exsist.
+
+change made it so the room caption can still be draw in full screen mode
+
+change the rooms can now have tile background images
+
+add the screen_save_part function but it very slow save the image has a 
+bitmap in 24bit
+
+fix bug for when the game was pause and in full screen the room caption was
+still being write two the screen memory
+
+add a variable call draw number this will tell you how many images are being
+draw for each step add it to the debug info has will and add new varibale
+debug_caption to turn on room caption all debug caption
+
+add new function (instance_line_number) used to get a line_number 
+for a object and the new function (instance_create_move) like its name
+saids it crates a instance of a object and set it dir and speed to move.
+
+made some change to the tank game it can now shoot.
+==============================================================================
+16/10/06
+made many change to the library because i have add the offset variable 
+to sprites all collision are now check by the sprite and not the instance
+position on screen its not been test so there might still be bugs
+
+add new function boundary it return true if object is at the edag of a room
+
+completly change how the game library works drawing of the instance sprite
+is now done by the library and so is the movement of a instance and the 
+collision event is been handlde by the library and change how the library call
+your code when a event is triggered only one event procedure for each object 
+and many new event have been insert to the library there are now two variables
+to use in your code the self and other variables self is your index in the 
+list of instance and the other is all so a index to the list of instance the 
+other variable is only used for the collision event it is index to the 
+instance you collision with.  
+
+add new events collision outside boundary mouse enter mouse leave
+
+
+
+
+
+
+Need To Do List:--==========================================================--
+
+add the function draw sprite
+
+add the function (screen_save) save a bmp image of the screen 
+good for screen shoots (done)
+
+add the function (screen_save_part) (done)
+
+add the function (screen_redraw) Redraws the room by calling all draw events.
+
+add the function (screen_refresh) Refreshes the screen using the current 
+room image (not performing drawing events). 
+
+need to work on geting user input from the user like getting 
+a string or a number or showing a question or just showing a message
+
+need to make changes to the sprite system sprite need offset variables 
+that will be used in drawing and collision this is should be esay and
+need to add a lot of change to the way some of the functions work need
+to add a lot of surport for automatic bounding bbox like full image
+automatic or manual.
+
+need to change the movement system because when two solid object collistion
+they still past right frew each other but there is a procedure that stops
+this from happening but there will be no collistion for those objects.
+what need to be done is this there should all ready be a procdure to check
+for solid object collistions inbuilt into the library just like in real life
+the next thing that needs to done is this the collision function still need to
+report the collistion.
+the movement system still need more doing to it the friction and gravity need 
+to be add i don't no how to go about this so into i do the movement system will
+stay has it is its ok how it is. this might be hard
+
+add the room create event to rooms call a user defined procedure when a room
+is frist load in the game befor any object are created
+
+need to updata the function out_sideroom and warp_object and grid because of the
+offset variable for sprites *done
+
+add the events room start and room end for objects to the room functions
+
+
+
+Functions: --==========================================================--
+
+procedure draw_background_tile_vh()
+integer width,height
+sequence size
+size=getExtent( background_image ) 
+--the size of the background should be a global variable like the pointer 
+--to the background image speed up
+
+width=size[1]
+height=size[2]
+    for i=0 to room_height by height do
+     for j=0 to room_width by width do
+        -- check to make sure background is inside view
+        if j>(view_left-width) and j<view_left+view_width and i>(view_top-height) and i<view_top+view_height then
+          drawBitmap( Buffer,background_image,j,i)
+        end if
+     end for
+    end for
+end procedure
+
+procedure draw_sprite(sequence name,integer image_single,integer x ,integer y)
+integer result,image_transprant,
+
+atom image_transprant_color
+  result=sprite_exsist(name)
+  if result !=-1 then
+    sprite_info[result][SPR_IMAGES][image_single+1]
+    image_transprant=spritre_info[result][INS_IMAGE_TRANSPRANT]
+    image_transprant_color=instance_info[result][INS_IMAGE_TRANSPRANT_COLOR]
+width=floor(instance_info[line_number][INS_WIDTH])
+  height=floor(instance_info[line_number][INS_HEIGHT])
+if image_transprant=1 then
+    setTransparentColor( image_transprant_color ) 
+    if (x+width)>view_left and x<(view_left+view_width) and (y+height)>view_top and y<(view_top+view_height) then
+      transBlt( Buffer,x,y,temp_image)
+    end if
+  else
+    if (x+width)>view_left and x<(view_left+view_width) and (y+height)>view_top and y<(view_top+view_height) then
+      drawBitmap( Buffer, temp_image , x, y ) 
+    end if
+  end if
+  end if
+end procedure
+
+
+draw_healthbar(x1,y1,x2,y2,amount,backcol,mincol,maxcol,direction,showback,showborder) 
+
+With this function you can draw a healthbar (or any other bar that indicates some value, 
+like e.g. the damage). The arguments x1, y1, x2 and y2 indicate the total area for the bar. 
+amount indicates the percentage of the bar that must be filled (must lie between 0 and 100). 
+backcol is the color of the background for the bar. mincol and maxcol indicate the color when 
+the amount is 0 and 100 respectively. For an amount in between the color is interpolated. 
+So you can easily make a bar that goes e.g. from green to red. The direction is the direction 
+in which the bar is drawn. 0 indicates that the bar is anchored at the left, 1 at the right, 
+2 at the top and 3 at the bottom. 
+Finally showback indicates whether a background box must be shown and showborder indicated 
+whether the box and bar should have a black border line.
+procedure draw_healthbar()
+
+end procedure
+
+function Distance(sequence obj1, sequence obj2)
+    -- Return the distance between obj1 and obj2
+    atom x, y
+    -- It is actually faster to do these one at a time:
+    x = power(obj1[X] - obj2[X], 2)
+    y = power(obj1[Y] - obj2[Y], 2)
+    return sqrt(x + y)
+end function
+
+function Angle(sequence obj1, sequence obj2)
+    -- Returns angle from obj1 to obj2
+    atom angle, x, y
+    x = obj1[X]-obj2[X]
+    y = obj1[Y]-obj2[Y]
+    if y then angle = -(arctan(x/y) * 180 / PI) + 90
+    else angle = 90 end if
+    if y > 0 then angle += 180 end if -- target above
+    if angle > 360 then angle-=360
+    elsif angle<=0 then angle+=360
+    end if
+    return angle
+end function
+
+function To_Target(sequence obj1, sequence obj2, sequence obj2v)
+    -- Returns the angle needed for obj1 to face obj2, given
+    -- the speed of obj2 in obj2v. WARNING: Dangerously effective!!! :-)
+    atom angle
+    obj2 += obj2v*(Distance(obj1, obj2)/shot_speed)
+    angle = Angle(obj1, obj2)
+    return angle
+end function

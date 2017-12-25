@@ -1,0 +1,120 @@
+
+global constant debug = create( Window, "Debug Game", Window1, Default, Default, 328, 374+ 19, 0 )
+global constant instance_select = create( List, "Instance select", debug, 4, 4, 150, 120, 0 )
+global constant instance_information = create( MleText, "instance infromation", debug, 4, 128, 152, 224, 0 )
+global constant global_information = create( MleText, "global_information", debug, 164, 4, 148, 352, 0 )
+
+global integer debug_running
+debug_running=0
+
+constant INS_ID=1
+constant INS_EVENTS=2
+constant INS_CREATE=3
+constant INS_X=4
+constant INS_Y=5
+constant INS_IMAGES=6
+constant INS_IMAGE_SINGLE=7
+constant INS_IMAGE_SPEED=8
+constant INS_IMAGE_NUMBER=9
+constant INS_ALIVE=10
+constant INS_VISABLE=11
+constant INS_IMAGE_AUTO=12
+constant INS_IMAGE_TIMER=13
+constant INS_IMAGE_TRANSPRANT=14
+constant INS_IMAGE_TRANSPRANT_COLOR=15
+constant INS_DIR=16
+constant INS_SPEED=17
+constant INS_VSPEED=18
+constant INS_HSPEED=19
+constant INS_VECTOR1=20
+constant INS_VECTOR2=21
+constant INS_DEPTH=22
+constant INS_WIDTH=23
+constant INS_HEIGHT=24
+constant INS_NAME=25
+constant INS_SOLID=26
+constant INS_PX=27
+constant INS_PY=28
+constant INS_BBOX_LEFT=29
+constant INS_BBOX_TOP=30
+constant INS_BBOX_RIGHT=31
+constant INS_BBOX_BOTTOM=32
+constant INS_SX=33
+constant INS_SY=34
+constant INS_VARIABLES=35
+constant INS_IMAGE_OFFSETX=36
+constant INS_IMAGE_OFFSETY=37
+constant INS_MOUSE_ENTER=38
+
+global procedure open_debug_window()
+  openWindow(debug,Normal)
+  debug_running=1
+end procedure
+
+integer item_index
+item_index=1
+sequence index_name
+index_name=""
+
+procedure make_instance_infomation(integer index)
+sequence information
+  information={}
+  information&="X: "&sprint(instance_info[index][INS_X])&{13,10}
+  information&="Y: "&sprint(instance_info[index][INS_Y])&{13,10}
+  information&="Speed: "&sprint(instance_info[index][INS_SPEED])&{13,10}
+  information&="Dir: "&sprint(instance_info[index][INS_DIR])&{13,10}
+  information&="Solid: "&sprint(instance_info[index][INS_SOLID])&{13,10}
+  information&="Visible: "&sprint(instance_info[index][INS_VISABLE])&{13,10}
+  information&="Start X: "&sprint(instance_info[index][INS_SX])&{13,10}
+  information&="Start Y: "&sprint(instance_info[index][INS_SY])&{13,10}
+  information&="Befor X:: "&sprint(instance_info[index][INS_PX])&{13,10}
+  information&="Befor Y: "&sprint(instance_info[index][INS_PY])&{13,10}
+  setText(instance_information,information)
+  
+end procedure
+
+procedure setindex()
+integer found
+found=0
+  for i=1 to getCount(instance_select) do
+     if compare(index_name,getItem(instance_select,i))=0 then
+       found=1
+       item_index=i
+       exit 
+     end if
+  end for
+  if found=0 then
+    item_index=1
+  end if
+  setIndex(instance_select,item_index)
+end procedure
+
+global procedure updata_debug()
+sequence information
+  
+  if getCount(instance_select) != length(instance_info) then
+    index_name=getItem(instance_select, getIndex(instance_select))
+    eraseItems(instance_select)
+    for i=1 to length(instance_info) do
+      addItem( instance_select, instance_info[i][INS_NAME]&"  "&sprint(instance_info[i][INS_ID]) )
+    end for
+    setindex()
+  end if
+  if length(instance_info)>0 then
+    make_instance_infomation(item_index)
+  end if
+  information={}
+  information&="Lives: "&sprint(lives)&{13,10}
+  information&="Score: "&sprint(score)&{13,10}
+  information&="Health: "&sprint(health)&{13,10}
+  setText(global_information,information)
+end procedure
+
+procedure change_instance_select()
+  if debug_running=1 then
+    item_index=getIndex(instance_select)
+    make_instance_infomation(item_index)
+  end if
+end procedure
+
+onChange[instance_select] = routine_id("change_instance_select")

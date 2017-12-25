@@ -1,0 +1,512 @@
+code={}
+run_program=1
+line_program=1
+
+procedure goto(integer name)
+integer can
+can=0
+for i=1 to length(goto_info) do
+  if goto_info[i][1]=name then
+    line_program=goto_info[i][2] 
+    can=1
+  end if
+end for
+  if can=0 then
+    err("goto")
+  end if
+end procedure
+
+-- the for loop to number can change bug
+function for_loop(sequence name, atom val, atom too)
+sequence temp
+integer exsist,line
+temp=variable_exsist(name)
+exsist=temp[1]
+line=temp[2]
+  if exsist=0 then
+    variable_set(name,val,1)
+  else
+    variable_set(name,1,2)
+    if variable_data[line][2]>too then
+      variable_data=remove_line(variable_data,line)
+      variable_names=remove_line(variable_names,line)
+      return 1
+    end if
+  end if
+return 0
+end function
+
+function if_do(object v1, object v2, integer com ,integer name1, integer name2)
+integer find
+find=0
+
+if com=1 then
+  if atom(v1)=1 then
+       find=1
+      else
+       find=2
+     end if
+  if find=1 then
+    if v1=v2 then
+      goto(name1)
+    else
+      goto(name2)
+    end if
+  elsif find=2 then
+    if compare(v1,v2)=0 then
+      goto(name1)
+    else
+      goto(name2)
+    end if
+  end if
+elsif com=2 then
+  if atom(v1)=1 then
+       find=1
+      else
+       find=2
+     end if
+  if find=1 then
+    if v1!=v2 then
+      goto(name1)
+    else
+      goto(name2)
+    end if
+  elsif find=2 then
+    if compare(v1,v2)!=0 then
+      goto(name1)
+    else
+      goto(name2)
+    end if
+  end if
+elsif com=3 then
+  if atom(v1)=1 then
+       find=1
+      else
+       find=2
+     end if
+  if find=1 then
+    if v1<v2 then
+      goto(name1)
+    else
+      goto(name2)
+    end if
+  elsif find=2 then
+     err("in if satement tring to do a exspsion on a string that dont return a value")
+  end if
+elsif com=4 then
+  if atom(v1)=1 then
+       find=1
+      else
+       find=2
+     end if
+  if find=1 then
+    if v1>v2 then
+      goto(name1)
+    else
+      goto(name2)
+    end if
+  elsif find=2 then
+     err("in if satement tring to do a exspsion on a string that dont return a value")
+  end if
+elsif com=5 then
+  if atom(v1)=1 then
+       find=1
+      else
+       find=2
+     end if
+  if find=1 then
+    if v1<=v2 then
+      goto(name1)
+    else
+      goto(name2)
+    end if
+  elsif find=2 then
+     err("in if satement tring to do a exspsion on a string that dont return a value")
+  end if
+elsif com=6 then
+  if atom(v1)=1 then
+       find=1
+      else
+       find=2
+     end if
+  if find=1 then
+    if v1>=v2 then
+      goto(name1)
+    else
+      goto(name2)
+    end if
+  elsif find=2 then
+     err("in if satement tring to do a exspsion on a string that dont return a value")
+  end if
+end if
+return 1
+end function
+
+function while_do(object v1, object v2, integer com)
+integer find
+find=0
+if com=1 then
+  if atom(v1)=1 then
+       find=1
+      else
+       find=2
+     end if
+  if find=1 then
+    if v1=v2 then
+      return 0
+    else
+      return 1
+    end if
+  elsif find=2 then
+    if compare(v1,v2)=0 then
+      return 0
+    else
+      return 1
+    end if
+  end if
+elsif com=2 then
+  if atom(v1)=1 then
+       find=1
+      else
+       find=2
+     end if
+  if find=1 then
+    if v1!=v2 then
+      return 0
+    else
+      return 1
+    end if
+  elsif find=2 then
+    if compare(v1,v2)!=0 then
+      return 0
+    else
+      return 1
+    end if
+  end if
+elsif com=3 then
+  if atom(v1)=1 then
+       find=1
+      else
+       find=2
+     end if
+  if find=1 then
+    if v1<v2 then
+      return 0
+    else
+      return 1
+    end if
+  elsif find=2 then
+    err("in while satement tring to do a exspsion on a string that dont return a value")
+  end if
+elsif com=4 then
+  if atom(v1)=1 then
+       find=1
+      else
+       find=2
+     end if
+  if find=1 then
+    if v1>v2 then
+      return 0
+    else
+      return 1
+    end if
+  elsif find=2 then
+    err("in while satement tring to do a exspsion on a string that dont return a value")
+  end if
+elsif com=5 then
+  if atom(v1)=1 then
+       find=1
+      else
+       find=2
+     end if
+  if find=1 then
+    if v1<=v2 then
+      return 0
+    else
+      return 1
+    end if
+  elsif find=2 then
+    err("in while satement tring to do a exspsion on a string that dont return a value")
+  end if
+elsif com=6 then
+  if atom(v1)=1 then
+       find=1
+      else
+       find=2
+     end if
+  if find=1 then
+    if v1>=v2 then
+      return 0
+    else
+      return 1
+    end if
+  elsif find=2 then
+    err("in while satement tring to do a exspsion on a string that dont return a value")
+  end if
+end if
+return 0
+end function
+
+function real(sequence string)-- this function should not be used because of speed
+sequence temp
+temp=value(string)
+return temp[2]
+end function
+
+procedure string_copy(sequence name, sequence string, integer pos1, integer pos2)
+variable_set(name,string[pos1..pos2],1)
+end procedure
+
+procedure string_insert(sequence name, sequence string, sequence string2, integer pos)
+sequence temp
+temp=""
+temp=string[1..pos]
+string=string[pos+1..length(string)]
+temp&=string2&string
+variable_set(name,temp,1)
+end procedure
+
+procedure string_remove(sequence name, sequence string, integer pos, integer pos2)
+sequence temp
+temp=""
+temp=string[1..pos]
+string=string[pos2+1..length(string)]
+temp&=string
+variable_set(name,temp,1)
+end procedure
+
+procedure string_chr_at(sequence name, sequence string, integer pos1)
+variable_set(name,string[pos1..pos1],1)
+end procedure
+
+procedure string_remove_chr(sequence name, sequence string, integer pos)
+sequence temp
+temp=""
+temp=string[1..pos-1]
+string=string[pos+1..length(string)]
+temp&=string
+variable_set(name,temp,1)
+end procedure
+
+procedure string_length(sequence name, sequence string)
+variable_set(name,length(string),1)
+end procedure
+
+procedure string_chr(sequence name, integer v)
+variable_set(name,{v},1)
+end procedure
+
+procedure string_width(sequence name, sequence v)
+atom width
+width=length(v)
+width*=8
+variable_set(name,width,1)
+end procedure
+
+procedure is_string(sequence name, object v)
+ if atom(v)=1 then
+   variable_set(name,0,1)
+  else
+   variable_set(name,1,1)
+  end if
+end procedure
+
+procedure is_real(sequence name, object v)
+ if atom(v)=1 then
+   variable_set(name,1,1)
+  else
+   variable_set(name,0,1)
+  end if
+end procedure
+
+
+global procedure run_commands()
+run_program=0
+  for i=line_program to length(code) do
+     -- =============core=============== --
+     if code[i][1]=1 then
+       variable_set(code[i][2],variable_get(code[i][3]),code[i][4])
+     elsif code[i][1]=2 then
+       if while_do(variable_get(code[i][2]),variable_get(code[i][3]),code[i][4])=1 then
+         goto(code[i][5])
+         run_program=1
+         exit
+       end if
+     elsif code[i][1]=3 then
+         goto(code[i][2])
+         run_program=1
+         exit
+     elsif code[i][1]=6 then
+         if for_loop(code[i][2],variable_get(code[i][3]),variable_get(code[i][4]))=1 then
+           goto(code[i][5])
+           run_program=1
+           exit
+         end if
+     elsif code[i][1]=5 then
+        if if_do(variable_get(code[i][2]),variable_get(code[i][3]),code[i][4],code[i][5],code[i][6])=1 then
+          run_program=1
+          exit
+        end if
+     elsif code[i][1]=7 then
+        -- =============drawing system=============== --
+        if compare(code[i][2],"draw_text")=0 then
+           draw_text(variable_get(code[i][3]),variable_get(code[i][4]),variable_get(code[i][5]))
+        end if
+        if compare(code[i][2],"brush_color")=0 then
+           brush_color2(variable_get(code[i][3]) )
+        end if
+        if compare(code[i][2],"pen_color")=0 then
+           pen_color2(variable_get(code[i][3]) )
+        end if
+        if compare(code[i][2],"font_color")=0 then
+           font_color2(variable_get(code[i][3]) )
+        end if
+        if compare(code[i][2],"brush_style")=0 then
+           brush_style2(variable_get(code[i][3]) )
+        end if
+        if compare(code[i][2],"draw_line")=0 then
+           draw_line2(variable_get(code[i][3]),variable_get(code[i][4]),variable_get(code[i][5]),variable_get(code[i][6]) )
+        end if
+        if compare(code[i][2],"draw_rectangle")=0 then
+           draw_rectangle(variable_get(code[i][3]),variable_get(code[i][4]),variable_get(code[i][5]),variable_get(code[i][6]) )
+        end if
+        if compare(code[i][2],"draw_roundrect")=0 then
+           draw_roundrect(variable_get(code[i][3]),variable_get(code[i][4]),variable_get(code[i][5]),variable_get(code[i][6]) )
+        end if
+        if compare(code[i][2],"draw_ellipse")=0 then
+           draw_ellipse(variable_get(code[i][3]),variable_get(code[i][4]),variable_get(code[i][5]),variable_get(code[i][6]) )
+        end if
+        if compare(code[i][2],"rgb")=0 then
+           variable_set(code[i][3],rgb(variable_get(code[i][4]),variable_get(code[i][5]),variable_get(code[i][6])),1)
+        end if
+        if compare(code[i][2],"create_pixel")=0 then
+           create_pixel(variable_get(code[i][3]),variable_get(code[i][4]),variable_get(code[i][5]),variable_get(code[i][6]),variable_get(code[i][7]),variable_get(code[i][8]))
+        end if
+        -- =============string system=============== --
+        if compare(code[i][2],"string")=0 then
+           variable_set(code[i][3],sprint(variable_get(code[i][4])),1)
+        end if
+        if compare(code[i][2],"string_copy")=0 then
+          string_copy( variable_get(code[i][3]),variable_get(code[i][4]),variable_get(code[i][5]),variable_get(code[i][6]) )
+        end if
+        if compare(code[i][2],"string_insert")=0 then
+          string_insert( variable_get(code[i][3]),variable_get(code[i][4]),variable_get(code[i][5]),variable_get(code[i][6]) )
+        end if
+        if compare(code[i][2],"string_remove")=0 then
+          string_remove( variable_get(code[i][3]),variable_get(code[i][4]),variable_get(code[i][5]),variable_get(code[i][6]) )
+        end if
+        if compare(code[i][2],"string_char_at")=0 then
+          string_chr_at( variable_get(code[i][3]),variable_get(code[i][4]),variable_get(code[i][5]) )
+        end if
+        if compare(code[i][2],"string_remove_char")=0 then
+          string_remove_chr( variable_get(code[i][3]),variable_get(code[i][4]),variable_get(code[i][5]) )
+        end if
+        if compare(code[i][2],"string_length")=0 then
+          string_length( variable_get(code[i][3]),variable_get(code[i][4]) )
+        end if
+        if compare(code[i][2],"char")=0 then
+          string_chr( variable_get(code[i][3]),variable_get(code[i][4]) )
+        end if
+        if compare(code[i][2],"string_width")=0 then
+          string_width( variable_get(code[i][3]),variable_get(code[i][4]) )
+        end if
+        if compare(code[i][2],"is_string")=0 then
+          is_string( variable_get(code[i][3]),variable_get(code[i][4]) )
+        end if
+        if compare(code[i][2],"is_real")=0 then
+          is_real( variable_get(code[i][3]),variable_get(code[i][4]) )
+        end if
+        --=================--
+        if compare(code[i][2],"real")=0 then
+           variable_set(code[i][3],real(variable_get(code[i][4])),1)
+        end if
+        if compare(code[i][2],"random")=0 then
+           variable_set(code[i][3],rand(variable_get(code[i][4])),1)
+        end if
+        if compare(code[i][2],"floor")=0 then
+           variable_set(code[i][3],floor(variable_get(code[i][4])),1)
+        end if
+        if compare(code[i][2],"grid")=0 then
+           variable_set(code[i][3],grid(self, variable_get(code[i][4]), variable_get(code[i][5]) ) ,1)
+        end if
+        if compare(code[i][2],"key_check")=0 then
+          variable_set(code[i][3], key_check( variable_get(code[i][4]) ) ,1)
+        end if
+        if compare(code[i][2],"instance_number")=0 then
+          variable_set(code[i][3], instance_number( variable_get(code[i][4]) ) ,1)
+        end if
+        if compare(code[i][2],"play_sound")=0 then
+          play_sound( variable_get(code[i][3]) )
+        end if
+        if compare(code[i][2],"instance_destory")=0 then
+           instance_destory( variable_get(code[i][3]) )
+        end if
+        if compare(code[i][2],"sprite_change")=0 then
+           sprite_change(self, variable_get(code[i][3]) )
+        end if
+        if compare(code[i][2],"warp_object")=0 then
+           warp_object(variable_get(code[i][3]) )
+        end if
+        if compare(code[i][2],"boundary")=0 then
+          variable_set(code[i][3], boundary(variable_get(code[i][4]) ),1)
+        end if
+        if compare(code[i][2],"outside_room")=0 then
+          variable_set(code[i][3], outside_room(variable_get(code[i][4]) ),1)
+        end if
+        if compare(code[i][2],"get_string")=0 then
+          variable_set(code[i][3], get_string( variable_get(code[i][4]) ,variable_get(code[i][5]) ) ,1)
+        end if
+        if compare(code[i][2],"get_integer")=0 then
+          variable_set(code[i][3], get_integer( variable_get(code[i][4]) ,variable_get(code[i][5]) ) ,1)
+        end if
+        if compare(code[i][2],"show_message")=0 then
+           show_message(variable_get(code[i][3]) )
+        end if
+        if compare(code[i][2],"view_center")=0 then
+           view_center(self)
+        end if
+        if compare(code[i][2],"room_next")=0 then
+           room_next()
+           run_program=0
+           exit
+        end if
+        if compare(code[i][2],"room_back")=0 then
+           room_back()
+           run_program=0
+           exit
+        end if
+        if compare(code[i][2],"room_goto")=0 then
+           room_goto(variable_get(code[i][3]))
+           run_program=0
+           exit
+        end if
+        if compare(code[i][2],"jump_to_start")=0 then
+           jump_to_start(variable_get(code[i][3]))
+        end if
+        if compare(code[i][2],"place_empty")=0 then
+          variable_set(code[i][3], place_empty(self, variable_get(code[i][4]),variable_get(code[i][5]),variable_get(code[i][6]) ) ,1)
+        end if
+        if compare(code[i][2],"instance_create")=0 then
+           new_instance=append(new_instance,{variable_get(code[i][3]),variable_get(code[i][4]),variable_get(code[i][5])})
+           --instance_create(variable_get(code[i][3]),variable_get(code[i][4]),variable_get(code[i][5]))
+        end if
+        if compare(code[i][2],"instance_create_move")=0 then
+           instance_create_move(variable_get(code[i][3]),variable_get(code[i][4]),variable_get(code[i][5]),variable_get(code[i][6]),variable_get(code[i][7]))
+        end if
+        if compare(code[i][2],"reverse_dir")=0 then
+           reverse_dir(self)
+        end if
+        if compare(code[i][2],"game_end")=0 then
+           game_end()
+        end if
+        if compare(code[i][2],"game_save")=0 then
+           game_save(variable_get(code[i][3]))
+        end if
+        if compare(code[i][2],"game_load")=0 then
+           game_load(variable_get(code[i][3]))
+           run_program=0
+           exit
+        end if
+     end if
+  end for
+end procedure

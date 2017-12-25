@@ -1,0 +1,169 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<title>Gaz Game Maker</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+</head>
+
+<body>
+<div align="center">
+  <h2>Gaz game maker programming language
+  </h2>
+</div>
+<p><font color="#FF0000">WARNING</font>:<br>
+put 'temp=0' at the being of each block of code and at the end</p>
+<p><font color="#FF0000">WARNING</font>:<br>
+  when calling a function or procdure and the ( is a space a way from the<br>
+  name it cause a error like: error&gt;<br>
+  draw_text (1,1,&quot;&quot;)</p>
+<p><font color="#FF0000">WARNING</font>:<br>
+  when there a line of code with just spaces and nothing else this will cause<br>
+  a error like:<br>
+  32 = a space<br>
+  brush_color(0)<br>
+  32,32,32 error no empty lines with just spaces <br>
+  draw_rectangle()</p>
+(<font size="5">The if statement</font>.)<br>
+this is a very simply form of the if statement <br>
+you cant have function in the test<br>
+there is no elsif or else and no <br>
+logic statements (and, or, not)<br>
+<br>
+show:<br>
+if x=0 then<br>
+// do something Warning if you don't put anything in here the game won't run<br>
+end if<br>
+error:<br>
+if x+1 = 100 then no (+ / * - &amp;)<br>
+if real(&quot;1&quot;) = 1 then no (functions)
+  <p>(<font size="5">The for loop</font>.)<br>
+  this is the same as euphoria<br>
+for loop </p>
+<p> show:<br>
+  for i=1 to 100 do<br>
+  // do something Warning if you don't put anything in here the game won't run<br>
+  end for<br>
+  or like this:<br>
+  for i=1 to 100 by 2 do<br>
+  // do something Warning if you don't put anything in here the game won't run<br>
+  end for</p>
+<p>(<font color="#000000" size="5">The while statement</font>.)<br>
+  this is a simply form of the while statement<br>
+  you cant have function in the test<br>
+logic statements (and, or, not)</p>
+<p> show:<br>
+  while 1=1 do<br>
+  // do something Warning if you don't put anything in here the game won't run<br>
+  end while</p>
+<h2>procedure:</h2>
+<p> draw_text (x,y,&quot;text&quot;)<br>
+  play_sound (sound name)<br>
+  instance_destory (self)<br>
+  sprite_change (sprite name)<br>
+  view_center ()<br>
+  room_next ()<br>
+  room_back()<br>
+  room_goto (room name)<br>
+  jump_to_start (self)<br>
+  instance_create (object name,x,y)<br>
+  instance_create_move (object name,x,y,dir,speed)<br>
+  reverse_dir ()<br>
+  warp_object (self)<br>
+  game_end ()<br>
+  draw_line (1,1,100,100)<br>
+  draw_rectangle (1,1,100,100)<br>
+  draw_roundrect (1,1,100,100)<br>
+  draw_ellipse (1,1,100,100)<br>
+  brush_color (0)<br>
+  pen_color (0)<br>
+  brush_style (0)<br>
+  font_color (0)<br>
+  rgb (255,255,255)<br>
+  show_message (&quot;your message&quot;) don't use this<br>
+  game_save (filename)<br>
+  game_load (filename)<br>
+  create_pixel( x, y, direction, speed, life time in steps, color)</p>
+<h2>function:</h2>
+<p> string (2323) return &quot;2323&quot;<br>
+  random (4) return random number between 0 and 4<br>
+  floor (0.10) return 0<br>
+  grid (32,32) return true if object is on a grid by 32 32<br>
+  key_check (key code) return true if key is preesed on keyboard<br>
+  instance_number (object name) return the number of instance of a object<br>
+  place_empty (x,y, 1=soild 0=all) return true if place is empty or -1<br>
+  boundary (self)<br>
+  outside_room (self)<br>
+  get_integer (&quot;message&quot;, 0 )<br>
+  get_string (&quot;message&quot;, &quot;&quot; )<br>
+  -- not tested<br>
+  string_copy<br>
+  string_remove<br>
+  string_length<br>
+  string_remove_char<br>
+  string_insert<br>
+  string_width<br>
+  string_char_at<br>
+  char<br>
+  real<br>
+  is_string<br>
+  is_real</p>
+<h2><br>
+  variables for each instance of a object:</h2>
+<p>x<br>
+  y<br>
+  speed<br>
+  vspeed<br>
+  hspeed<br>
+  dir<br>
+  image_single<br>
+  image_speed<br>
+  visible<br>
+  solid<br>
+  other<br>
+  self<br>
+  bbox_left<br>
+  bbox_right<br>
+  bbox_top<br>
+  bbox_bottom<br>
+  hdir<br>
+  vdir</p>
+<h2>global variables between instances of objects:</h2>
+<p>global1<br>
+  global2<br>
+  global3<br>
+  global4<br>
+  global5<br>
+  global6</p>
+<h2>global game variables:</h2>
+<p>score<br>
+  lives<br>
+  health<br>
+  room_width<br>
+  room_height<br>
+  view_left<br>
+  view_top<br>
+  mouse_button<br>
+  mousex<br>
+  mousey<br>
+  background_color<br>
+  last_room integer<br>
+  current_room integer<br>
+  keyboard_last<br>
+  keyboard_key</p>
+<h2>key codes:</h2>
+<p>vk_left<br>
+  vk_up<br>
+  vk_down<br>
+  vk_right<br>
+  vk_space</p>
+<h2>colors:</h2>
+<p>c_white<br>
+  c_black<br>
+  c_red<br>
+  c_green<br>
+  c_gray<br>
+  c_blue<br>
+  c_brown</p>
+
+</body>
+</html>

@@ -1,0 +1,32 @@
+CHANGES TO THE SOURCE CODE
+--------------------------
+You are permitted, and encouraged, to add new features to this source code. 
+However, without written permission from the author, you are not permitted 
+to distribute any changes made to the source code.
+
+USING AND DISTRIBUTING THE PROGRAM
+---------------------------------- 
+RUNTIME may be used free of charge,
+in any way, for any purpose. It may be
+distributed by any means, provided that the
+original files as supplied by the author remain
+intact and no charge is made.
+
+RUNTIME may be placed on any
+web site. 
+
+RUNTIME may not be distributed as a
+component of any commercial product without a
+prior license agreement with the author. 
+
+CONTACTING THE AUTHOR 
+--------------------- 
+If you have comments, suggestion, new features, etc. you can
+send Email to the author: gareth_mcdaid@yahoo.co.uk
+Please make clear in the subject line that the
+mail is about RUNTIME.
+
+DAMAGES
+-------
+The author is not responsible for any damages 
+that arise from the use of this source code. 

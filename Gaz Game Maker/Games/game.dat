@@ -1,0 +1,4443 @@
+1 the current room
+0 score
+0 health
+0 lives
+0 global1
+0 global2
+0 global3
+0 global4
+0 global5
+0 global6
+12632256 background color
+1 window mode
+123 the number of instance
+0 id
+0 create
+0 x
+32 y
+0 image single
+0.1 image speed
+0 image number
+1 alive
+1 visible
+1 image auto
+0 image timer
+0 image transprant
+16777215 transprat color
+1 direction 
+0 speed
+0 vspeed
+0 hspeed
+0 vector1
+0 vector2
+0 depth
+32 width
+32 height
+obj_wall
+1 solid
+0 px
+32 py
+0 b left
+0 b top
+32 b right
+32 b bottom
+0 sx
+32 sy
+0 the length of variables
+0 offsetx
+0 offsety
+0 mouse enter
+1 id
+0 create
+0 x
+64 y
+0 image single
+0.1 image speed
+0 image number
+1 alive
+1 visible
+1 image auto
+0 image timer
+0 image transprant
+16777215 transprat color
+1 direction 
+0 speed
+0 vspeed
+0 hspeed
+0 vector1
+0 vector2
+0 depth
+32 width
+32 height
+obj_wall
+1 solid
+0 px
+64 py
+0 b left
+0 b top
+32 b right
+32 b bottom
+0 sx
+64 sy
+0 the length of variables
+0 offsetx
+0 offsety
+0 mouse enter
+2 id
+0 create
+0 x
+128 y
+0 image single
+0.1 image speed
+0 image number
+1 alive
+1 visible
+1 image auto
+0 image timer
+0 image transprant
+16777215 transprat color
+1 direction 
+0 speed
+0 vspeed
+0 hspeed
+0 vector1
+0 vector2
+0 depth
+32 width
+32 height
+obj_wall
+1 solid
+0 px
+128 py
+0 b left
+0 b top
+32 b right
+32 b bottom
+0 sx
+128 sy
+0 the length of variables
+0 offsetx
+0 offsety
+0 mouse enter
+3 id
+0 create
+0 x
+96 y
+0 image single
+0.1 image speed
+0 image number
+1 alive
+1 visible
+1 image auto
+0 image timer
+0 image transprant
+16777215 transprat color
+1 direction 
+0 speed
+0 vspeed
+0 hspeed
+0 vector1
+0 vector2
+0 depth
+32 width
+32 height
+obj_wall
+1 solid
+0 px
+96 py
+0 b left
+0 b top
+32 b right
+32 b bottom
+0 sx
+96 sy
+0 the length of variables
+0 offsetx
+0 offsety
+0 mouse enter
+4 id
+0 create
+0 x
+160 y
+0 image single
+0.1 image speed
+0 image number
+1 alive
+1 visible
+1 image auto
+0 image timer
+0 image transprant
+16777215 transprat color
+1 direction 
+0 speed
+0 vspeed
+0 hspeed
+0 vector1
+0 vector2
+0 depth
+32 width
+32 height
+obj_wall
+1 solid
+0 px
+160 py
+0 b left
+0 b top
+32 b right
+32 b bottom
+0 sx
+160 sy
+0 the length of variables
+0 offsetx
+0 offsety
+0 mouse enter
+5 id
+0 create
+0 x
+192 y
+0 image single
+0.1 image speed
+0 image number
+1 alive
+1 visible
+1 image auto
+0 image timer
+0 image transprant
+16777215 transprat color
+1 direction 
+0 speed
+0 vspeed
+0 hspeed
+0 vector1
+0 vector2
+0 depth
+32 width
+32 height
+obj_wall
+1 solid
+0 px
+192 py
+0 b left
+0 b top
+32 b right
+32 b bottom
+0 sx
+192 sy
+0 the length of variables
+0 offsetx
+0 offsety
+0 mouse enter
+6 id
+0 create
+0 x
+224 y
+0 image single
+0.1 image speed
+0 image number
+1 alive
+1 visible
+1 image auto
+0 image timer
+0 image transprant
+16777215 transprat color
+1 direction 
+0 speed
+0 vspeed
+0 hspeed
+0 vector1
+0 vector2
+0 depth
+32 width
+32 height
+obj_wall
+1 solid
+0 px
+224 py
+0 b left
+0 b top
+32 b right
+32 b bottom
+0 sx
+224 sy
+0 the length of variables
+0 offsetx
+0 offsety
+0 mouse enter
+7 id
+0 create
+0 x
+256 y
+0 image single
+0.1 image speed
+0 image number
+1 alive
+1 visible
+1 image auto
+0 image timer
+0 image transprant
+16777215 transprat color
+1 direction 
+0 speed
+0 vspeed
+0 hspeed
+0 vector1
+0 vector2
+0 depth
+32 width
+32 height
+obj_wall
+1 solid
+0 px
+256 py
+0 b left
+0 b top
+32 b right
+32 b bottom
+0 sx
+256 sy
+0 the length of variables
+0 offsetx
+0 offsety
+0 mouse enter
+8 id
+0 create
+0 x
+288 y
+0 image single
+0.1 image speed
+0 image number
+1 alive
+1 visible
+1 image auto
+0 image timer
+0 image transprant
+16777215 transprat color
+1 direction 
+0 speed
+0 vspeed
+0 hspeed
+0 vector1
+0 vector2
+0 depth
+32 width
+32 height
+obj_wall
+1 solid
+0 px
+288 py
+0 b left
+0 b top
+32 b right
+32 b bottom
+0 sx
+288 sy
+0 the length of variables
+0 offsetx
+0 offsety
+0 mouse enter
+9 id
+0 create
+0 x
+320 y
+0 image single
+0.1 image speed
+0 image number
+1 alive
+1 visible
+1 image auto
+0 image timer
+0 image transprant
+16777215 transprat color
+1 direction 
+0 speed
+0 vspeed
+0 hspeed
+0 vector1
+0 vector2
+0 depth
+32 width
+32 height
+obj_wall
+1 solid
+0 px
+320 py
+0 b left
+0 b top
+32 b right
+32 b bottom
+0 sx
+320 sy
+0 the length of variables
+0 offsetx
+0 offsety
+0 mouse enter
+10 id
+0 create
+0 x
+352 y
+0 image single
+0.1 image speed
+0 image number
+1 alive
+1 visible
+1 image auto
+0 image timer
+0 image transprant
+16777215 transprat color
+1 direction 
+0 speed
+0 vspeed
+0 hspeed
+0 vector1
+0 vector2
+0 depth
+32 width
+32 height
+obj_wall
+1 solid
+0 px
+352 py
+0 b left
+0 b top
+32 b right
+32 b bottom
+0 sx
+352 sy
+0 the length of variables
+0 offsetx
+0 offsety
+0 mouse enter
+11 id
+0 create
+0 x
+384 y
+0 image single
+0.1 image speed
+0 image number
+1 alive
+1 visible
+1 image auto
+0 image timer
+0 image transprant
+16777215 transprat color
+1 direction 
+0 speed
+0 vspeed
+0 hspeed
+0 vector1
+0 vector2
+0 depth
+32 width
+32 height
+obj_wall
+1 solid
+0 px
+384 py
+0 b left
+0 b top
+32 b right
+32 b bottom
+0 sx
+384 sy
+0 the length of variables
+0 offsetx
+0 offsety
+0 mouse enter
+12 id
+0 create
+0 x
+416 y
+0 image single
+0.1 image speed
+0 image number
+1 alive
+1 visible
+1 image auto
+0 image timer
+0 image transprant
+16777215 transprat color
+1 direction 
+0 speed
+0 vspeed
+0 hspeed
+0 vector1
+0 vector2
+0 depth
+32 width
+32 height
+obj_wall
+1 solid
+0 px
+416 py
+0 b left
+0 b top
+32 b right
+32 b bottom
+0 sx
+416 sy
+0 the length of variables
+0 offsetx
+0 offsety
+0 mouse enter
+13 id
+0 create
+0 x
+448 y
+0 image single
+0.1 image speed
+0 image number
+1 alive
+1 visible
+1 image auto
+0 image timer
+0 image transprant
+16777215 transprat color
+1 direction 
+0 speed
+0 vspeed
+0 hspeed
+0 vector1
+0 vector2
+0 depth
+32 width
+32 height
+obj_wall
+1 solid
+0 px
+448 py
+0 b left
+0 b top
+32 b right
+32 b bottom
+0 sx
+448 sy
+0 the length of variables
+0 offsetx
+0 offsety
+0 mouse enter
+14 id
+0 create
+32 x
+448 y
+0 image single
+0.1 image speed
+0 image number
+1 alive
+1 visible
+1 image auto
+0 image timer
+0 image transprant
+16777215 transprat color
+1 direction 
+0 speed
+0 vspeed
+0 hspeed
+0 vector1
+0 vector2
+0 depth
+32 width
+32 height
+obj_wall
+1 solid
+32 px
+448 py
+0 b left
+0 b top
+32 b right
+32 b bottom
+32 sx
+448 sy
+0 the length of variables
+0 offsetx
+0 offsety
+0 mouse enter
+15 id
+0 create
+96 x
+448 y
+0 image single
+0.1 image speed
+0 image number
+1 alive
+1 visible
+1 image auto
+0 image timer
+0 image transprant
+16777215 transprat color
+1 direction 
+0 speed
+0 vspeed
+0 hspeed
+0 vector1
+0 vector2
+0 depth
+32 width
+32 height
+obj_wall
+1 solid
+96 px
+448 py
+0 b left
+0 b top
+32 b right
+32 b bottom
+96 sx
+448 sy
+0 the length of variables
+0 offsetx
+0 offsety
+0 mouse enter
+16 id
+0 create
+64 x
+448 y
+0 image single
+0.1 image speed
+0 image number
+1 alive
+1 visible
+1 image auto
+0 image timer
+0 image transprant
+16777215 transprat color
+1 direction 
+0 speed
+0 vspeed
+0 hspeed
+0 vector1
+0 vector2
+0 depth
+32 width
+32 height
+obj_wall
+1 solid
+64 px
+448 py
+0 b left
+0 b top
+32 b right
+32 b bottom
+64 sx
+448 sy
+0 the length of variables
+0 offsetx
+0 offsety
+0 mouse enter
+17 id
+0 create
+128 x
+448 y
+0 image single
+0.1 image speed
+0 image number
+1 alive
+1 visible
+1 image auto
+0 image timer
+0 image transprant
+16777215 transprat color
+1 direction 
+0 speed
+0 vspeed
+0 hspeed
+0 vector1
+0 vector2
+0 depth
+32 width
+32 height
+obj_wall
+1 solid
+128 px
+448 py
+0 b left
+0 b top
+32 b right
+32 b bottom
+128 sx
+448 sy
+0 the length of variables
+0 offsetx
+0 offsety
+0 mouse enter
+18 id
+0 create
+160 x
+448 y
+0 image single
+0.1 image speed
+0 image number
+1 alive
+1 visible
+1 image auto
+0 image timer
+0 image transprant
+16777215 transprat color
+1 direction 
+0 speed
+0 vspeed
+0 hspeed
+0 vector1
+0 vector2
+0 depth
+32 width
+32 height
+obj_wall
+1 solid
+160 px
+448 py
+0 b left
+0 b top
+32 b right
+32 b bottom
+160 sx
+448 sy
+0 the length of variables
+0 offsetx
+0 offsety
+0 mouse enter
+19 id
+0 create
+224 x
+448 y
+0 image single
+0.1 image speed
+0 image number
+1 alive
+1 visible
+1 image auto
+0 image timer
+0 image transprant
+16777215 transprat color
+1 direction 
+0 speed
+0 vspeed
+0 hspeed
+0 vector1
+0 vector2
+0 depth
+32 width
+32 height
+obj_wall
+1 solid
+224 px
+448 py
+0 b left
+0 b top
+32 b right
+32 b bottom
+224 sx
+448 sy
+0 the length of variables
+0 offsetx
+0 offsety
+0 mouse enter
+20 id
+0 create
+192 x
+448 y
+0 image single
+0.1 image speed
+0 image number
+1 alive
+1 visible
+1 image auto
+0 image timer
+0 image transprant
+16777215 transprat color
+1 direction 
+0 speed
+0 vspeed
+0 hspeed
+0 vector1
+0 vector2
+0 depth
+32 width
+32 height
+obj_wall
+1 solid
+192 px
+448 py
+0 b left
+0 b top
+32 b right
+32 b bottom
+192 sx
+448 sy
+0 the length of variables
+0 offsetx
+0 offsety
+0 mouse enter
+21 id
+0 create
+256 x
+448 y
+0 image single
+0.1 image speed
+0 image number
+1 alive
+1 visible
+1 image auto
+0 image timer
+0 image transprant
+16777215 transprat color
+1 direction 
+0 speed
+0 vspeed
+0 hspeed
+0 vector1
+0 vector2
+0 depth
+32 width
+32 height
+obj_wall
+1 solid
+256 px
+448 py
+0 b left
+0 b top
+32 b right
+32 b bottom
+256 sx
+448 sy
+0 the length of variables
+0 offsetx
+0 offsety
+0 mouse enter
+22 id
+0 create
+288 x
+448 y
+0 image single
+0.1 image speed
+0 image number
+1 alive
+1 visible
+1 image auto
+0 image timer
+0 image transprant
+16777215 transprat color
+1 direction 
+0 speed
+0 vspeed
+0 hspeed
+0 vector1
+0 vector2
+0 depth
+32 width
+32 height
+obj_wall
+1 solid
+288 px
+448 py
+0 b left
+0 b top
+32 b right
+32 b bottom
+288 sx
+448 sy
+0 the length of variables
+0 offsetx
+0 offsety
+0 mouse enter
+23 id
+0 create
+320 x
+448 y
+0 image single
+0.1 image speed
+0 image number
+1 alive
+1 visible
+1 image auto
+0 image timer
+0 image transprant
+16777215 transprat color
+1 direction 
+0 speed
+0 vspeed
+0 hspeed
+0 vector1
+0 vector2
+0 depth
+32 width
+32 height
+obj_wall
+1 solid
+320 px
+448 py
+0 b left
+0 b top
+32 b right
+32 b bottom
+320 sx
+448 sy
+0 the length of variables
+0 offsetx
+0 offsety
+0 mouse enter
+24 id
+0 create
+352 x
+448 y
+0 image single
+0.1 image speed
+0 image number
+1 alive
+1 visible
+1 image auto
+0 image timer
+0 image transprant
+16777215 transprat color
+1 direction 
+0 speed
+0 vspeed
+0 hspeed
+0 vector1
+0 vector2
+0 depth
+32 width
+32 height
+obj_wall
+1 solid
+352 px
+448 py
+0 b left
+0 b top
+32 b right
+32 b bottom
+352 sx
+448 sy
+0 the length of variables
+0 offsetx
+0 offsety
+0 mouse enter
+25 id
+0 create
+384 x
+448 y
+0 image single
+0.1 image speed
+0 image number
+1 alive
+1 visible
+1 image auto
+0 image timer
+0 image transprant
+16777215 transprat color
+1 direction 
+0 speed
+0 vspeed
+0 hspeed
+0 vector1
+0 vector2
+0 depth
+32 width
+32 height
+obj_wall
+1 solid
+384 px
+448 py
+0 b left
+0 b top
+32 b right
+32 b bottom
+384 sx
+448 sy
+0 the length of variables
+0 offsetx
+0 offsety
+0 mouse enter
+26 id
+0 create
+416 x
+448 y
+0 image single
+0.1 image speed
+0 image number
+1 alive
+1 visible
+1 image auto
+0 image timer
+0 image transprant
+16777215 transprat color
+1 direction 
+0 speed
+0 vspeed
+0 hspeed
+0 vector1
+0 vector2
+0 depth
+32 width
+32 height
+obj_wall
+1 solid
+416 px
+448 py
+0 b left
+0 b top
+32 b right
+32 b bottom
+416 sx
+448 sy
+0 the length of variables
+0 offsetx
+0 offsety
+0 mouse enter
+27 id
+0 create
+448 x
+448 y
+0 image single
+0.1 image speed
+0 image number
+1 alive
+1 visible
+1 image auto
+0 image timer
+0 image transprant
+16777215 transprat color
+1 direction 
+0 speed
+0 vspeed
+0 hspeed
+0 vector1
+0 vector2
+0 depth
+32 width
+32 height
+obj_wall
+1 solid
+448 px
+448 py
+0 b left
+0 b top
+32 b right
+32 b bottom
+448 sx
+448 sy
+0 the length of variables
+0 offsetx
+0 offsety
+0 mouse enter
+28 id
+0 create
+448 x
+416 y
+0 image single
+0.1 image speed
+0 image number
+1 alive
+1 visible
+1 image auto
+0 image timer
+0 image transprant
+16777215 transprat color
+1 direction 
+0 speed
+0 vspeed
+0 hspeed
+0 vector1
+0 vector2
+0 depth
+32 width
+32 height
+obj_wall
+1 solid
+448 px
+416 py
+0 b left
+0 b top
+32 b right
+32 b bottom
+448 sx
+416 sy
+0 the length of variables
+0 offsetx
+0 offsety
+0 mouse enter
+29 id
+0 create
+448 x
+384 y
+0 image single
+0.1 image speed
+0 image number
+1 alive
+1 visible
+1 image auto
+0 image timer
+0 image transprant
+16777215 transprat color
+1 direction 
+0 speed
+0 vspeed
+0 hspeed
+0 vector1
+0 vector2
+0 depth
+32 width
+32 height
+obj_wall
+1 solid
+448 px
+384 py
+0 b left
+0 b top
+32 b right
+32 b bottom
+448 sx
+384 sy
+0 the length of variables
+0 offsetx
+0 offsety
+0 mouse enter
+30 id
+0 create
+448 x
+352 y
+0 image single
+0.1 image speed
+0 image number
+1 alive
+1 visible
+1 image auto
+0 image timer
+0 image transprant
+16777215 transprat color
+1 direction 
+0 speed
+0 vspeed
+0 hspeed
+0 vector1
+0 vector2
+0 depth
+32 width
+32 height
+obj_wall
+1 solid
+448 px
+352 py
+0 b left
+0 b top
+32 b right
+32 b bottom
+448 sx
+352 sy
+0 the length of variables
+0 offsetx
+0 offsety
+0 mouse enter
+31 id
+0 create
+448 x
+320 y
+0 image single
+0.1 image speed
+0 image number
+1 alive
+1 visible
+1 image auto
+0 image timer
+0 image transprant
+16777215 transprat color
+1 direction 
+0 speed
+0 vspeed
+0 hspeed
+0 vector1
+0 vector2
+0 depth
+32 width
+32 height
+obj_wall
+1 solid
+448 px
+320 py
+0 b left
+0 b top
+32 b right
+32 b bottom
+448 sx
+320 sy
+0 the length of variables
+0 offsetx
+0 offsety
+0 mouse enter
+32 id
+0 create
+448 x
+288 y
+0 image single
+0.1 image speed
+0 image number
+1 alive
+1 visible
+1 image auto
+0 image timer
+0 image transprant
+16777215 transprat color
+1 direction 
+0 speed
+0 vspeed
+0 hspeed
+0 vector1
+0 vector2
+0 depth
+32 width
+32 height
+obj_wall
+1 solid
+448 px
+288 py
+0 b left
+0 b top
+32 b right
+32 b bottom
+448 sx
+288 sy
+0 the length of variables
+0 offsetx
+0 offsety
+0 mouse enter
+33 id
+0 create
+448 x
+256 y
+0 image single
+0.1 image speed
+0 image number
+1 alive
+1 visible
+1 image auto
+0 image timer
+0 image transprant
+16777215 transprat color
+1 direction 
+0 speed
+0 vspeed
+0 hspeed
+0 vector1
+0 vector2
+0 depth
+32 width
+32 height
+obj_wall
+1 solid
+448 px
+256 py
+0 b left
+0 b top
+32 b right
+32 b bottom
+448 sx
+256 sy
+0 the length of variables
+0 offsetx
+0 offsety
+0 mouse enter
+34 id
+0 create
+448 x
+224 y
+0 image single
+0.1 image speed
+0 image number
+1 alive
+1 visible
+1 image auto
+0 image timer
+0 image transprant
+16777215 transprat color
+1 direction 
+0 speed
+0 vspeed
+0 hspeed
+0 vector1
+0 vector2
+0 depth
+32 width
+32 height
+obj_wall
+1 solid
+448 px
+224 py
+0 b left
+0 b top
+32 b right
+32 b bottom
+448 sx
+224 sy
+0 the length of variables
+0 offsetx
+0 offsety
+0 mouse enter
+35 id
+0 create
+448 x
+192 y
+0 image single
+0.1 image speed
+0 image number
+1 alive
+1 visible
+1 image auto
+0 image timer
+0 image transprant
+16777215 transprat color
+1 direction 
+0 speed
+0 vspeed
+0 hspeed
+0 vector1
+0 vector2
+0 depth
+32 width
+32 height
+obj_wall
+1 solid
+448 px
+192 py
+0 b left
+0 b top
+32 b right
+32 b bottom
+448 sx
+192 sy
+0 the length of variables
+0 offsetx
+0 offsety
+0 mouse enter
+36 id
+0 create
+448 x
+160 y
+0 image single
+0.1 image speed
+0 image number
+1 alive
+1 visible
+1 image auto
+0 image timer
+0 image transprant
+16777215 transprat color
+1 direction 
+0 speed
+0 vspeed
+0 hspeed
+0 vector1
+0 vector2
+0 depth
+32 width
+32 height
+obj_wall
+1 solid
+448 px
+160 py
+0 b left
+0 b top
+32 b right
+32 b bottom
+448 sx
+160 sy
+0 the length of variables
+0 offsetx
+0 offsety
+0 mouse enter
+37 id
+0 create
+448 x
+128 y
+0 image single
+0.1 image speed
+0 image number
+1 alive
+1 visible
+1 image auto
+0 image timer
+0 image transprant
+16777215 transprat color
+1 direction 
+0 speed
+0 vspeed
+0 hspeed
+0 vector1
+0 vector2
+0 depth
+32 width
+32 height
+obj_wall
+1 solid
+448 px
+128 py
+0 b left
+0 b top
+32 b right
+32 b bottom
+448 sx
+128 sy
+0 the length of variables
+0 offsetx
+0 offsety
+0 mouse enter
+38 id
+0 create
+448 x
+96 y
+0 image single
+0.1 image speed
+0 image number
+1 alive
+1 visible
+1 image auto
+0 image timer
+0 image transprant
+16777215 transprat color
+1 direction 
+0 speed
+0 vspeed
+0 hspeed
+0 vector1
+0 vector2
+0 depth
+32 width
+32 height
+obj_wall
+1 solid
+448 px
+96 py
+0 b left
+0 b top
+32 b right
+32 b bottom
+448 sx
+96 sy
+0 the length of variables
+0 offsetx
+0 offsety
+0 mouse enter
+39 id
+0 create
+448 x
+64 y
+0 image single
+0.1 image speed
+0 image number
+1 alive
+1 visible
+1 image auto
+0 image timer
+0 image transprant
+16777215 transprat color
+1 direction 
+0 speed
+0 vspeed
+0 hspeed
+0 vector1
+0 vector2
+0 depth
+32 width
+32 height
+obj_wall
+1 solid
+448 px
+64 py
+0 b left
+0 b top
+32 b right
+32 b bottom
+448 sx
+64 sy
+0 the length of variables
+0 offsetx
+0 offsety
+0 mouse enter
+40 id
+0 create
+448 x
+32 y
+0 image single
+0.1 image speed
+0 image number
+1 alive
+1 visible
+1 image auto
+0 image timer
+0 image transprant
+16777215 transprat color
+1 direction 
+0 speed
+0 vspeed
+0 hspeed
+0 vector1
+0 vector2
+0 depth
+32 width
+32 height
+obj_wall
+1 solid
+448 px
+32 py
+0 b left
+0 b top
+32 b right
+32 b bottom
+448 sx
+32 sy
+0 the length of variables
+0 offsetx
+0 offsety
+0 mouse enter
+41 id
+0 create
+448 x
+0 y
+0 image single
+0.1 image speed
+0 image number
+1 alive
+1 visible
+1 image auto
+0 image timer
+0 image transprant
+16777215 transprat color
+1 direction 
+0 speed
+0 vspeed
+0 hspeed
+0 vector1
+0 vector2
+0 depth
+32 width
+32 height
+obj_wall
+1 solid
+448 px
+0 py
+0 b left
+0 b top
+32 b right
+32 b bottom
+448 sx
+0 sy
+0 the length of variables
+0 offsetx
+0 offsety
+0 mouse enter
+42 id
+0 create
+416 x
+0 y
+0 image single
+0.1 image speed
+0 image number
+1 alive
+1 visible
+1 image auto
+0 image timer
+0 image transprant
+16777215 transprat color
+1 direction 
+0 speed
+0 vspeed
+0 hspeed
+0 vector1
+0 vector2
+0 depth
+32 width
+32 height
+obj_wall
+1 solid
+416 px
+0 py
+0 b left
+0 b top
+32 b right
+32 b bottom
+416 sx
+0 sy
+0 the length of variables
+0 offsetx
+0 offsety
+0 mouse enter
+43 id
+0 create
+384 x
+0 y
+0 image single
+0.1 image speed
+0 image number
+1 alive
+1 visible
+1 image auto
+0 image timer
+0 image transprant
+16777215 transprat color
+1 direction 
+0 speed
+0 vspeed
+0 hspeed
+0 vector1
+0 vector2
+0 depth
+32 width
+32 height
+obj_wall
+1 solid
+384 px
+0 py
+0 b left
+0 b top
+32 b right
+32 b bottom
+384 sx
+0 sy
+0 the length of variables
+0 offsetx
+0 offsety
+0 mouse enter
+44 id
+0 create
+352 x
+0 y
+0 image single
+0.1 image speed
+0 image number
+1 alive
+1 visible
+1 image auto
+0 image timer
+0 image transprant
+16777215 transprat color
+1 direction 
+0 speed
+0 vspeed
+0 hspeed
+0 vector1
+0 vector2
+0 depth
+32 width
+32 height
+obj_wall
+1 solid
+352 px
+0 py
+0 b left
+0 b top
+32 b right
+32 b bottom
+352 sx
+0 sy
+0 the length of variables
+0 offsetx
+0 offsety
+0 mouse enter
+45 id
+0 create
+320 x
+0 y
+0 image single
+0.1 image speed
+0 image number
+1 alive
+1 visible
+1 image auto
+0 image timer
+0 image transprant
+16777215 transprat color
+1 direction 
+0 speed
+0 vspeed
+0 hspeed
+0 vector1
+0 vector2
+0 depth
+32 width
+32 height
+obj_wall
+1 solid
+320 px
+0 py
+0 b left
+0 b top
+32 b right
+32 b bottom
+320 sx
+0 sy
+0 the length of variables
+0 offsetx
+0 offsety
+0 mouse enter
+46 id
+0 create
+288 x
+0 y
+0 image single
+0.1 image speed
+0 image number
+1 alive
+1 visible
+1 image auto
+0 image timer
+0 image transprant
+16777215 transprat color
+1 direction 
+0 speed
+0 vspeed
+0 hspeed
+0 vector1
+0 vector2
+0 depth
+32 width
+32 height
+obj_wall
+1 solid
+288 px
+0 py
+0 b left
+0 b top
+32 b right
+32 b bottom
+288 sx
+0 sy
+0 the length of variables
+0 offsetx
+0 offsety
+0 mouse enter
+47 id
+0 create
+224 x
+0 y
+0 image single
+0.1 image speed
+0 image number
+1 alive
+1 visible
+1 image auto
+0 image timer
+0 image transprant
+16777215 transprat color
+1 direction 
+0 speed
+0 vspeed
+0 hspeed
+0 vector1
+0 vector2
+0 depth
+32 width
+32 height
+obj_wall
+1 solid
+224 px
+0 py
+0 b left
+0 b top
+32 b right
+32 b bottom
+224 sx
+0 sy
+0 the length of variables
+0 offsetx
+0 offsety
+0 mouse enter
+48 id
+0 create
+256 x
+0 y
+0 image single
+0.1 image speed
+0 image number
+1 alive
+1 visible
+1 image auto
+0 image timer
+0 image transprant
+16777215 transprat color
+1 direction 
+0 speed
+0 vspeed
+0 hspeed
+0 vector1
+0 vector2
+0 depth
+32 width
+32 height
+obj_wall
+1 solid
+256 px
+0 py
+0 b left
+0 b top
+32 b right
+32 b bottom
+256 sx
+0 sy
+0 the length of variables
+0 offsetx
+0 offsety
+0 mouse enter
+49 id
+0 create
+160 x
+0 y
+0 image single
+0.1 image speed
+0 image number
+1 alive
+1 visible
+1 image auto
+0 image timer
+0 image transprant
+16777215 transprat color
+1 direction 
+0 speed
+0 vspeed
+0 hspeed
+0 vector1
+0 vector2
+0 depth
+32 width
+32 height
+obj_wall
+1 solid
+160 px
+0 py
+0 b left
+0 b top
+32 b right
+32 b bottom
+160 sx
+0 sy
+0 the length of variables
+0 offsetx
+0 offsety
+0 mouse enter
+50 id
+0 create
+192 x
+0 y
+0 image single
+0.1 image speed
+0 image number
+1 alive
+1 visible
+1 image auto
+0 image timer
+0 image transprant
+16777215 transprat color
+1 direction 
+0 speed
+0 vspeed
+0 hspeed
+0 vector1
+0 vector2
+0 depth
+32 width
+32 height
+obj_wall
+1 solid
+192 px
+0 py
+0 b left
+0 b top
+32 b right
+32 b bottom
+192 sx
+0 sy
+0 the length of variables
+0 offsetx
+0 offsety
+0 mouse enter
+51 id
+0 create
+128 x
+0 y
+0 image single
+0.1 image speed
+0 image number
+1 alive
+1 visible
+1 image auto
+0 image timer
+0 image transprant
+16777215 transprat color
+1 direction 
+0 speed
+0 vspeed
+0 hspeed
+0 vector1
+0 vector2
+0 depth
+32 width
+32 height
+obj_wall
+1 solid
+128 px
+0 py
+0 b left
+0 b top
+32 b right
+32 b bottom
+128 sx
+0 sy
+0 the length of variables
+0 offsetx
+0 offsety
+0 mouse enter
+52 id
+0 create
+64 x
+0 y
+0 image single
+0.1 image speed
+0 image number
+1 alive
+1 visible
+1 image auto
+0 image timer
+0 image transprant
+16777215 transprat color
+1 direction 
+0 speed
+0 vspeed
+0 hspeed
+0 vector1
+0 vector2
+0 depth
+32 width
+32 height
+obj_wall
+1 solid
+64 px
+0 py
+0 b left
+0 b top
+32 b right
+32 b bottom
+64 sx
+0 sy
+0 the length of variables
+0 offsetx
+0 offsety
+0 mouse enter
+53 id
+0 create
+96 x
+0 y
+0 image single
+0.1 image speed
+0 image number
+1 alive
+1 visible
+1 image auto
+0 image timer
+0 image transprant
+16777215 transprat color
+1 direction 
+0 speed
+0 vspeed
+0 hspeed
+0 vector1
+0 vector2
+0 depth
+32 width
+32 height
+obj_wall
+1 solid
+96 px
+0 py
+0 b left
+0 b top
+32 b right
+32 b bottom
+96 sx
+0 sy
+0 the length of variables
+0 offsetx
+0 offsety
+0 mouse enter
+54 id
+0 create
+0 x
+0 y
+0 image single
+0.1 image speed
+0 image number
+1 alive
+1 visible
+1 image auto
+0 image timer
+0 image transprant
+16777215 transprat color
+1 direction 
+0 speed
+0 vspeed
+0 hspeed
+0 vector1
+0 vector2
+0 depth
+32 width
+32 height
+obj_wall
+1 solid
+0 px
+0 py
+0 b left
+0 b top
+32 b right
+32 b bottom
+0 sx
+0 sy
+0 the length of variables
+0 offsetx
+0 offsety
+0 mouse enter
+55 id
+0 create
+32 x
+0 y
+0 image single
+0.1 image speed
+0 image number
+1 alive
+1 visible
+1 image auto
+0 image timer
+0 image transprant
+16777215 transprat color
+1 direction 
+0 speed
+0 vspeed
+0 hspeed
+0 vector1
+0 vector2
+0 depth
+32 width
+32 height
+obj_wall
+1 solid
+32 px
+0 py
+0 b left
+0 b top
+32 b right
+32 b bottom
+32 sx
+0 sy
+0 the length of variables
+0 offsetx
+0 offsety
+0 mouse enter
+56 id
+0 create
+224 x
+224 y
+4 image single
+0.1 image speed
+5 image number
+1 alive
+1 visible
+1 image auto
+0 image timer
+1 image transprant
+16711935 transprat color
+1 direction 
+0 speed
+0 vspeed
+0 hspeed
+0 vector1
+0 vector2
+0 depth
+32 width
+32 height
+obj_createor
+0 solid
+224 px
+224 py
+0 b left
+0 b top
+32 b right
+32 b bottom
+224 sx
+224 sy
+1 the length of variables
+timer1
+2
+0 offsetx
+0 offsety
+0 mouse enter
+57 id
+0 create
+79.56439444 x
+415.6725224 y
+1 image single
+0.1 image speed
+5 image number
+1 alive
+1 visible
+1 image auto
+0 image timer
+1 image transprant
+16711935 transprat color
+127 direction 
+0 speed
+0 vspeed
+0 hspeed
+0 vector1
+0 vector2
+0 depth
+32 width
+32 height
+obj_star
+0 solid
+79.56439444 px
+415.6725224 py
+0 b left
+0 b top
+32 b right
+32 b bottom
+224 sx
+224 sy
+0 the length of variables
+0 offsetx
+0 offsety
+0 mouse enter
+58 id
+0 create
+34.97943346 x
+351.495982 y
+4 image single
+0.1 image speed
+5 image number
+1 alive
+1 visible
+1 image auto
+0 image timer
+1 image transprant
+16711935 transprat color
+146 direction 
+0 speed
+0 vspeed
+0 hspeed
+0 vector1
+0 vector2
+0 depth
+32 width
+32 height
+obj_star
+0 solid
+34.97943346 px
+351.495982 py
+0 b left
+0 b top
+32 b right
+32 b bottom
+224 sx
+224 sy
+0 the length of variables
+0 offsetx
+0 offsety
+0 mouse enter
+59 id
+0 create
+33.98254481 x
+308.6012218 y
+1 image single
+0.1 image speed
+5 image number
+1 alive
+1 visible
+1 image auto
+0 image timer
+1 image transprant
+16711935 transprat color
+156 direction 
+0 speed
+0 vspeed
+0 hspeed
+0 vector1
+0 vector2
+0 depth
+32 width
+32 height
+obj_star
+0 solid
+33.98254481 px
+308.6012218 py
+0 b left
+0 b top
+32 b right
+32 b bottom
+224 sx
+224 sy
+0 the length of variables
+0 offsetx
+0 offsety
+0 mouse enter
+60 id
+0 create
+416.1372509 x
+313.5950715 y
+4 image single
+0.1 image speed
+5 image number
+1 alive
+1 visible
+1 image auto
+0 image timer
+1 image transprant
+16711935 transprat color
+25 direction 
+0 speed
+0 vspeed
+0 hspeed
+0 vector1
+0 vector2
+0 depth
+32 width
+32 height
+obj_star
+0 solid
+416.1372509 px
+313.5950715 py
+0 b left
+0 b top
+32 b right
+32 b bottom
+224 sx
+224 sy
+0 the length of variables
+0 offsetx
+0 offsety
+0 mouse enter
+61 id
+0 create
+32.73904881 x
+165.5256591 y
+1 image single
+0.1 image speed
+5 image number
+1 alive
+1 visible
+1 image auto
+0 image timer
+1 image transprant
+16711935 transprat color
+197 direction 
+0 speed
+0 vspeed
+0 hspeed
+0 vector1
+0 vector2
+0 depth
+32 width
+32 height
+obj_star
+0 solid
+32.73904881 px
+165.5256591 py
+0 b left
+0 b top
+32 b right
+32 b bottom
+224 sx
+224 sy
+0 the length of variables
+0 offsetx
+0 offsety
+0 mouse enter
+62 id
+0 create
+414.9482039 x
+203.9305351 y
+4 image single
+0.1 image speed
+5 image number
+1 alive
+1 visible
+1 image auto
+0 image timer
+1 image transprant
+16711935 transprat color
+354 direction 
+0 speed
+0 vspeed
+0 hspeed
+0 vector1
+0 vector2
+0 depth
+32 width
+32 height
+obj_star
+0 solid
+414.9482039 px
+203.9305351 py
+0 b left
+0 b top
+32 b right
+32 b bottom
+224 sx
+224 sy
+0 the length of variables
+0 offsetx
+0 offsety
+0 mouse enter
+63 id
+0 create
+416.2746239 x
+73.77860002 y
+1 image single
+0.1 image speed
+5 image number
+1 alive
+1 visible
+1 image auto
+0 image timer
+1 image transprant
+16711935 transprat color
+322 direction 
+0 speed
+0 vspeed
+0 hspeed
+0 vector1
+0 vector2
+0 depth
+32 width
+32 height
+obj_star
+0 solid
+416.2746239 px
+73.77860002 py
+0 b left
+0 b top
+32 b right
+32 b bottom
+224 sx
+224 sy
+0 the length of variables
+0 offsetx
+0 offsety
+0 mouse enter
+64 id
+0 create
+46.68042638 x
+33.84803758 y
+4 image single
+0.1 image speed
+5 image number
+1 alive
+1 visible
+1 image auto
+0 image timer
+1 image transprant
+16711935 transprat color
+227 direction 
+0 speed
+0 vspeed
+0 hspeed
+0 vector1
+0 vector2
+0 depth
+32 width
+32 height
+obj_star
+0 solid
+46.68042638 px
+33.84803758 py
+0 b left
+0 b top
+32 b right
+32 b bottom
+224 sx
+224 sy
+0 the length of variables
+0 offsetx
+0 offsety
+0 mouse enter
+65 id
+0 create
+105.2980848 x
+413.9627735 y
+1 image single
+0.1 image speed
+5 image number
+1 alive
+1 visible
+1 image auto
+0 image timer
+1 image transprant
+16711935 transprat color
+122 direction 
+0 speed
+0 vspeed
+0 hspeed
+0 vector1
+0 vector2
+0 depth
+32 width
+32 height
+obj_star
+0 solid
+105.2980848 px
+413.9627735 py
+0 b left
+0 b top
+32 b right
+32 b bottom
+224 sx
+224 sy
+0 the length of variables
+0 offsetx
+0 offsety
+0 mouse enter
+66 id
+0 create
+416.3367168 x
+94.26724639 y
+4 image single
+0.1 image speed
+5 image number
+1 alive
+1 visible
+1 image auto
+0 image timer
+1 image transprant
+16711935 transprat color
+326 direction 
+0 speed
+0 vspeed
+0 hspeed
+0 vector1
+0 vector2
+0 depth
+32 width
+32 height
+obj_star
+0 solid
+416.3367168 px
+94.26724639 py
+0 b left
+0 b top
+32 b right
+32 b bottom
+224 sx
+224 sy
+0 the length of variables
+0 offsetx
+0 offsety
+0 mouse enter
+67 id
+0 create
+415.269382 x
+207.2660974 y
+1 image single
+0.1 image speed
+5 image number
+1 alive
+1 visible
+1 image auto
+0 image timer
+1 image transprant
+16711935 transprat color
+355 direction 
+0 speed
+0 vspeed
+0 hspeed
+0 vector1
+0 vector2
+0 depth
+32 width
+32 height
+obj_star
+0 solid
+415.269382 px
+207.2660974 py
+0 b left
+0 b top
+32 b right
+32 b bottom
+224 sx
+224 sy
+0 the length of variables
+0 offsetx
+0 offsety
+0 mouse enter
+68 id
+0 create
+131.0653169 x
+33.45566218 y
+4 image single
+0.1 image speed
+5 image number
+1 alive
+1 visible
+1 image auto
+0 image timer
+1 image transprant
+16711935 transprat color
+244 direction 
+0 speed
+0 vspeed
+0 hspeed
+0 vector1
+0 vector2
+0 depth
+32 width
+32 height
+obj_star
+0 solid
+131.0653169 px
+33.45566218 py
+0 b left
+0 b top
+32 b right
+32 b bottom
+224 sx
+224 sy
+0 the length of variables
+0 offsetx
+0 offsety
+0 mouse enter
+69 id
+0 create
+176.5833085 x
+33.82203765 y
+1 image single
+0.1 image speed
+5 image number
+1 alive
+1 visible
+1 image auto
+0 image timer
+1 image transprant
+16711935 transprat color
+256 direction 
+0 speed
+0 vspeed
+0 hspeed
+0 vector1
+0 vector2
+0 depth
+32 width
+32 height
+obj_star
+0 solid
+176.5833085 px
+33.82203765 py
+0 b left
+0 b top
+32 b right
+32 b bottom
+224 sx
+224 sy
+0 the length of variables
+0 offsetx
+0 offsety
+0 mouse enter
+70 id
+0 create
+414.450407 x
+297.1070617 y
+4 image single
+0.1 image speed
+5 image number
+1 alive
+1 visible
+1 image auto
+0 image timer
+1 image transprant
+16711935 transprat color
+21 direction 
+0 speed
+0 vspeed
+0 hspeed
+0 vector1
+0 vector2
+0 depth
+32 width
+32 height
+obj_star
+0 solid
+414.450407 px
+297.1070617 py
+0 b left
+0 b top
+32 b right
+32 b bottom
+224 sx
+224 sy
+0 the length of variables
+0 offsetx
+0 offsety
+0 mouse enter
+71 id
+0 create
+293.7721092 x
+32.30270536 y
+1 image single
+0.1 image speed
+5 image number
+1 alive
+1 visible
+1 image auto
+0 image timer
+1 image transprant
+16711935 transprat color
+290 direction 
+0 speed
+0 vspeed
+0 hspeed
+0 vector1
+0 vector2
+0 depth
+32 width
+32 height
+obj_star
+0 solid
+293.7721092 px
+32.30270536 py
+0 b left
+0 b top
+32 b right
+32 b bottom
+224 sx
+224 sy
+0 the length of variables
+0 offsetx
+0 offsety
+0 mouse enter
+72 id
+0 create
+416.2523392 x
+168.8725288 y
+4 image single
+0.1 image speed
+5 image number
+1 alive
+1 visible
+1 image auto
+0 image timer
+1 image transprant
+16711935 transprat color
+344 direction 
+0 speed
+0 vspeed
+0 hspeed
+0 vector1
+0 vector2
+0 depth
+32 width
+32 height
+obj_star
+0 solid
+416.2523392 px
+168.8725288 py
+0 b left
+0 b top
+32 b right
+32 b bottom
+224 sx
+224 sy
+0 the length of variables
+0 offsetx
+0 offsety
+0 mouse enter
+73 id
+0 create
+33.0234673 x
+179.9095933 y
+1 image single
+0.1 image speed
+5 image number
+1 alive
+1 visible
+1 image auto
+0 image timer
+1 image transprant
+16711935 transprat color
+193 direction 
+0 speed
+0 vspeed
+0 hspeed
+0 vector1
+0 vector2
+0 depth
+32 width
+32 height
+obj_star
+0 solid
+33.0234673 px
+179.9095933 py
+0 b left
+0 b top
+32 b right
+32 b bottom
+224 sx
+224 sy
+0 the length of variables
+0 offsetx
+0 offsety
+0 mouse enter
+74 id
+0 create
+250.7212354 x
+33.8685308 y
+4 image single
+0.1 image speed
+5 image number
+1 alive
+1 visible
+1 image auto
+0 image timer
+1 image transprant
+16711935 transprat color
+278 direction 
+0 speed
+0 vspeed
+0 hspeed
+0 vector1
+0 vector2
+0 depth
+32 width
+32 height
+obj_star
+0 solid
+250.7212354 px
+33.8685308 py
+0 b left
+0 b top
+32 b right
+32 b bottom
+224 sx
+224 sy
+0 the length of variables
+0 offsetx
+0 offsety
+0 mouse enter
+75 id
+0 create
+414.1779623 x
+271.4166916 y
+1 image single
+0.1 image speed
+5 image number
+1 alive
+1 visible
+1 image auto
+0 image timer
+1 image transprant
+16711935 transprat color
+14 direction 
+0 speed
+0 vspeed
+0 hspeed
+0 vector1
+0 vector2
+0 depth
+32 width
+32 height
+obj_star
+0 solid
+414.1779623 px
+271.4166916 py
+0 b left
+0 b top
+32 b right
+32 b bottom
+224 sx
+224 sy
+0 the length of variables
+0 offsetx
+0 offsety
+0 mouse enter
+76 id
+0 create
+305.2720748 x
+415.4650096 y
+4 image single
+0.1 image speed
+5 image number
+1 alive
+1 visible
+1 image auto
+0 image timer
+1 image transprant
+16711935 transprat color
+67 direction 
+0 speed
+0 vspeed
+0 hspeed
+0 vector1
+0 vector2
+0 depth
+32 width
+32 height
+obj_star
+0 solid
+305.2720748 px
+415.4650096 py
+0 b left
+0 b top
+32 b right
+32 b bottom
+224 sx
+224 sy
+0 the length of variables
+0 offsetx
+0 offsety
+0 mouse enter
+77 id
+0 create
+32.73061797 x
+207.2660974 y
+1 image single
+0.1 image speed
+5 image number
+1 alive
+1 visible
+1 image auto
+0 image timer
+1 image transprant
+16711935 transprat color
+185 direction 
+0 speed
+0 vspeed
+0 hspeed
+0 vector1
+0 vector2
+0 depth
+32 width
+32 height
+obj_star
+0 solid
+32.73061797 px
+207.2660974 py
+0 b left
+0 b top
+32 b right
+32 b bottom
+224 sx
+224 sy
+0 the length of variables
+0 offsetx
+0 offsety
+0 mouse enter
+78 id
+0 create
+230.7007033 x
+32.11696125 y
+4 image single
+0.1 image speed
+5 image number
+1 alive
+1 visible
+1 image auto
+0 image timer
+1 image transprant
+16711935 transprat color
+272 direction 
+0 speed
+0 vspeed
+0 hspeed
+0 vector1
+0 vector2
+0 depth
+32 width
+32 height
+obj_star
+0 solid
+230.7007033 px
+32.11696125 py
+0 b left
+0 b top
+32 b right
+32 b bottom
+224 sx
+224 sy
+0 the length of variables
+0 offsetx
+0 offsety
+0 mouse enter
+79 id
+0 create
+119.281122 x
+35.08214321 y
+1 image single
+0.1 image speed
+5 image number
+1 alive
+1 visible
+1 image auto
+0 image timer
+1 image transprant
+16711935 transprat color
+241 direction 
+0 speed
+0 vspeed
+0 hspeed
+0 vector1
+0 vector2
+0 depth
+32 width
+32 height
+obj_star
+0 solid
+119.281122 px
+35.08214321 py
+0 b left
+0 b top
+32 b right
+32 b bottom
+224 sx
+224 sy
+0 the length of variables
+0 offsetx
+0 offsety
+0 mouse enter
+80 id
+0 create
+334 x
+33.47441112 y
+4 image single
+0.1 image speed
+5 image number
+1 alive
+1 visible
+1 image auto
+0 image timer
+1 image transprant
+16711935 transprat color
+300 direction 
+0 speed
+0 vspeed
+0 hspeed
+0 vector1
+0 vector2
+0 depth
+32 width
+32 height
+obj_star
+0 solid
+334 px
+33.47441112 py
+0 b left
+0 b top
+32 b right
+32 b bottom
+224 sx
+224 sy
+0 the length of variables
+0 offsetx
+0 offsety
+0 mouse enter
+81 id
+0 create
+337.3083765 x
+35.42319388 y
+1 image single
+0.1 image speed
+5 image number
+1 alive
+1 visible
+1 image auto
+0 image timer
+1 image transprant
+16711935 transprat color
+301 direction 
+0 speed
+0 vspeed
+0 hspeed
+0 vector1
+0 vector2
+0 depth
+32 width
+32 height
+obj_star
+0 solid
+337.3083765 px
+35.42319388 py
+0 b left
+0 b top
+32 b right
+32 b bottom
+224 sx
+224 sy
+0 the length of variables
+0 offsetx
+0 offsety
+0 mouse enter
+82 id
+0 create
+414.0174552 x
+308.6012218 y
+4 image single
+0.1 image speed
+5 image number
+1 alive
+1 visible
+1 image auto
+0 image timer
+1 image transprant
+16711935 transprat color
+24 direction 
+0 speed
+0 vspeed
+0 hspeed
+0 vector1
+0 vector2
+0 depth
+32 width
+32 height
+obj_star
+0 solid
+414.0174552 px
+308.6012218 py
+0 b left
+0 b top
+32 b right
+32 b bottom
+224 sx
+224 sy
+0 the length of variables
+0 offsetx
+0 offsety
+0 mouse enter
+120 id
+0 create
+150.8929383 x
+33.54959299 y
+1 image single
+0.1 image speed
+5 image number
+1 alive
+1 visible
+1 image auto
+0 image timer
+1 image transprant
+16711935 transprat color
+249 direction 
+0 speed
+0 vspeed
+0 hspeed
+0 vector1
+0 vector2
+0 depth
+32 width
+32 height
+obj_star
+0 solid
+150.8929383 px
+33.54959299 py
+0 b left
+0 b top
+32 b right
+32 b bottom
+224 sx
+224 sy
+0 the length of variables
+0 offsetx
+0 offsety
+0 mouse enter
+121 id
+0 create
+416.2523392 x
+168.8725288 y
+1 image single
+0.1 image speed
+5 image number
+1 alive
+1 visible
+1 image auto
+0 image timer
+1 image transprant
+16711935 transprat color
+344 direction 
+0 speed
+0 vspeed
+0 hspeed
+0 vector1
+0 vector2
+0 depth
+32 width
+32 height
+obj_star
+0 solid
+416.2523392 px
+168.8725288 py
+0 b left
+0 b top
+32 b right
+32 b bottom
+224 sx
+224 sy
+0 the length of variables
+0 offsetx
+0 offsety
+0 mouse enter
+122 id
+0 create
+285.8033989 x
+33.78869674 y
+4 image single
+0.1 image speed
+5 image number
+1 alive
+1 visible
+1 image auto
+0 image timer
+1 image transprant
+16711935 transprat color
+288 direction 
+0 speed
+0 vspeed
+0 hspeed
+0 vector1
+0 vector2
+0 depth
+32 width
+32 height
+obj_star
+0 solid
+285.8033989 px
+33.78869674 py
+0 b left
+0 b top
+32 b right
+32 b bottom
+224 sx
+224 sy
+0 the length of variables
+0 offsetx
+0 offsety
+0 mouse enter
+123 id
+0 create
+316.9346831 x
+414.5443378 y
+1 image single
+0.1 image speed
+5 image number
+1 alive
+1 visible
+1 image auto
+0 image timer
+1 image transprant
+16711935 transprat color
+64 direction 
+0 speed
+0 vspeed
+0 hspeed
+0 vector1
+0 vector2
+0 depth
+32 width
+32 height
+obj_star
+0 solid
+316.9346831 px
+414.5443378 py
+0 b left
+0 b top
+32 b right
+32 b bottom
+224 sx
+224 sy
+0 the length of variables
+0 offsetx
+0 offsety
+0 mouse enter
+124 id
+0 create
+147.5802549 x
+34.85449367 y
+4 image single
+0.1 image speed
+5 image number
+1 alive
+1 visible
+1 image auto
+0 image timer
+1 image transprant
+16711935 transprat color
+248 direction 
+0 speed
+0 vspeed
+0 hspeed
+0 vector1
+0 vector2
+0 depth
+32 width
+32 height
+obj_star
+0 solid
+147.5802549 px
+34.85449367 py
+0 b left
+0 b top
+32 b right
+32 b bottom
+224 sx
+224 sy
+0 the length of variables
+0 offsetx
+0 offsety
+0 mouse enter
+125 id
+0 create
+244.0694649 x
+414.9482039 y
+1 image single
+0.1 image speed
+5 image number
+1 alive
+1 visible
+1 image auto
+0 image timer
+1 image transprant
+16711935 transprat color
+84 direction 
+0 speed
+0 vspeed
+0 hspeed
+0 vector1
+0 vector2
+0 depth
+32 width
+32 height
+obj_star
+0 solid
+244.0694649 px
+414.9482039 py
+0 b left
+0 b top
+32 b right
+32 b bottom
+224 sx
+224 sy
+0 the length of variables
+0 offsetx
+0 offsety
+0 mouse enter
+126 id
+0 create
+34.89628488 x
+289.1136309 y
+4 image single
+0.1 image speed
+5 image number
+1 alive
+1 visible
+1 image auto
+0 image timer
+1 image transprant
+16711935 transprat color
+161 direction 
+0 speed
+0 vspeed
+0 hspeed
+0 vector1
+0 vector2
+0 depth
+32 width
+32 height
+obj_star
+0 solid
+34.89628488 px
+289.1136309 py
+0 b left
+0 b top
+32 b right
+32 b bottom
+224 sx
+224 sy
+0 the length of variables
+0 offsetx
+0 offsety
+0 mouse enter
+127 id
+0 create
+416.8857894 x
+157.5840965 y
+1 image single
+0.1 image speed
+5 image number
+1 alive
+1 visible
+1 image auto
+0 image timer
+1 image transprant
+16711935 transprat color
+341 direction 
+0 speed
+0 vspeed
+0 hspeed
+0 vector1
+0 vector2
+0 depth
+32 width
+32 height
+obj_star
+0 solid
+416.8857894 px
+157.5840965 py
+0 b left
+0 b top
+32 b right
+32 b bottom
+224 sx
+224 sy
+0 the length of variables
+0 offsetx
+0 offsety
+0 mouse enter
+128 id
+0 create
+33.07198933 x
+85.28268046 y
+4 image single
+0.1 image speed
+5 image number
+1 alive
+1 visible
+1 image auto
+0 image timer
+1 image transprant
+16711935 transprat color
+216 direction 
+0 speed
+0 vspeed
+0 hspeed
+0 vector1
+0 vector2
+0 depth
+32 width
+32 height
+obj_star
+0 solid
+33.07198933 px
+85.28268046 py
+0 b left
+0 b top
+32 b right
+32 b bottom
+224 sx
+224 sy
+0 the length of variables
+0 offsetx
+0 offsety
+0 mouse enter
+129 id
+0 create
+416.4163356 x
+330.6581165 y
+1 image single
+0.1 image speed
+5 image number
+1 alive
+1 visible
+1 image auto
+0 image timer
+1 image transprant
+16711935 transprat color
+29 direction 
+0 speed
+0 vspeed
+0 hspeed
+0 vector1
+0 vector2
+0 depth
+32 width
+32 height
+obj_star
+0 solid
+416.4163356 px
+330.6581165 py
+0 b left
+0 b top
+32 b right
+32 b bottom
+224 sx
+224 sy
+0 the length of variables
+0 offsetx
+0 offsety
+0 mouse enter
+130 id
+0 create
+90.93026677 x
+33.95672572 y
+4 image single
+0.1 image speed
+5 image number
+1 alive
+1 visible
+1 image auto
+0 image timer
+1 image transprant
+16711935 transprat color
+235 direction 
+0 speed
+0 vspeed
+0 hspeed
+0 vector1
+0 vector2
+0 depth
+32 width
+32 height
+obj_star
+0 solid
+90.93026677 px
+33.95672572 py
+0 b left
+0 b top
+32 b right
+32 b bottom
+224 sx
+224 sy
+0 the length of variables
+0 offsetx
+0 offsety
+0 mouse enter
+131 id
+0 create
+131.0653169 x
+33.45566218 y
+1 image single
+0.1 image speed
+5 image number
+1 alive
+1 visible
+1 image auto
+0 image timer
+1 image transprant
+16711935 transprat color
+244 direction 
+0 speed
+0 vspeed
+0 hspeed
+0 vector1
+0 vector2
+0 depth
+32 width
+32 height
+obj_star
+0 solid
+131.0653169 px
+33.45566218 py
+0 b left
+0 b top
+32 b right
+32 b bottom
+224 sx
+224 sy
+0 the length of variables
+0 offsetx
+0 offsety
+0 mouse enter
+132 id
+0 create
+122.5941424 x
+414.7166801 y
+4 image single
+0.1 image speed
+5 image number
+1 alive
+1 visible
+1 image auto
+0 image timer
+1 image transprant
+16711935 transprat color
+118 direction 
+0 speed
+0 vspeed
+0 hspeed
+0 vector1
+0 vector2
+0 depth
+32 width
+32 height
+obj_star
+0 solid
+122.5941424 px
+414.7166801 py
+0 b left
+0 b top
+32 b right
+32 b bottom
+224 sx
+224 sy
+0 the length of variables
+0 offsetx
+0 offsety
+0 mouse enter
+133 id
+0 create
+416.7830665 x
+410.1684433 y
+1 image single
+0.1 image speed
+5 image number
+1 alive
+1 visible
+1 image auto
+0 image timer
+1 image transprant
+16711935 transprat color
+44 direction 
+0 speed
+0 vspeed
+0 hspeed
+0 vector1
+0 vector2
+0 depth
+32 width
+32 height
+obj_star
+0 solid
+416.7830665 px
+410.1684433 py
+0 b left
+0 b top
+32 b right
+32 b bottom
+224 sx
+224 sy
+0 the length of variables
+0 offsetx
+0 offsety
+0 mouse enter
+134 id
+0 create
+34.87741913 x
+371.7587541 y
+4 image single
+0.1 image speed
+5 image number
+1 alive
+1 visible
+1 image auto
+0 image timer
+1 image transprant
+16711935 transprat color
+142 direction 
+0 speed
+0 vspeed
+0 hspeed
+0 vector1
+0 vector2
+0 depth
+32 width
+32 height
+obj_star
+0 solid
+34.87741913 px
+371.7587541 py
+0 b left
+0 b top
+32 b right
+32 b bottom
+224 sx
+224 sy
+0 the length of variables
+0 offsetx
+0 offsety
+0 mouse enter
+135 id
+0 create
+33.82203765 x
+176.5833085 y
+1 image single
+0.1 image speed
+5 image number
+1 alive
+1 visible
+1 image auto
+0 image timer
+1 image transprant
+16711935 transprat color
+194 direction 
+0 speed
+0 vspeed
+0 hspeed
+0 vector1
+0 vector2
+0 depth
+32 width
+32 height
+obj_star
+0 solid
+33.82203765 px
+176.5833085 py
+0 b left
+0 b top
+32 b right
+32 b bottom
+224 sx
+224 sy
+0 the length of variables
+0 offsetx
+0 offsety
+0 mouse enter
+136 id
+0 create
+32.11696121 x
+217.2992966 y
+4 image single
+0.1 image speed
+5 image number
+1 alive
+1 visible
+1 image auto
+0 image timer
+1 image transprant
+16711935 transprat color
+182 direction 
+0 speed
+0 vspeed
+0 hspeed
+0 vector1
+0 vector2
+0 depth
+32 width
+32 height
+obj_star
+0 solid
+32.11696121 px
+217.2992966 py
+0 b left
+0 b top
+32 b right
+32 b bottom
+224 sx
+224 sy
+0 the length of variables
+0 offsetx
+0 offsety
+0 mouse enter
+137 id
+0 create
+305.2720747 x
+32.53499048 y
+1 image single
+0.1 image speed
+5 image number
+1 alive
+1 visible
+1 image auto
+0 image timer
+1 image transprant
+16711935 transprat color
+293 direction 
+0 speed
+0 vspeed
+0 hspeed
+0 vector1
+0 vector2
+0 depth
+32 width
+32 height
+obj_star
+0 solid
+305.2720747 px
+32.53499048 py
+0 b left
+0 b top
+32 b right
+32 b bottom
+224 sx
+224 sy
+0 the length of variables
+0 offsetx
+0 offsety
+0 mouse enter
+138 id
+0 create
+134.4049285 x
+416.1372509 y
+4 image single
+0.1 image speed
+5 image number
+1 alive
+1 visible
+1 image auto
+0 image timer
+1 image transprant
+16711935 transprat color
+115 direction 
+0 speed
+0 vspeed
+0 hspeed
+0 vector1
+0 vector2
+0 depth
+32 width
+32 height
+obj_star
+0 solid
+134.4049285 px
+416.1372509 py
+0 b left
+0 b top
+32 b right
+32 b bottom
+224 sx
+224 sy
+0 the length of variables
+0 offsetx
+0 offsety
+0 mouse enter
+139 id
+0 create
+416.4163356 x
+330.6581165 y
+1 image single
+0.1 image speed
+5 image number
+1 alive
+1 visible
+1 image auto
+0 image timer
+1 image transprant
+16711935 transprat color
+29 direction 
+0 speed
+0 vspeed
+0 hspeed
+0 vector1
+0 vector2
+0 depth
+32 width
+32 height
+obj_star
+0 solid
+416.4163356 px
+330.6581165 py
+0 b left
+0 b top
+32 b right
+32 b bottom
+224 sx
+224 sy
+0 the length of variables
+0 offsetx
+0 offsety
+0 mouse enter
+140 id
+0 create
+142.7279253 x
+415.4650095 y
+4 image single
+0.1 image speed
+5 image number
+1 alive
+1 visible
+1 image auto
+0 image timer
+1 image transprant
+16711935 transprat color
+113 direction 
+0 speed
+0 vspeed
+0 hspeed
+0 vector1
+0 vector2
+0 depth
+32 width
+32 height
+obj_star
+0 solid
+142.7279253 px
+415.4650095 py
+0 b left
+0 b top
+32 b right
+32 b bottom
+224 sx
+224 sy
+0 the length of variables
+0 offsetx
+0 offsety
+0 mouse enter
+141 id
+0 create
+413.9627735 x
+105.2980848 y
+1 image single
+0.1 image speed
+5 image number
+1 alive
+1 visible
+1 image auto
+0 image timer
+1 image transprant
+16711935 transprat color
+328 direction 
+0 speed
+0 vspeed
+0 hspeed
+0 vector1
+0 vector2
+0 depth
+32 width
+32 height
+obj_star
+0 solid
+413.9627735 px
+105.2980848 py
+0 b left
+0 b top
+32 b right
+32 b bottom
+224 sx
+224 sy
+0 the length of variables
+0 offsetx
+0 offsety
+0 mouse enter
+142 id
+0 create
+264.7506914 x
+415.7169297 y
+4 image single
+0.1 image speed
+5 image number
+1 alive
+1 visible
+1 image auto
+0 image timer
+1 image transprant
+16711935 transprat color
+78 direction 
+0 speed
+0 vspeed
+0 hspeed
+0 vector1
+0 vector2
+0 depth
+32 width
+32 height
+obj_star
+0 solid
+264.7506914 px
+415.7169297 py
+0 b left
+0 b top
+32 b right
+32 b bottom
+224 sx
+224 sy
+0 the length of variables
+0 offsetx
+0 offsety
+0 mouse enter
+143 id
+0 create
+58.67312469 x
+33.81318578 y
+1 image single
+0.1 image speed
+5 image number
+1 alive
+1 visible
+1 image auto
+0 image timer
+1 image transprant
+16711935 transprat color
+229 direction 
+0 speed
+0 vspeed
+0 hspeed
+0 vector1
+0 vector2
+0 depth
+32 width
+32 height
+obj_star
+0 solid
+58.67312469 px
+33.81318578 py
+0 b left
+0 b top
+32 b right
+32 b bottom
+224 sx
+224 sy
+0 the length of variables
+0 offsetx
+0 offsety
+0 mouse enter
+144 id
+0 create
+33.95672572 x
+90.93026677 y
+4 image single
+0.1 image speed
+5 image number
+1 alive
+1 visible
+1 image auto
+0 image timer
+1 image transprant
+16711935 transprat color
+215 direction 
+0 speed
+0 vspeed
+0 hspeed
+0 vector1
+0 vector2
+0 depth
+32 width
+32 height
+obj_star
+0 solid
+33.95672572 px
+90.93026677 py
+0 b left
+0 b top
+32 b right
+32 b bottom
+224 sx
+224 sy
+0 the length of variables
+0 offsetx
+0 offsety
+0 mouse enter
+145 id
+0 create
+414.7166801 x
+122.5941424 y
+1 image single
+0.1 image speed
+5 image number
+1 alive
+1 visible
+1 image auto
+0 image timer
+1 image transprant
+16711935 transprat color
+332 direction 
+0 speed
+0 vspeed
+0 hspeed
+0 vector1
+0 vector2
+0 depth
+32 width
+32 height
+obj_star
+0 solid
+414.7166801 px
+122.5941424 py
+0 b left
+0 b top
+32 b right
+32 b bottom
+224 sx
+224 sy
+0 the length of variables
+0 offsetx
+0 offsety
+0 mouse enter
+146 id
+0 create
+374.2214 x
+416.2746239 y
+4 image single
+0.1 image speed
+5 image number
+1 alive
+1 visible
+1 image auto
+0 image timer
+1 image transprant
+16711935 transprat color
+52 direction 
+0 speed
+0 vspeed
+0 hspeed
+0 vector1
+0 vector2
+0 depth
+32 width
+32 height
+obj_star
+0 solid
+374.2214 px
+416.2746239 py
+0 b left
+0 b top
+32 b right
+32 b bottom
+224 sx
+224 sy
+0 the length of variables
+0 offsetx
+0 offsety
+0 mouse enter
+147 id
+0 create
+282.4743409 x
+415.2609512 y
+1 image single
+0.1 image speed
+5 image number
+1 alive
+1 visible
+1 image auto
+0 image timer
+1 image transprant
+16711935 transprat color
+73 direction 
+0 speed
+0 vspeed
+0 hspeed
+0 vector1
+0 vector2
+0 depth
+32 width
+32 height
+obj_star
+0 solid
+282.4743409 px
+415.2609512 py
+0 b left
+0 b top
+32 b right
+32 b bottom
+224 sx
+224 sy
+0 the length of variables
+0 offsetx
+0 offsety
+0 mouse enter
+148 id
+0 create
+165.5256591 x
+415.2609512 y
+4 image single
+0.1 image speed
+5 image number
+1 alive
+1 visible
+1 image auto
+0 image timer
+1 image transprant
+16711935 transprat color
+107 direction 
+0 speed
+0 vspeed
+0 hspeed
+0 vector1
+0 vector2
+0 depth
+32 width
+32 height
+obj_star
+0 solid
+165.5256591 px
+415.2609512 py
+0 b left
+0 b top
+32 b right
+32 b bottom
+224 sx
+224 sy
+0 the length of variables
+0 offsetx
+0 offsety
+0 mouse enter
+149 id
+0 create
+325.4058576 x
+33.28331994 y
+1 image single
+0.1 image speed
+5 image number
+1 alive
+1 visible
+1 image auto
+0 image timer
+1 image transprant
+16711935 transprat color
+298 direction 
+0 speed
+0 vspeed
+0 hspeed
+0 vector1
+0 vector2
+0 depth
+32 width
+32 height
+obj_star
+0 solid
+325.4058576 px
+33.28331994 py
+0 b left
+0 b top
+32 b right
+32 b bottom
+224 sx
+224 sy
+0 the length of variables
+0 offsetx
+0 offsety
+0 mouse enter
+150 id
+0 create
+35.52758078 x
+260.6353271 y
+4 image single
+0.1 image speed
+5 image number
+1 alive
+1 visible
+1 image auto
+0 image timer
+1 image transprant
+16711935 transprat color
+169 direction 
+0 speed
+0 vspeed
+0 hspeed
+0 vector1
+0 vector2
+0 depth
+32 width
+32 height
+obj_star
+0 solid
+35.52758078 px
+260.6353271 py
+0 b left
+0 b top
+32 b right
+32 b bottom
+224 sx
+224 sy
+0 the length of variables
+0 offsetx
+0 offsety
+0 mouse enter
+151 id
+0 create
+285.8033989 x
+414.2113033 y
+1 image single
+0.1 image speed
+5 image number
+1 alive
+1 visible
+1 image auto
+0 image timer
+1 image transprant
+16711935 transprat color
+72 direction 
+4 speed
+4 vspeed
+4 hspeed
+1.236067977 vector1
+3.804226065 vector2
+0 depth
+32 width
+32 height
+obj_star
+0 solid
+285.8033989 px
+414.2113033 py
+0 b left
+0 b top
+32 b right
+32 b bottom
+224 sx
+224 sy
+0 the length of variables
+0 offsetx
+0 offsety
+0 mouse enter
+152 id
+0 create
+152.4143508 x
+384.7840005 y
+4 image single
+0.1 image speed
+5 image number
+1 alive
+1 visible
+1 image auto
+0 image timer
+1 image transprant
+16711935 transprat color
+114 direction 
+4 speed
+4 vspeed
+4 hspeed
+-1.626946572 vector1
+3.654181831 vector2
+0 depth
+32 width
+32 height
+obj_star
+0 solid
+152.4143508 px
+384.7840005 py
+0 b left
+0 b top
+32 b right
+32 b bottom
+224 sx
+224 sy
+0 the length of variables
+0 offsetx
+0 offsety
+0 mouse enter
+153 id
+0 create
+73.87137223 x
+200.2219613 y
+1 image single
+0.1 image speed
+5 image number
+1 alive
+1 visible
+1 image auto
+0 image timer
+1 image transprant
+16711935 transprat color
+189 direction 
+4 speed
+4 vspeed
+4 hspeed
+-3.950753362 vector1
+-0.6257378602 vector2
+0 depth
+32 width
+32 height
+obj_star
+0 solid
+73.87137223 px
+200.2219613 py
+0 b left
+0 b top
+32 b right
+32 b bottom
+224 sx
+224 sy
+0 the length of variables
+0 offsetx
+0 offsety
+0 mouse enter
+154 id
+0 create
+345.0263777 x
+182.3272762 y
+4 image single
+0.1 image speed
+5 image number
+1 alive
+1 visible
+1 image auto
+0 image timer
+1 image transprant
+16711935 transprat color
+341 direction 
+4 speed
+4 vspeed
+4 hspeed
+3.782074302 vector1
+-1.302272618 vector2
+0 depth
+32 width
+32 height
+obj_star
+0 solid
+345.0263777 px
+182.3272762 py
+0 b left
+0 b top
+32 b right
+32 b bottom
+224 sx
+224 sy
+0 the length of variables
+0 offsetx
+0 offsety
+0 mouse enter
+155 id
+0 create
+245.6228158 x
+325.7273505 y
+1 image single
+0.1 image speed
+5 image number
+1 alive
+1 visible
+1 image auto
+0 image timer
+1 image transprant
+16711935 transprat color
+78 direction 
+4 speed
+4 vspeed
+4 hspeed
+0.8316467633 vector1
+3.912590403 vector2
+0 depth
+32 width
+32 height
+obj_star
+0 solid
+245.6228158 px
+325.7273505 py
+0 b left
+0 b top
+32 b right
+32 b bottom
+224 sx
+224 sy
+0 the length of variables
+0 offsetx
+0 offsety
+0 mouse enter
+156 id
+0 create
+145.4698253 x
+239.2647196 y
+4 image single
+0.1 image speed
+5 image number
+1 alive
+1 visible
+1 image auto
+0 image timer
+1 image transprant
+16711935 transprat color
+169 direction 
+4 speed
+4 vspeed
+4 hspeed
+-3.926508734 vector1
+0.7632359815 vector2
+0 depth
+32 width
+32 height
+obj_star
+0 solid
+145.4698253 px
+239.2647196 py
+0 b left
+0 b top
+32 b right
+32 b bottom
+224 sx
+224 sy
+0 the length of variables
+0 offsetx
+0 offsety
+0 mouse enter
+157 id
+0 create
+172.4517282 x
+245.8809432 y
+1 image single
+0.1 image speed
+5 image number
+1 alive
+1 visible
+1 image auto
+0 image timer
+1 image transprant
+16711935 transprat color
+157 direction 
+4 speed
+4 vspeed
+4 hspeed
+-3.682019414 vector1
+1.562924514 vector2
+0 depth
+32 width
+32 height
+obj_star
+0 solid
+172.4517282 px
+245.8809432 py
+0 b left
+0 b top
+32 b right
+32 b bottom
+224 sx
+224 sy
+0 the length of variables
+0 offsetx
+0 offsety
+0 mouse enter
+158 id
+0 create
+203.8617475 x
+199.1313292 y
+4 image single
+0.1 image speed
+5 image number
+1 alive
+1 visible
+1 image auto
+0 image timer
+1 image transprant
+16711935 transprat color
+231 direction 
+4 speed
+4 vspeed
+4 hspeed
+-2.517281564 vector1
+-3.108583846 vector2
+0 depth
+32 width
+32 height
+obj_star
+0 solid
+203.8617475 px
+199.1313292 py
+0 b left
+0 b top
+32 b right
+32 b bottom
+224 sx
+224 sy
+0 the length of variables
+0 offsetx
+0 offsety
+0 mouse enter
+159 id
+0 create
+231.9561752 x
+224.8362277 y
+1 image single
+0.1 image speed
+5 image number
+1 alive
+1 visible
+1 image auto
+0 image timer
+1 image transprant
+16711935 transprat color
+6 direction 
+4 speed
+4 vspeed
+4 hspeed
+3.978087581 vector1
+0.4181138531 vector2
+0 depth
+32 width
+32 height
+obj_star
+0 solid
+231.9561752 px
+224.8362277 py
+0 b left
+0 b top
+32 b right
+32 b bottom
+224 sx
+224 sy
+0 the length of variables
+0 offsetx
+0 offsety
+0 mouse enter

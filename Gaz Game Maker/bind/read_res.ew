@@ -1,0 +1,131 @@
+include get.e
+include file.e
+include msgbox.e
+procedure show_message(sequence msg)
+integer ok
+ok=message_box(msg,  "info",MB_ICONINFORMATION)
+end procedure
+integer
+    resourceStart
+sequence
+    resourceFile,
+    resSize,
+    resOffset,         
+    handleMax,
+    handleOffset
+global sequence resName
+function readNum( integer handle )       
+    sequence s
+    s = gets( handle )
+    s = value( s )
+    if s[1] != GET_SUCCESS then
+        return 0
+    else
+        return s[2]
+    end if         
+end function
+function readString( integer handle )    
+    sequence s
+    s = gets( handle )
+    return s[1..length(s)-1]
+end function
+procedure readResFile( sequence s )
+    integer count, handle, here, ignore
+    handle = open( s, "rb" )
+    ignore = seek( handle, resourceStart )
+    count = readNum( handle )
+    for i = 1 to count do
+        resName = append( resName, readString( handle ) )
+        resSize = append( resSize, readNum( handle ) )
+        resOffset = append( resOffset, where( handle ) )
+        here = where( handle )
+        if seek( handle, here + resSize[i] ) then
+            show_message("Error: End of Resource File!\n")
+        end if     
+    end for
+close(handle)
+end procedure
+procedure open_res(sequence fname)
+    resourceStart  = 0
+    resourceFile    = {}     
+    resName = {}
+    resSize = {}
+    resOffset = {}
+    handleMax={}
+    handleOffset={}
+    handleMax       = repeat( 0, 250 )
+    handleOffset    = repeat( 0, 250 )
+resourceFile = fname
+readResFile( fname)
+end procedure
+global procedure zip_file(sequence outName ,sequence  resFiles) 
+integer outFile,inFile
+object data
+outFile = open( outName, "wb" )
+printf( outFile, "%d\n", length( resFiles ) )
+for i = 1 to length( resFiles ) do
+    puts( outFile, resFiles[i] & "\n" )
+    data = dir( resFiles[i] )
+    if length( data ) = 0 then
+        abort(0)
+    end if
+    data = data[1][D_SIZE]
+    printf( outFile, "%d\n", {data} ) 
+    inFile = open( resFiles[i], "rb" )
+    for j = 1 to data do
+        puts( outFile, getc( inFile ) )
+    end for
+    close( inFile )
+end for
+close( outFile )
+end procedure
+global function ropen( sequence res, sequence mode )
+    integer handle, at
+        at = find( res, resName )
+        if at = 0 then
+            abort(0)
+        end if
+        handle = open( resourceFile, mode )
+        if handle = -1 then
+            return -1
+        end if
+        handleOffset[handle] = resOffset[at]
+        handleMax[handle] = handleOffset[handle] + resSize[at] - 1
+        if seek( handle, handleOffset[handle] ) then
+            show_message("zip err")
+        end if    
+    return handle        
+end function
+function reof( integer handle )
+    return where( handle ) > handleMax[handle]             
+end function
+global procedure unzip_file(sequence name,sequence path)
+integer handle,fn
+sequence data,temp
+object line
+open_res(name)
+for i=1 to length(resName) do
+  data={}
+  handle = ropen(resName[i],"rb")
+  while not reof( handle ) do
+    line=gets( handle )
+    if atom(line)=1 then
+      show_message("zip err")
+    else
+    if length(line)>1 then
+      temp=line[1..length(line)-2]
+      temp&=line[length(line)]
+      data=append(data, temp )
+    else
+     data=append(data, line[1] )
+    end if
+    end if
+  end while
+  close(handle)
+  fn=open(path&resName[i],"w")
+  for j=1 to length(data) do
+    puts(fn,data[j])
+  end for
+  close(fn)
+end for
+end procedure
